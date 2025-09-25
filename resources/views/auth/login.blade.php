@@ -53,10 +53,13 @@
                 <a href="#" class="text-red-600 hover:underline">Lupa Kata Sandi?</a>
             </div>
 
-            <button type="submit"
-                class="w-full bg-red-700 text-white py-2 rounded-lg font-semibold hover:bg-red-800 transition">
-                Masuk
-            </button>
+            <a href="{{ route('dashboard.login') }}">
+    <button type="button"
+        class="w-full bg-red-700 text-white py-2 rounded-lg font-semibold hover:bg-red-800 transition">
+        Masuk
+    </button>
+</a>
+
         </form>
 
         <div class="flex items-center my-6">

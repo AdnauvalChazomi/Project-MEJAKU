@@ -87,6 +87,7 @@
         <section class="flex flex-col items-top px-6 py-6 mx-auto">
             <h2 class="text-lg font-semibold text-gray-800 mb-3">Temukan Tempat Disini</h2>
             <div class="w-80 mx-auto bg-white p-6 rounded-xl shadow-md space-y-4">
+                
                 <!-- Input Search -->
                 <div class="flex items-center bg-gray-100 rounded-lg px-3 py-2">
                     <!-- Icon Search -->

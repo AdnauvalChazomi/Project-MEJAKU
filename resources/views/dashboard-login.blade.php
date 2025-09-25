@@ -7,6 +7,7 @@
     <title>Dashboard | Mejaku</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite('resources/css/app.css')
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,48 +25,111 @@
                     </svg>
                 </button>
 
-                {{-- Login --}}
-                <a href="{{ route('login') }}"
-                    class="px-5 py-2 rounded-full bg-black text-white font-medium text-sm shadow-md hover:bg-gray-800 transition">
-                    Log In
-                </a>
+                <div class="flex items-center w-64 bg-white rounded-full border border-gray-300 px-3 py-2 shadow-sm">
+    <!-- Ikon Search -->
+    <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    </svg>
+    <!-- Input -->
+    <input 
+        type="text" 
+        placeholder="Cari resto / cafe..." 
+        class="w-full bg-transparent focus:outline-none text-sm text-gray-700"
+    />
+</div>
             </header>
 
-            <!-- Overlay -->
-            <div x-show="open" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="open = false"></div>
-            <!-- Sidebar -->
-            <aside x-show="open"
-                x-transition:enter="transition ease-out duration-300 transform"
-                x-transition:enter-start="-translate-x-full"
-                x-transition:enter-end="translate-x-0"
-                x-transition:leave="transition ease-in duration-200 transform"
-                x-transition:leave-start="translate-x-0"
-                x-transition:leave-end="-translate-x-full"
-                class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 p-6">
+<!-- Overlay -->
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
-                <!-- Header Sidebar -->
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-lg font-bold">MejaKu</h2>
-                    <!-- Tombol Close -->
-                    <button @click="open = false" class="text-gray-600 hover:text-black">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Menu List -->
-                <nav class="space-y-4 text-gray-700">
-                    <a href="#" class="block hover:text-[#A63232]">Login Mitra</a>
-                    <a href="#" class="block hover:text-[#A63232]">Login User</a>
-                    <a href="#" class="block hover:text-[#A63232]">Tentang MejaKu</a>
-                    <a href="#" class="block hover:text-[#A63232]">Kebijakan Privasi</a>
-                </nav>
-            </aside>
+<!-- Sidebar User -->
+<div id="sidebar"
+     class="fixed top-0 left-0 h-screen w-[270px] bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-50">
+    
+    <!-- Header User -->
+    <div class="flex justify-between items-center p-4 border-b">
+        <div class="flex items-center gap-3">
+            <img src="https://via.placeholder.com/40" alt="User" class="w-10 h-10 rounded-full">
+            <span class="font-medium text-sm">Budi Budiman</span>
         </div>
+        <button id="closeSidebar" class="text-2xl text-gray-700 hover:text-red-600">
+            &times;
+        </button>
+    </div>
 
+    <!-- Menu -->
+    <nav class="p-4 text-sm">
+        <h3 class="font-bold mb-2">Menu</h3>
+        <ul class="space-y-4">
+            <li class="flex items-center gap-3 text-[#B1281D]">
+                <i class="ri-home-4-line text-lg"></i>
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="flex items-center gap-3 text-[#B1281D]">
+                <i class="ri-calendar-line text-lg"></i>
+                <a href="#">Reservasi Saya</a>
+            </li>
+            <li class="flex items-center gap-3 text-[#B1281D]">
+                <i class="ri-star-line text-lg"></i>
+                <a href="#">Poin & Reward</a>
+            </li>
+            <li class="flex items-center gap-3 text-[#B1281D]">
+                <i class="ri-notification-3-line text-lg"></i>
+                <a href="#">Notifikasi</a>
+            </li>
+            <li class="flex items-center gap-3 text-[#B1281D]">
+                <i class="ri-heart-3-line text-lg"></i>
+                <a href="#">Resto Favorit</a>
+            </li>
+        </ul>
+
+        <h3 class="font-bold mt-6 mb-2">Account</h3>
+        <ul class="space-y-4">
+            <li class="flex items-center gap-3 text-[#B1281D]">
+                <i class="ri-user-line text-lg"></i>
+                <a href="#">Tentang MejaKu</a>
+            </li>
+            <li class="flex items-center gap-3 text-[#B1281D]">
+                <i class="ri-settings-3-line text-lg"></i>
+                <a href="#">Kebijakan Privasi</a>
+            </li>
+            <li>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="flex items-center gap-3 text-[#B1281D]">
+            <i class="ri-logout-box-line text-lg"></i>
+            <span>Logout</span>
+        </button>
+    </form>
+</li>
+
+        </ul>
+    </nav>
+</div>
+        
+        <script>
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const openBtn = document.querySelector('button'); // tombol hamburger
+    const closeBtn = document.getElementById('closeSidebar');
+
+    openBtn.addEventListener('click', () => {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+    });
+</script>
 
 
         {{-- Hero Section --}}
@@ -84,8 +148,11 @@
             <img src="{{ asset('images/image-1.jpg') }}" alt="Gambar 1" class="w-80 h-auto rounded-lg mx-auto">
         </section>
 
-        <section class="flex flex-col items-top px-6 py-6 mx-auto">
-            <h2 class="text-lg font-semibold text-gray-800 mb-3">Temukan Tempat Disini</h2>
+       <section class="px-6 py-6">
+    <div class="w-80 mx-auto">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3">
+            Temukan Tempat Disini
+        </h2>
             <div class="w-80 mx-auto bg-white p-6 rounded-xl shadow-md space-y-4">
                 <!-- Input Search -->
                 <div class="flex items-center bg-gray-100 rounded-lg px-3 py-2">

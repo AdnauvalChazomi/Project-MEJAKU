@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +24,17 @@ Route::get('/login', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+
+Route::get('/dashboard-login', function () {
+    return view('dashboard-login');
+});
+
+Route::post('/logout', function () {
+    Auth::logout(); // hapus session user
+    return redirect()->route('login'); // arahkan ke route login
+})->name('logout');
+
+Route::get('/dashboard-login', function () {
+    return view('dashboard-login'); // file resources/views/dashboard-login.blade.php
+})->name('dashboard.login');
+
