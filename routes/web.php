@@ -40,10 +40,20 @@ Route::get('/dashboard-login', function () {
     return view('dashboard-login'); // file resources/views/dashboard-login.blade.php
 })->name('dashboard.login');
 
+Route::get('/preorder-1', function () {
+    return view('preorder-1');
+})->name('preorder-1');
+
+Route::get('/dashboard-login', function () {
+    return view('dashboard-login'); // file ada di resources/views/dashboard-login.blade.php
+})->name('dashboard');
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__.'/auth.php';
