@@ -18,9 +18,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
+
+Route::get('/dashboard-login', function () {
+    return view('dashboard-login');
+})->name('dashboard-login');
+
+Route::post('/logout', function () {
+    Auth::logout(); // hapus session user
+    return redirect()->route('login'); // arahkan ke route login
+})->name('logout');
+
+Route::get('/dashboard-login', function () {
+    return view('dashboard-login'); // file resources/views/dashboard-login.blade.php
+})->name('dashboard.login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
