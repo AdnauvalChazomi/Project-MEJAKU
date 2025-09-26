@@ -31,23 +31,13 @@ Route::get('/dashboard-login', function () {
     return view('dashboard-login');
 })->name('dashboard-login');
 
-Route::post('/logout', function () {
-    Auth::logout(); // hapus session user
-    return redirect()->route('login'); // arahkan ke route login
-})->name('logout');
-
-Route::get('/dashboard-login', function () {
-    return view('dashboard-login'); // file resources/views/dashboard-login.blade.php
-})->name('dashboard.login');
+Route::get('/reservasi', function () {
+    return view('reservasi');
+})->name('reservasi');
 
 Route::get('/preorder-1', function () {
     return view('preorder-1');
 })->name('preorder-1');
-
-Route::get('/dashboard-login', function () {
-    return view('dashboard-login'); // file ada di resources/views/dashboard-login.blade.php
-})->name('dashboard');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -55,5 +45,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/logout', function () {
+    // Auth::logout(); // hapus session user
+    return redirect()->route('login'); // arahkan ke route login
+})->name('logout');
 
 require __DIR__.'/auth.php';
