@@ -51,6 +51,10 @@ Route::get('/pilih-menu', function () {
     return view('pilih-menu');
 })->name('pilih-menu');
 
+Route::get('/pembayaran1', function () {
+    return view('pembayaran1');
+})->name('pembayaran1');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
