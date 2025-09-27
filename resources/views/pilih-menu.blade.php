@@ -1,74 +1,40 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pre-Order | MejaKu</title>
-    @vite('resources/css/app.css')
-    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <title>Pilih Menu | MejaKu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 max-w-[393px] mx-auto min-h-screen border shadow-lg relative">
+<body class="bg-white">
+    <div class="max-w-sm mx-auto min-h-screen bg-white">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-4 border-b">
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+            <h1 class="text-lg font-bold text-red-600">MejaKu</h1>
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/>
+                </svg>
+            </button>
+        </div>
 
-    <!-- Navbar -->
-<div class="flex items-center justify-between px-4 py-3 border-b bg-white">
-    <div class="flex items-center gap-2">
-        <!-- Hamburger button -->
-        <button id="openSidebar" class="p-2 bg-gray-100 rounded">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
-        <h1 class="text-lg font-bold text-red-700">MejaKu</h1>
-    </div>
+        <!-- Pilih Menu -->
+        <div class="p-4">
+            <div class="flex items-center gap-2 mb-4">
+                <button onclick="history.back()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h2 class="font-semibold">Pilih Menu</h2>
+            </div>
 
-    <!-- Search -->
-    <div class="relative flex items-center">
-        <button id="searchBtn" class="p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-            </svg>
-        </button>
-        <x-button-search placeholder="Cari Makanan..." />
-    </div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchContainer = document.querySelector('.search-container');
-    const searchInput = searchContainer.querySelector('input');
-    const searchIcon = searchContainer.querySelector('i');
-    
-    // Toggle search expansion
-    searchContainer.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const isExpanded = this.classList.contains('expanded');
-        
-        if (!isExpanded) {
-            // Expand
-            this.classList.add('expanded');
-            searchInput.style.width = '120px';
-            searchInput.style.opacity = '1';
-            searchInput.focus();
-        }
-    });
-    
-    // Close when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!searchContainer.contains(e.target)) {
-            searchContainer.classList.remove('expanded');
-            searchInput.style.width = '0';
-            searchInput.style.opacity = '0';
-        }
-    });
-    
-    // Prevent closing when clicking inside input
-    searchInput.addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
-});
-</script>
-
-   <!-- Overlay -->
+            <!-- Overlay -->
             <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
             <!-- Sidebar User -->
@@ -158,55 +124,51 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             </script>
 
-    <!-- Konten Halaman -->
-    <div class="p-4">
-        <!-- Header Pre-Order -->
-        <div class="flex items-center justify-between mb-4">
-            <button class="flex items-center text-sm text-gray-600">
-                ← Pre-Order
-            </button>
-            <span class="text-sm text-gray-500">Lewati</span>
-        </div>
+            <!-- Search -->
+            <div class="relative mb-4">
+                <input type="text" placeholder="Cari Makanan" class="w-full px-4 py-2 pl-10 border rounded-lg focus:outline-none focus:ring focus:ring-red-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-2.5 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/>
+                </svg>
+            </div>
 
-        <!-- Pilih Menu -->
-<button class="w-full bg-gray-100 rounded-lg p-4 mb-4 flex justify-between items-center hover:bg-gray-200">
-    <span class="text-sm font-medium">Pilih Menu</span>
-    <span>›</span>
-</button>
+            <!-- Filter Buttons -->
+            <div class="flex gap-2 mb-4">
+                <button class="px-4 py-2 border rounded-full">Makanan</button>
+                <button class="px-4 py-2 border rounded-full">Minuman</button>
+                <button class="px-4 py-2 border rounded-full">Dessert</button>
+            </div>
 
-        <!-- Menu Rekomendasi -->
-        <h2 class="font-semibold mb-3">Menu Rekomendasi</h2>
-        <div class="space-y-3">
-            <!-- Item 1 -->
-            <div class="flex items-center justify-between bg-white rounded-lg shadow-sm p-3">
-                <div class="flex gap-3 items-center">
-                    <img src="https://via.placeholder.com/80" class="w-16 h-16 rounded-lg object-cover">
-                    <div>
-                        <p class="font-medium text-sm">Tahu cabe garam</p>
-                        <p class="text-xs text-gray-500">Rp.24000</p>
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Card Item -->
+                <div class="border rounded-lg overflow-hidden shadow-sm">
+                    <img src="{{ asset('images/pizza.jpg') }}" alt="Pizza" class="w-full h-28 object-cover">
+                    <div class="p-2">
+                        <h3 class="font-semibold">Pizza</h3>
+                        <p class="text-sm text-gray-600">Rp 25.000</p>
+                    </div>
+                    <div class="flex justify-end p-2">
+                        <button class="p-2 bg-yellow-100 rounded-lg">
+                            🛒
+                        </button>
                     </div>
                 </div>
-                <button class="p-2 bg-gray-100 rounded-full">+</button>
-            </div>
-            <!-- Item 2 -->
-            <div class="flex items-center justify-between bg-white rounded-lg shadow-sm p-3">
-                <div class="flex gap-3 items-center">
-                    <img src="https://via.placeholder.com/80" class="w-16 h-16 rounded-lg object-cover">
-                    <div>
-                        <p class="font-medium text-sm">Es Kopi Susu</p>
-                        <p class="text-xs text-gray-500">Rp.28000</p>
+
+                <div class="border rounded-lg overflow-hidden shadow-sm">
+                    <img src="{{ asset('images/tahu.jpg') }}" alt="Tahu" class="w-full h-28 object-cover">
+                    <div class="p-2">
+                        <h3 class="font-semibold">Tahu</h3>
+                        <p class="text-sm text-gray-600">Rp 25.000</p>
+                    </div>
+                    <div class="flex justify-end p-2">
+                        <button class="p-2 bg-yellow-100 rounded-lg">
+                            🛒
+                        </button>
                     </div>
                 </div>
-                <button class="p-2 bg-gray-100 rounded-full">+</button>
             </div>
         </div>
-
-        <!-- Tombol Pesan -->
-       <div class="fixed bottom-0 left-0 right-0 max-w-[393px] mx-auto p-4 bg-white border-t">
-    <button class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold">
-        Pesan
-    </button>
-</div>
     </div>
 </body>
 </html>

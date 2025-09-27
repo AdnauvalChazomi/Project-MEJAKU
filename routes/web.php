@@ -43,6 +43,14 @@ Route::get('/preorder-1', function () {
     return view('preorder-1');
 })->name('preorder-1');
 
+Route::get('/preorder-2', function () {
+    return view('preorder-2');
+})->name('preorder-2');
+
+Route::get('/pilih-menu', function () {
+    return view('pilih-menu');
+})->name('pilih-menu');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
