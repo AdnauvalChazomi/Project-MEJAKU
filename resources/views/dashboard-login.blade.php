@@ -63,11 +63,11 @@
                     <ul class="space-y-4">
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-home-4-line text-lg"></i>
-                            <a href="#">Dashboard</a>
+                            <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-calendar-line text-lg"></i>
-                            <a href="#">Reservasi Saya</a>
+                            <a href="{{ route('reservasi-saya') }}">Reservasi Saya</a>
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-star-line text-lg"></i>

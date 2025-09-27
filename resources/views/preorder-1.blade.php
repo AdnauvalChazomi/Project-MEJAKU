@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pre-Order | MejaKu</title>
+    <title>MejaKu - Pre-order</title>
     @vite('resources/css/app.css')
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 </head>
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-calendar-line text-lg"></i>
-                            <a href="#">Reservasi Saya</a>
+                            <a href="{{ route('reservasi-saya') }}">Reservasi Saya</a>
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-star-line text-lg"></i>

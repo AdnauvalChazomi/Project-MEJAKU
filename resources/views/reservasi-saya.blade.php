@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MejaKu - Pembayaran Berhasil</title>
+    <title>MejaKu - reservasi Saya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body class="bg-white font-sans">
 
-<!-- Header -->
+    <!-- Header -->
     <header class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
     <div class="flex items-center space-x-3">
         <button class="bg-gray-800 text-white p-2 rounded">
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
- <!-- Overlay -->
+     <!-- Overlay -->
             <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
             <!-- Sidebar User -->
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-calendar-line text-lg"></i>
-                            <a href="{{ route('reservasi-saya') }}">Reservasi Saya</a>
+                            <a href="#">Reservasi Saya</a>
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-star-line text-lg"></i>
@@ -147,41 +147,95 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             </script>
 
-<div class="px-4 py-8 space-y-6 flex flex-col items-center justify-center min-h-[80vh]">
-    
-    <!-- Success Message -->
-    <div class="text-center space-y-2">
-        <h1 class="text-2xl font-bold text-gray-800">Reservasi Berhasil!</h1>
-        <p class="text-gray-600 text-sm">
-            Meja kamu sudah siap dipesan. Cek detail reservasi dan nikmati pengalaman makanmu.
-        </p>
+        <div class="px-4 py-6 space-y-6">
+    <!-- Breadcrumb -->
+    <div class="flex items-center text-sm text-gray-600 mb-4">
+        <i class="fas fa-chevron-left mr-2"></i>
+        <span>Dashboard /</span>
+        <span class="font-medium ml-1">Reservasi Saya</span>
     </div>
 
-<!-- Success Icon -->
-    <div class="w-32 h-32 bg-red-200 rounded-full flex items-center justify-center mb-6">
-        <div class="w-24 h-24 bg-red-500 rounded-full flex items-center justify-center relative">
-            <div class="absolute inset-0 bg-red-400 rounded-full animate-pulse"></div>
-            <i class="fas fa-check text-white text-3xl"></i>
+    <!-- Reservation Card 1 -->
+    <div class="bg-white rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-start mb-3">
+            <div>
+                <h3 class="font-bold text-lg text-gray-800">Cafe Lorem</h3>
+                <p class="text-sm text-gray-500">Senin, 11 Januari 2025 | 15:30</p>
+                <span class="inline-block px-2 py-1 bg-red-100 text-red-700 text-xs font-medium rounded-full mt-1">Reservasi</span>
+            </div>
+            <div class="bg-gray-100 rounded-lg px-3 py-2 text-center">
+                <span class="block text-xs text-gray-600">Nomor Meja</span>
+                <span class="font-bold text-lg">2</span>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <p class="font-medium text-gray-800">Budi Budiman</p>
+            <p class="text-sm text-gray-600">1x Pizza</p>
+            <p class="text-sm text-gray-600">1x Es Kopi Susu</p>
+            <p class="font-semibold mt-2">Rp 50.000</p>
+        </div>
+
+        <div class="flex space-x-3">
+            <button class="flex-1 bg-red-600 text-white py-2 rounded-lg font-medium hover:bg-red-700 transition-colors">
+                Batalkan Reservasi
+            </button>
+            <button class="flex-1 bg-gray-800 text-white py-2 rounded-lg font-medium hover:bg-gray-900 transition-colors">
+                Hubungi Cafe
+            </button>
         </div>
     </div>
 
-    <!-- Points Notification -->
-    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-3 rounded-lg mt-8 max-w-md text-center">
-        <div class="flex items-center justify-center mb-2">
-            <i class="fas fa-trophy text-yellow-600 mr-2"></i>
-            <span class="text-yellow-800 font-medium">Kamu mendapatkan 100 poin! Gunakan untuk diskon atau promo menarik!</span>
+    <!-- Reservation Card 2 -->
+    <div class="bg-white rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-start mb-3">
+            <div>
+                <h3 class="font-bold text-lg text-gray-800">Cafe Lorem</h3>
+                <p class="text-sm text-gray-500">Senin, 10 Januari 2025 | 15:30</p>
+                <span class="inline-block px-2 py-1 bg-red-100 text-red-700 text-xs font-medium rounded-full mt-1">Reservasi</span>
+            </div>
+            <div class="bg-gray-100 rounded-lg px-3 py-2 text-center">
+                <span class="block text-xs text-gray-600">Nomor Meja</span>
+                <span class="font-bold text-lg">2</span>
+            </div>
         </div>
-    </div>
 
-    <!-- Action Buttons -->
-    <div class="w-full max-w-md space-y-4 mt-8">
-        <button class="w-full bg-red-700 text-white font-semibold py-3 rounded-lg hover:bg-red-800 transition-colors">
-            Lihat Reservasi Saya
+        <div class="mb-4">
+            <p class="font-medium text-gray-800">Budi Budiman</p>
+            <p class="text-sm text-gray-600">1x Pizza</p>
+            <p class="text-sm text-gray-600">1x Es Kopi Susu</p>
+            <p class="font-semibold mt-2">Rp 50.000</p>
+        </div>
+
+        <button class="w-full border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+            Beri Rating
         </button>
-        
-        <a href="{{ route('struk') }}" class="block w-full text-center text-red-700 font-semibold py-2 rounded-lg hover:bg-red-50 transition-colors">
-    Lihat Struk Pembayaran
-</a>
+    </div>
+
+    <!-- Reservation Card 3 -->
+    <div class="bg-white rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-start mb-3">
+            <div>
+                <h3 class="font-bold text-lg text-gray-800">Cafe Lorem</h3>
+                <p class="text-sm text-gray-500">Senin, 10 Januari 2025 | 15:30</p>
+                <span class="inline-block px-2 py-1 bg-red-100 text-red-700 text-xs font-medium rounded-full mt-1">Reservasi Individu</span>
+            </div>
+            <div class="bg-gray-100 rounded-lg px-3 py-2 text-center">
+                <span class="block text-xs text-gray-600">Nomor Meja</span>
+                <span class="font-bold text-lg">2</span>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <p class="font-medium text-gray-800">Budi Budiman</p>
+            <p class="text-sm text-gray-600">1x Pizza</p>
+            <p class="text-sm text-gray-600">1x Es Kopi Susu</p>
+            <p class="font-semibold mt-2">Rp 50.000</p>
+        </div>
+
+        <button class="w-full border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+            Beri Rating
+        </button>
     </div>
 </div>
 </body>

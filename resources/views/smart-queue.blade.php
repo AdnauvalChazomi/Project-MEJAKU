@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MejaKu - Pembayaran Berhasil</title>
+    <title>MejaKu - Smart Queue</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body class="bg-white font-sans">
 
-<!-- Header -->
+    <!-- Header -->
     <header class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
     <div class="flex items-center space-x-3">
         <button class="bg-gray-800 text-white p-2 rounded">
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
- <!-- Overlay -->
+     <!-- Overlay -->
             <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
             <!-- Sidebar User -->
@@ -147,42 +147,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             </script>
 
-<div class="px-4 py-8 space-y-6 flex flex-col items-center justify-center min-h-[80vh]">
-    
-    <!-- Success Message -->
-    <div class="text-center space-y-2">
-        <h1 class="text-2xl font-bold text-gray-800">Reservasi Berhasil!</h1>
-        <p class="text-gray-600 text-sm">
-            Meja kamu sudah siap dipesan. Cek detail reservasi dan nikmati pengalaman makanmu.
-        </p>
-    </div>
-
-<!-- Success Icon -->
-    <div class="w-32 h-32 bg-red-200 rounded-full flex items-center justify-center mb-6">
-        <div class="w-24 h-24 bg-red-500 rounded-full flex items-center justify-center relative">
-            <div class="absolute inset-0 bg-red-400 rounded-full animate-pulse"></div>
-            <i class="fas fa-check text-white text-3xl"></i>
+    <div class="px-4 py-6 space-y-6">
+    <!-- Breadcrumb -->
+    <div class="flex justify-between items-center mb-4">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-chevron-left text-gray-600"></i>
+            <span class="text-sm text-gray-600">Smart Queue</span>
         </div>
+        <button class="text-red-700 text-sm font-medium">Lewati</button>
     </div>
 
-    <!-- Points Notification -->
-    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-3 rounded-lg mt-8 max-w-md text-center">
-        <div class="flex items-center justify-center mb-2">
-            <i class="fas fa-trophy text-yellow-600 mr-2"></i>
-            <span class="text-yellow-800 font-medium">Kamu mendapatkan 100 poin! Gunakan untuk diskon atau promo menarik!</span>
-        </div>
+    <!-- Full Table Message -->
+    <div class="text-center text-sm text-gray-600 mb-6">
+        Mohon maaf, saat ini semua meja sedang penuh. Kami akan memberi notifikasi saat meja tersedia. Terima kasih!
     </div>
 
-    <!-- Action Buttons -->
-    <div class="w-full max-w-md space-y-4 mt-8">
-        <button class="w-full bg-red-700 text-white font-semibold py-3 rounded-lg hover:bg-red-800 transition-colors">
-            Lihat Reservasi Saya
-        </button>
-        
-        <a href="{{ route('struk') }}" class="block w-full text-center text-red-700 font-semibold py-2 rounded-lg hover:bg-red-50 transition-colors">
-    Lihat Struk Pembayaran
-</a>
+    <!-- Queue Card -->
+    <div class="bg-amber-50 rounded-xl p-6 text-center shadow-sm">
+        <p class="font-medium text-gray-800 mb-2">Anda antrean ke-3</p>
+        <h1 class="text-4xl font-bold text-red-700 mb-4">K003</h1>
+        <p class="text-sm text-gray-600 mb-1">Estimasi Waktu Tunggu</p>
+        <p class="text-xl font-semibold text-gray-800">30:02</p>
     </div>
 </div>
+
 </body>
 </html>

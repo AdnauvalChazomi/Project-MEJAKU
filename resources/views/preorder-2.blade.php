@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-calendar-line text-lg"></i>
-                            <a href="#">Reservasi Saya</a>
+                            <a href="{{ route('reservasi-saya') }}">Reservasi Saya</a>
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-star-line text-lg"></i>

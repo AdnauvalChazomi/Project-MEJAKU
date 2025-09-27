@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilih Menu | MejaKu</title>
+    <title>MejaKu - Pilih Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white">
@@ -62,7 +62,7 @@
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-calendar-line text-lg"></i>
-                            <a href="#">Reservasi Saya</a>
+                            <a href="{{ route('reservasi-saya') }}">Reservasi Saya</a>
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-star-line text-lg"></i>

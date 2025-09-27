@@ -51,9 +51,9 @@ Route::get('/pilih-menu', function () {
     return view('pilih-menu');
 })->name('pilih-menu');
 
-Route::get('/pembayaran1', function () {
-    return view('pembayaran1');
-})->name('pembayaran1');
+Route::get('/pembayaran', function () {
+    return view('pembayaran');
+})->name('pembayaran');
 
 Route::get('/pembayaran-berhasil', function () {
     return view('pembayaran-berhasil');
@@ -62,6 +62,14 @@ Route::get('/pembayaran-berhasil', function () {
 Route::get('/struk', function () {
     return view('struk');
 })->name('struk');
+
+Route::get('/reservasi-saya', function () {
+    return view('reservasi-saya');
+})->name('reservasi-saya');
+
+Route::get('/smart-queue', function () {
+    return view('smart-queue');
+})->name('smart-queue');
 
 
 Route::middleware('auth')->group(function () {

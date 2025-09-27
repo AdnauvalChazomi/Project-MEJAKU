@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MejaKu - Pre-Order</title>
+    <title>MejaKu - Struk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-calendar-line text-lg"></i>
-                            <a href="#">Reservasi Saya</a>
+                            <a href="{{ route('reservasi-saya') }}">Reservasi Saya</a>
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-star-line text-lg"></i>
@@ -189,12 +189,12 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     <!-- Smart Queue Section -->
-    <div class="bg-white rounded-xl p-4 shadow-sm cursor-pointer hover:bg-gray-50 transition-colors">
-        <div class="flex justify-between items-center">
-            <span class="font-medium">Smart Queue</span>
-            <i class="fas fa-chevron-right text-gray-500"></i>
-        </div>
+<a href="{{ route('smart-queue') }}" class="block bg-white rounded-xl p-4 shadow-sm hover:bg-gray-50 transition-colors">
+    <div class="flex justify-between items-center">
+        <span class="font-medium">Smart Queue</span>
+        <i class="fas fa-chevron-right text-gray-500"></i>
     </div>
+</a>
 
     <!-- Action Button -->
     <div class="px-4 py-6">
