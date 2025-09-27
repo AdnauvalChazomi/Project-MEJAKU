@@ -55,6 +55,10 @@ Route::get('/pembayaran1', function () {
     return view('pembayaran1');
 })->name('pembayaran1');
 
+Route::get('/pembayaran-berhasil', function () {
+    return view('pembayaran-berhasil');
+})->name('pembayaran-berhasil');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -65,5 +69,6 @@ Route::post('/logout', function () {
     // Auth::logout(); // hapus session user
     return redirect()->route('login'); // arahkan ke route login
 })->name('logout');
+
 
 require __DIR__.'/auth.php';
