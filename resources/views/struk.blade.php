@@ -147,42 +147,62 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             </script>
 
-<div class="px-4 py-8 space-y-6 flex flex-col items-center justify-center min-h-[80vh]">
-    
-    <!-- Success Message -->
-    <div class="text-center space-y-2">
-        <h1 class="text-2xl font-bold text-gray-800">Reservasi Berhasil!</h1>
-        <p class="text-gray-600 text-sm">
-            Meja kamu sudah siap dipesan. Cek detail reservasi dan nikmati pengalaman makanmu.
-        </p>
-    </div>
+<div class="px-4 py-6 space-y-6">
+    <!-- Page Title -->
+    <h1 class="text-center font-semibold text-lg">Struk Pembayaran</h1>
 
-<!-- Success Icon -->
-    <div class="w-32 h-32 bg-red-200 rounded-full flex items-center justify-center mb-6">
-        <div class="w-24 h-24 bg-red-500 rounded-full flex items-center justify-center relative">
-            <div class="absolute inset-0 bg-red-400 rounded-full animate-pulse"></div>
-            <i class="fas fa-check text-white text-3xl"></i>
+    <!-- Receipt Card -->
+    <div class="bg-white rounded-xl p-6 shadow-sm">
+        <!-- Cafe Info -->
+        <div class="text-center mb-6">
+            <h2 class="font-bold text-xl text-gray-800">Cafe Lorem</h2>
+            <p class="text-gray-500 text-sm mt-1">Senin, 11 Januari 2025</p>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="mb-6">
+            <h3 class="font-semibold text-gray-800 mb-3">Rincian Pembayaran</h3>
+            <div class="space-y-2">
+                <div class="flex justify-between">
+                    <span>Total Harga</span>
+                    <span>Rp 50.000</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Voucher</span>
+                    <span>-Rp 5.000</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Biaya Reservasi</span>
+                    <span>Rp 10.000</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Pajak</span>
+                    <span>Rp 10.000</span>
+                </div>
+                <hr class="border-gray-200 my-2">
+                <div class="flex justify-between font-bold">
+                    <span>Total</span>
+                    <span>Rp 50.000</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Points Notification -->
-    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-3 rounded-lg mt-8 max-w-md text-center">
-        <div class="flex items-center justify-center mb-2">
-            <i class="fas fa-trophy text-yellow-600 mr-2"></i>
-            <span class="text-yellow-800 font-medium">Kamu mendapatkan 100 poin! Gunakan untuk diskon atau promo menarik!</span>
+    <!-- Smart Queue Section -->
+    <div class="bg-white rounded-xl p-4 shadow-sm cursor-pointer hover:bg-gray-50 transition-colors">
+        <div class="flex justify-between items-center">
+            <span class="font-medium">Smart Queue</span>
+            <i class="fas fa-chevron-right text-gray-500"></i>
         </div>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="w-full max-w-md space-y-4 mt-8">
+    <!-- Action Button -->
+    <div class="px-4 py-6">
         <button class="w-full bg-red-700 text-white font-semibold py-3 rounded-lg hover:bg-red-800 transition-colors">
             Lihat Reservasi Saya
         </button>
-        
-        <a href="{{ route('struk') }}" class="block w-full text-center text-red-700 font-semibold py-2 rounded-lg hover:bg-red-50 transition-colors">
-    Lihat Struk Pembayaran
-</a>
     </div>
 </div>
 </body>
 </html>
+        
