@@ -35,6 +35,10 @@ Route::get('/reservasi', function () {
     return view('reservasi');
 })->name('reservasi');
 
+Route::get('/waktu-reservasi', function () {
+    return view('waktu-reservasi');
+})->name('waktu-reservasi');
+
 Route::get('/preorder-1', function () {
     return view('preorder-1');
 })->name('preorder-1');
