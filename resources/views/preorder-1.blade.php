@@ -7,26 +7,51 @@
     @vite('resources/css/app.css')
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50 max-w-[393px] mx-auto h-[852px] border shadow-lg relative">
+<body class="bg-gray-50 max-w-[393px] mx-auto min-h-screen border shadow-lg relative">
 
     <!-- Navbar -->
-    <div class="flex items-center justify-between px-4 py-3 border-b bg-white">
-        <div class="flex items-center gap-2">
-            <!-- Hamburger button -->
-            <button id="openSidebar" class="p-2 bg-gray-100 rounded">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-            <h1 class="text-lg font-bold text-red-700">MejaKu</h1>
-        </div>
-        <!-- Search -->
-        <button>
+<div class="flex items-center justify-between px-4 py-3 border-b bg-white">
+    <div class="flex items-center gap-2">
+        <!-- Hamburger button -->
+        <button id="openSidebar" class="p-2 bg-gray-100 rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <h1 class="text-lg font-bold text-red-700">MejaKu</h1>
+    </div>
+
+    <!-- Search -->
+    <div class="relative flex items-center">
+        <button id="searchBtn" class="p-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
             </svg>
         </button>
+
+        <input id="searchInput" 
+               type="text" 
+               placeholder="Cari menu..." 
+               class="w-0 opacity-0 transition-all duration-300 border rounded-full px-3 py-1 text-sm focus:w-48 focus:opacity-100 focus:outline-none"/>
     </div>
+</div>
+
+<script>
+    const searchBtn = document.getElementById("searchBtn");
+    const searchInput = document.getElementById("searchInput");
+
+    searchBtn.addEventListener("click", () => {
+        if (searchInput.classList.contains("w-0")) {
+            searchInput.classList.remove("w-0", "opacity-0");
+            searchInput.classList.add("w-48", "opacity-100");
+            searchInput.focus();
+        } else {
+            searchInput.classList.add("w-0", "opacity-0");
+            searchInput.classList.remove("w-48", "opacity-100");
+            searchInput.value = "";
+        }
+    });
+</script>
 
    <!-- Overlay -->
             <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
@@ -129,10 +154,10 @@
         </div>
 
         <!-- Pilih Menu -->
-        <div class="bg-gray-100 rounded-lg p-4 mb-4 flex justify-between items-center">
-            <span class="text-sm font-medium">Pilih Menu</span>
-            <span>›</span>
-        </div>
+<button class="w-full bg-gray-100 rounded-lg p-4 mb-4 flex justify-between items-center hover:bg-gray-200">
+    <span class="text-sm font-medium">Pilih Menu</span>
+    <span>›</span>
+</button>
 
         <!-- Menu Rekomendasi -->
         <h2 class="font-semibold mb-3">Menu Rekomendasi</h2>
@@ -162,9 +187,11 @@
         </div>
 
         <!-- Tombol Pesan -->
-        <button class="w-full mt-6 py-2 rounded-lg bg-gray-400 text-white font-semibold">
-            Pesan
-        </button>
+       <div class="fixed bottom-0 left-0 right-0 max-w-[393px] mx-auto p-4 bg-white border-t">
+    <button class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold">
+        Pesan
+    </button>
+</div>
     </div>
 
     <!-- Script Sidebar -->
