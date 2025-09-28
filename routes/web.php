@@ -71,6 +71,10 @@ Route::get('/smart-queue', function () {
     return view('smart-queue');
 })->name('smart-queue');
 
+Route::get('/metode-pembayaran', function () {
+    return view('metode-pembayaran');
+})->name('metode-pembayaran');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

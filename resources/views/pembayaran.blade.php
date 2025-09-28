@@ -63,7 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <button class="text-gray-600">
                 <i class="fas fa-chevron-left text-lg"></i>
             </button>
-            <span class="font-medium">Pembayaran</span>
+            <a href="{{ route('metode-pembayaran') }}" class="text-gray-800 font-semibold text-lg">
+    Metode Pembayaran
+</a>
         </div>
     </div>
 
