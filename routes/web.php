@@ -43,11 +43,28 @@ Route::get('/preorder-1', function () {
     return view('preorder-1');
 })->name('preorder-1');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::get('/profile', function () {
+    return view('profile');
 });
+
+Route::get('/payment-method', function () {
+    return view('payment-method');
+});
+
+Route::get('/payment', function () {
+    return view('payment');
+});
+
+Route::get('/bill', function () {
+    return view('bill');
+});
+
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 Route::post('/logout', function () {
     // Auth::logout(); // hapus session user
