@@ -24,20 +24,28 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('user.dashboard');
 })->name('dashboard');
+
+Route::get('/jelajahi', function () {
+    return view('user.jelajahi');
+});
+
+Route::get('/reservasi', function () {
+    return view('user.reservasi');
+});
 
 Route::get('/dashboard-login', function () {
     return view('dashboard-login');
 })->name('dashboard-login');
 
 Route::post('/logout', function () {
-    Auth::logout(); // hapus session user
+    // Auth::logout(); // hapus session user
     return redirect()->route('login'); // arahkan ke route login
 })->name('logout');
 
-Route::get('/dashboard-login', function () {
-    return view('dashboard-login'); // file resources/views/dashboard-login.blade.php
+Route::get('/jam-reservasi', function () {
+    return view('user.jam-reservasi'); // file resources/views/dashboard-login.blade.php
 })->name('dashboard.login');
 
 Route::middleware('auth')->group(function () {
