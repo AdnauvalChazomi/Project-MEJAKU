@@ -3,34 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MejaKu - Pre-order</title>
-    @vite('resources/css/app.css')
+    <title>MejaKu - reservasi Saya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50 max-w-[393px] mx-auto min-h-screen border shadow-lg relative">
+<body class="bg-white font-sans">
 
-    <!-- Navbar -->
-<div class="flex items-center justify-between px-4 py-3 border-b bg-white">
-    <div class="flex items-center gap-2">
-        <!-- Hamburger button -->
-        <button id="openSidebar" class="p-2 bg-gray-100 rounded">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+        <button class="bg-gray-800 text-white p-2 rounded">
+            <i class="fas fa-bars text-lg"></i>
         </button>
-        <h1 class="text-lg font-bold text-red-700">MejaKu</h1>
+        <h1 class="text-xl font-bold text-red-700">MejaKu</h1>
     </div>
-
-    <!-- Search -->
-    <div class="relative flex items-center">
-        <button id="searchBtn" class="p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-            </svg>
-        </button>
-        <x-button-search placeholder="Cari Makanan..." />
-    </div>
-</div>
+    <x-button-search placeholder="Cari Makanan..." />
+</header>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -68,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-   <!-- Overlay -->
+     <!-- Overlay -->
             <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
             <!-- Sidebar User -->
@@ -96,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-calendar-line text-lg"></i>
-                            <a href="{{ route('reservasi-saya') }}">Reservasi Saya</a>
+                            <a href="#">Reservasi Saya</a>
                         </li>
                         <li class="flex items-center gap-3 text-[#B1281D]">
                             <i class="ri-star-line text-lg"></i>
@@ -158,55 +147,96 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             </script>
 
-    <!-- Konten Halaman -->
-    <div class="p-4">
-        <!-- Header Pre-Order -->
-        <div class="flex items-center justify-between mb-4">
-            <button class="flex items-center text-sm text-gray-600">
-                ← Pre-Order
-            </button>
-            <span class="text-sm text-gray-500">Lewati</span>
-        </div>
-
-        <!-- Pilih Menu -->
-<button class="w-full bg-gray-100 rounded-lg p-4 mb-4 flex justify-between items-center hover:bg-gray-200">
-    <span class="text-sm font-medium">Pilih Menu</span>
-    <span>›</span>
-</button>
-
-        <!-- Menu Rekomendasi -->
-        <h2 class="font-semibold mb-3">Menu Rekomendasi</h2>
-        <div class="space-y-3">
-            <!-- Item 1 -->
-            <div class="flex items-center justify-between bg-white rounded-lg shadow-sm p-3">
-                <div class="flex gap-3 items-center">
-                    <img src="https://via.placeholder.com/80" class="w-16 h-16 rounded-lg object-cover">
-                    <div>
-                        <p class="font-medium text-sm">Tahu cabe garam</p>
-                        <p class="text-xs text-gray-500">Rp.24000</p>
-                    </div>
-                </div>
-                <button class="p-2 bg-gray-100 rounded-full">+</button>
-            </div>
-            <!-- Item 2 -->
-            <div class="flex items-center justify-between bg-white rounded-lg shadow-sm p-3">
-                <div class="flex gap-3 items-center">
-                    <img src="https://via.placeholder.com/80" class="w-16 h-16 rounded-lg object-cover">
-                    <div>
-                        <p class="font-medium text-sm">Es Kopi Susu</p>
-                        <p class="text-xs text-gray-500">Rp.28000</p>
-                    </div>
-                </div>
-                <button class="p-2 bg-gray-100 rounded-full">+</button>
-            </div>
-        </div>
-
-        <!-- Tombol Pesan -->
-       <div class="fixed bottom-0 left-0 right-0 max-w-[393px] mx-auto p-4 bg-white border-t">
-    <button class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold">
-        Pesan
-    </button>
-</div>
+        <div class="px-4 py-6 space-y-6">
+    <!-- Breadcrumb -->
+    <div class="flex items-center text-sm text-gray-600 mb-4">
+        <i class="fas fa-chevron-left mr-2"></i>
+        <span>Dashboard /</span>
+        <span class="font-medium ml-1">Reservasi Saya</span>
     </div>
+
+    <!-- Reservation Card 1 -->
+    <div class="bg-white rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-start mb-3">
+            <div>
+                <h3 class="font-bold text-lg text-gray-800">Cafe Lorem</h3>
+                <p class="text-sm text-gray-500">Senin, 11 Januari 2025 | 15:30</p>
+                <span class="inline-block px-2 py-1 bg-red-100 text-red-700 text-xs font-medium rounded-full mt-1">Reservasi</span>
+            </div>
+            <div class="bg-gray-100 rounded-lg px-3 py-2 text-center">
+                <span class="block text-xs text-gray-600">Nomor Meja</span>
+                <span class="font-bold text-lg">2</span>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <p class="font-medium text-gray-800">Budi Budiman</p>
+            <p class="text-sm text-gray-600">1x Pizza</p>
+            <p class="text-sm text-gray-600">1x Es Kopi Susu</p>
+            <p class="font-semibold mt-2">Rp 50.000</p>
+        </div>
+
+        <div class="flex space-x-3">
+            <button class="flex-1 bg-red-600 text-white py-2 rounded-lg font-medium hover:bg-red-700 transition-colors">
+                Batalkan Reservasi
+            </button>
+            <button class="flex-1 bg-gray-800 text-white py-2 rounded-lg font-medium hover:bg-gray-900 transition-colors">
+                Hubungi Cafe
+            </button>
+        </div>
+    </div>
+
+    <!-- Reservation Card 2 -->
+    <div class="bg-white rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-start mb-3">
+            <div>
+                <h3 class="font-bold text-lg text-gray-800">Cafe Lorem</h3>
+                <p class="text-sm text-gray-500">Senin, 10 Januari 2025 | 15:30</p>
+                <span class="inline-block px-2 py-1 bg-red-100 text-red-700 text-xs font-medium rounded-full mt-1">Reservasi</span>
+            </div>
+            <div class="bg-gray-100 rounded-lg px-3 py-2 text-center">
+                <span class="block text-xs text-gray-600">Nomor Meja</span>
+                <span class="font-bold text-lg">2</span>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <p class="font-medium text-gray-800">Budi Budiman</p>
+            <p class="text-sm text-gray-600">1x Pizza</p>
+            <p class="text-sm text-gray-600">1x Es Kopi Susu</p>
+            <p class="font-semibold mt-2">Rp 50.000</p>
+        </div>
+
+        <button class="w-full border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+            Beri Rating
+        </button>
+    </div>
+
+    <!-- Reservation Card 3 -->
+    <div class="bg-white rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-start mb-3">
+            <div>
+                <h3 class="font-bold text-lg text-gray-800">Cafe Lorem</h3>
+                <p class="text-sm text-gray-500">Senin, 10 Januari 2025 | 15:30</p>
+                <span class="inline-block px-2 py-1 bg-red-100 text-red-700 text-xs font-medium rounded-full mt-1">Reservasi Individu</span>
+            </div>
+            <div class="bg-gray-100 rounded-lg px-3 py-2 text-center">
+                <span class="block text-xs text-gray-600">Nomor Meja</span>
+                <span class="font-bold text-lg">2</span>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <p class="font-medium text-gray-800">Budi Budiman</p>
+            <p class="text-sm text-gray-600">1x Pizza</p>
+            <p class="text-sm text-gray-600">1x Es Kopi Susu</p>
+            <p class="font-semibold mt-2">Rp 50.000</p>
+        </div>
+
+        <button class="w-full border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+            Beri Rating
+        </button>
+    </div>
+</div>
 </body>
 </html>

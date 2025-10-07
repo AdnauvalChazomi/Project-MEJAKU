@@ -3,34 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MejaKu - Pre-order</title>
-    @vite('resources/css/app.css')
+    <title>MejaKu - Struk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50 max-w-[393px] mx-auto min-h-screen border shadow-lg relative">
+<body class="bg-white font-sans">
 
-    <!-- Navbar -->
-<div class="flex items-center justify-between px-4 py-3 border-b bg-white">
-    <div class="flex items-center gap-2">
-        <!-- Hamburger button -->
-        <button id="openSidebar" class="p-2 bg-gray-100 rounded">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+<!-- Header -->
+    <header class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+        <button class="bg-gray-800 text-white p-2 rounded">
+            <i class="fas fa-bars text-lg"></i>
         </button>
-        <h1 class="text-lg font-bold text-red-700">MejaKu</h1>
+        <h1 class="text-xl font-bold text-red-700">MejaKu</h1>
     </div>
-
-    <!-- Search -->
-    <div class="relative flex items-center">
-        <button id="searchBtn" class="p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-            </svg>
-        </button>
-        <x-button-search placeholder="Cari Makanan..." />
-    </div>
-</div>
+    <x-button-search placeholder="Cari Makanan..." />
+</header>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -68,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-   <!-- Overlay -->
+ <!-- Overlay -->
             <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
             <!-- Sidebar User -->
@@ -158,55 +147,62 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             </script>
 
-    <!-- Konten Halaman -->
-    <div class="p-4">
-        <!-- Header Pre-Order -->
-        <div class="flex items-center justify-between mb-4">
-            <button class="flex items-center text-sm text-gray-600">
-                ← Pre-Order
-            </button>
-            <span class="text-sm text-gray-500">Lewati</span>
+<div class="px-4 py-6 space-y-6">
+    <!-- Page Title -->
+    <h1 class="text-center font-semibold text-lg">Struk Pembayaran</h1>
+
+    <!-- Receipt Card -->
+    <div class="bg-white rounded-xl p-6 shadow-sm">
+        <!-- Cafe Info -->
+        <div class="text-center mb-6">
+            <h2 class="font-bold text-xl text-gray-800">Cafe Lorem</h2>
+            <p class="text-gray-500 text-sm mt-1">Senin, 11 Januari 2025</p>
         </div>
 
-        <!-- Pilih Menu -->
-<button class="w-full bg-gray-100 rounded-lg p-4 mb-4 flex justify-between items-center hover:bg-gray-200">
-    <span class="text-sm font-medium">Pilih Menu</span>
-    <span>›</span>
-</button>
-
-        <!-- Menu Rekomendasi -->
-        <h2 class="font-semibold mb-3">Menu Rekomendasi</h2>
-        <div class="space-y-3">
-            <!-- Item 1 -->
-            <div class="flex items-center justify-between bg-white rounded-lg shadow-sm p-3">
-                <div class="flex gap-3 items-center">
-                    <img src="https://via.placeholder.com/80" class="w-16 h-16 rounded-lg object-cover">
-                    <div>
-                        <p class="font-medium text-sm">Tahu cabe garam</p>
-                        <p class="text-xs text-gray-500">Rp.24000</p>
-                    </div>
+        <!-- Payment Details -->
+        <div class="mb-6">
+            <h3 class="font-semibold text-gray-800 mb-3">Rincian Pembayaran</h3>
+            <div class="space-y-2">
+                <div class="flex justify-between">
+                    <span>Total Harga</span>
+                    <span>Rp 50.000</span>
                 </div>
-                <button class="p-2 bg-gray-100 rounded-full">+</button>
-            </div>
-            <!-- Item 2 -->
-            <div class="flex items-center justify-between bg-white rounded-lg shadow-sm p-3">
-                <div class="flex gap-3 items-center">
-                    <img src="https://via.placeholder.com/80" class="w-16 h-16 rounded-lg object-cover">
-                    <div>
-                        <p class="font-medium text-sm">Es Kopi Susu</p>
-                        <p class="text-xs text-gray-500">Rp.28000</p>
-                    </div>
+                <div class="flex justify-between">
+                    <span>Voucher</span>
+                    <span>-Rp 5.000</span>
                 </div>
-                <button class="p-2 bg-gray-100 rounded-full">+</button>
+                <div class="flex justify-between">
+                    <span>Biaya Reservasi</span>
+                    <span>Rp 10.000</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Pajak</span>
+                    <span>Rp 10.000</span>
+                </div>
+                <hr class="border-gray-200 my-2">
+                <div class="flex justify-between font-bold">
+                    <span>Total</span>
+                    <span>Rp 50.000</span>
+                </div>
             </div>
         </div>
-
-        <!-- Tombol Pesan -->
-       <div class="fixed bottom-0 left-0 right-0 max-w-[393px] mx-auto p-4 bg-white border-t">
-    <button class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold">
-        Pesan
-    </button>
-</div>
     </div>
+
+    <!-- Smart Queue Section -->
+<a href="{{ route('smart-queue') }}" class="block bg-white rounded-xl p-4 shadow-sm hover:bg-gray-50 transition-colors">
+    <div class="flex justify-between items-center">
+        <span class="font-medium">Smart Queue</span>
+        <i class="fas fa-chevron-right text-gray-500"></i>
+    </div>
+</a>
+
+    <!-- Action Button -->
+    <div class="px-4 py-6">
+        <button class="w-full bg-red-700 text-white font-semibold py-3 rounded-lg hover:bg-red-800 transition-colors">
+            Lihat Reservasi Saya
+        </button>
+    </div>
+</div>
 </body>
 </html>
+        
