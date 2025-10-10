@@ -3,24 +3,24 @@
 
         {{-- Tombol Back --}}
         <button onclick="window.history.back()"
-            class="flex items-center gap-1 text-gray-700 hover:text-[#A63232] transition absolute left-4">
+            class="flex items-center gap-1 text-gray-700 hover:text-red-600 transition absolute left-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15 19l-7-7 7-7" />
             </svg>
-            <span class="hidden sm:inline text-sm font-medium">Kembali</span>
         </button>
 
         {{-- Logo Tengah --}}
         <div class="flex-1 flex justify-center">
-            <a href="{{ url('/') }}" class="text-2xl font-extrabold text-[#A63232] tracking-tight">
+            <a href="{{ url('/') }}" class="text-2xl font-extrabold text-red-600 tracking-tight">
                 MejaKu
             </a>
         </div>
 
-        {{-- Dropdown Profile --}}
         <div x-data="{ open: false }" class="absolute right-4">
+
+            {{-- Dropdown Profile --}}
             <button @click="open = !open" class="focus:outline-none flex items-center space-x-2">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7fy-ZJ4gn-1OP9yXA5PMi-G1eQ7btd8LAm9rl9yxh83Aog2KS_KpzQvbNlskHNOjza7M&usqp=CAU"
                     alt="Profile" class="w-9 h-9 rounded-full border border-gray-300">

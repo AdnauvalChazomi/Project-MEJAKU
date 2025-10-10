@@ -3,20 +3,20 @@
     <div class="container mx-auto flex items-center justify-between py-4 px-6">
         
         {{-- Logo --}}
-        <a href="{{ url('/') }}" class="text-2xl font-extrabold text-[#A63232] tracking-tight">
+        <a href="{{ url('/') }}" class="text-2xl font-extrabold text-red-600 tracking-tight">
             MejaKu
         </a>
 
         {{-- Navigation Menu --}}
         <nav class="hidden md:flex space-x-8 text-[15px] font-medium text-gray-500">
-            <a href="{{ url('/restaurants') }}" class="hover:text-[#A63232] transition">
-                Restaurant Directory
+            <a href="{{ url('/search') }}" class="hover:text-red-600 transition">
+                Daftar Restoran
             </a>
 
             {{-- Dropdown Menu --}}
             <div x-data="{ open: false }" class="relative">
-                <button @click="open = !open" class="flex items-center hover:text-[#A63232] transition">
-                    Exclusive Discounts
+                <button @click="open = !open" class="flex items-center hover:text-red-600 transition">
+                    Diskon Eksklusif
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 mt-[2px]" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -34,20 +34,20 @@
                      x-transition:leave-start="opacity-100 scale-100"
                      x-transition:leave-end="opacity-0 scale-95"
                      class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-                    <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-[#A63232]">Diskon Member</a>
-                    <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-[#A63232]">Promo Spesial</a>
-                    <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-[#A63232]">Kode Kupon</a>
+                    <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-red-600">Diskon Member</a>
+                    <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-red-600">Promo Spesial</a>
+                    <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-red-600">Kode Kupon</a>
                 </div>
             </div>
 
-            <a href="#" class="hover:text-[#A63232] transition">Guides</a>
-            <a href="#" class="hover:text-[#A63232] transition">Rewards</a>
+            <a href="#" class="hover:text-red-600 transition">Panduan</a>
+            <a href="#" class="hover:text-red-600 transition">Hadiah</a>
         </nav>
 
         {{-- Login Button --}}
         <div class="hidden md:block">
             <a href="{{ route('login') }}"
-                class="px-5 py-2 rounded-full bg-[#A63232] text-white font-medium text-sm shadow-md hover:bg-[#8B2B2B] transition">
+                class="px-5 py-2 rounded-full bg-red-600 text-white font-medium text-sm shadow-md hover:bg-[#8B2B2B] transition">
                 Log In
             </a>
         </div>
@@ -74,7 +74,7 @@
                 x-transition:leave-end="-translate-x-full"
                 class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-lg font-bold text-[#A63232]">MejaKu</h2>
+                    <h2 class="text-lg font-bold text-red-600">MejaKu</h2>
                     <button @click="open = false" class="text-gray-600 hover:text-black">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
@@ -85,11 +85,11 @@
                 </div>
 
                 <nav class="space-y-4 text-gray-700">
-                    <a href="{{ url('/restaurants') }}" class="block hover:text-[#A63232]">Restaurant Directory</a>
-                    <a href="#" class="block hover:text-[#A63232]">Exclusive Discounts</a>
-                    <a href="#" class="block hover:text-[#A63232]">Guides</a>
-                    <a href="#" class="block hover:text-[#A63232]">Rewards</a>
-                    <a href="{{ route('login') }}" class="block text-[#A63232] font-semibold mt-4">Log In</a>
+                    <a href="{{ url('/restaurants') }}" class="block hover:text-red-600">Restaurant Directory</a>
+                    <a href="#" class="block hover:text-red-600">Exclusive Discounts</a>
+                    <a href="#" class="block hover:text-red-600">Guides</a>
+                    <a href="#" class="block hover:text-red-600">Rewards</a>
+                    <a href="{{ route('login') }}" class="block text-red-600 font-semibold mt-4">Log In</a>
                 </nav>
             </aside>
         </div>

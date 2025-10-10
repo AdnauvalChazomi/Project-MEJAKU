@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.dashboard');
 });
 
 
@@ -27,26 +27,70 @@ Route::get('/dashboard', function () {
     return view('user.dashboard');
 })->name('dashboard');
 
-Route::get('/jelajahi', function () {
-    return view('user.jelajahi');
+Route::get('/search', function () {
+    return view('user.search');
 });
 
-Route::get('/reservasi', function () {
-    return view('user.reservasi');
-});
+Route::get('/detail', function () {
+    return view('user.detail');
+})->name('detail');
 
-Route::get('/dashboard-login', function () {
-    return view('dashboard-login');
-})->name('dashboard-login');
+Route::get('/reservations', function () {
+    return view('user.reservations');
+})->name('reservations');
+
+Route::get('/preorder', function () {
+    return view('user.preorder');
+})->name('preorder');
+
+Route::get('/select-menu', function () {
+    return view('user.select-menu');
+})->name('select-menu');
+
+Route::get('/order', function () {
+    return view('user.order');
+})->name('order');
+
+Route::get('/payment', function () {
+    return view('user.payment');
+})->name('payment');
+
+Route::get('/payment/qris', function () {
+    return view('payments.qris');
+})->name('payment.qris');
+
+Route::get('/payment/wallet', function () {
+    return view('payments.wallet');
+})->name('payment.wallet');
+
+Route::get('/payment/bank', function () {
+    return view('payments.bank');
+})->name('payment.bank');
+
+Route::get('/status', function () {
+    return view('user.status');
+})->name('status');
+
+Route::get('/history', function () {
+    return view('user.history');
+})->name('history');
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::post('/logout', function () {
     // Auth::logout(); // hapus session user
     return redirect()->route('login'); // arahkan ke route login
 })->name('logout');
-
-Route::get('/jam-reservasi', function () {
-    return view('user.jam-reservasi'); // file resources/views/dashboard-login.blade.php
-})->name('dashboard.login');
 
 Route::get('/waktu-reservasi', function () {
     return view('waktu-reservasi');
