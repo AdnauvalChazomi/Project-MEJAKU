@@ -15,11 +15,10 @@
 @endsection
 
 @section('content')
-<div x-data="{ openSidebar: false }" class="mx-auto min-h-screen bg-white relative">
+<div x-data="{ openSidebar: false }" class="mx-auto min-h-screen relative">
 
     <!-- Content -->
-    <main class="p-4 max-w-lg mx-auto space-y-5">
-
+    <main class="p-4 space-y-5 max-w-lg mx-auto bg-white md:rounded-lg md:mt-2 mb-10 md:p-10">
         <!-- Informasi Pemesan -->
         <section class="bg-white border rounded-lg p-4 shadow-sm">
             <h2 class="text-sm font-semibold text-gray-700 mb-2">Informasi Pemesan</h2>
@@ -80,23 +79,19 @@
         </section>
 
         <!-- Catatan -->
-        <section class="bg-white border rounded-lg p-4 shadow-sm">
-            <h2 class="text-sm font-semibold text-gray-700 mb-2">Catatan untuk Dapur</h2>
-            <textarea placeholder="Contoh: tanpa pedas, saus terpisah..."
-                class="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-red-200 focus:outline-none resize-none"></textarea>
-        </section>
+        <h2 class="text-sm font-semibold text-gray-700 mb-2">Catatan untuk Dapur</h2>
+        <textarea placeholder="Contoh: tanpa pedas, saus terpisah..."
+            class="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-red-200 focus:outline-none resize-none"></textarea>
 
         <!-- Tombol Konfirmasi -->
-        <div class="sticky bottom-0 bg-white border-t shadow-inner px-4 py-3 rounded-t-2xl">
-            <button
-                @click="window.location.href='{{ route('payment') }}'"
-                class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold 
+        <button
+            @click="window.location.href='{{ route('payment') }}'"
+            class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold 
                     hover:bg-red-700 active:scale-95 focus:outline-none 
                     focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
                     shadow-md hover:shadow-lg">
-                Konfirmasi Pesanan
-            </button>
-        </div>
+            Konfirmasi Pesanan
+        </button>
     </main>
 </div>
 @endsection

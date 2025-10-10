@@ -15,14 +15,14 @@
 @endsection
 
 @section('content')
-<main class="p-4 max-w-lg mx-auto space-y-5">
+<main class="p-4 max-w-lg mx-auto space-y-5 min-h-screen lg:mb-10">
     <!-- QRIS Section -->
     <section class="bg-white border rounded-lg p-6 shadow-sm text-center space-y-4">
         <h2 class="text-base font-semibold text-gray-800">Pindai QR Code di bawah ini</h2>
         <p class="text-xs text-gray-500">Gunakan aplikasi pembayaran favoritmu (GoPay, OVO, DANA, ShopeePay, dll)</p>
         <div class="flex justify-center">
             <div class="border-4 border-gray-200 p-2 rounded-xl">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=MejaKu-#ZX3ER5GGS" 
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=MejaKu-#ZX3ER5GGS"
                     alt="QRIS Code" class="w-44 h-44 object-contain rounded-lg">
             </div>
         </div>
@@ -33,13 +33,11 @@
         <!-- Countdown Timer -->
         <div x-data="{ time: 900, interval: null }" x-init="interval = setInterval(() => { if (time > 0) time-- }, 1000)" class="mt-3">
             <p class="text-sm text-gray-600">Sisa waktu pembayaran:</p>
-            <p class="text-lg font-semibold text-red-600" 
-               x-text="`${Math.floor(time/60)}:${String(time%60).padStart(2,'0')}`"></p>
+            <p class="text-lg font-semibold text-red-600"
+                x-text="`${Math.floor(time/60)}:${String(time%60).padStart(2,'0')}`"></p>
         </div>
-    </section>
 
-     <!-- Button -->
-    <div class="sticky bottom-0 bg-white border-t shadow-inner px-4 py-3 rounded-t-2xl">
+        <!-- Button -->
         <a href="{{ route('status') }}"
             class="block w-full text-center bg-red-600 text-white py-3 rounded-lg font-semibold 
                   hover:bg-red-700 active:scale-95 focus:outline-none 
@@ -47,6 +45,8 @@
                   shadow-md hover:shadow-lg">
             OK
         </a>
-    </div>
+    </section>
+
+
 </main>
 @endsection

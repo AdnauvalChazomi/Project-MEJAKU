@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-<main class="p-4 max-w-lg mx-auto space-y-5">
+<main class="p-4 max-w-lg mx-auto space-y-5 min-h-screen lg:mb-10">
 
     <!-- E-Wallet Payment -->
     <section x-data="{ selectedWallet: 'GoPay', copied: false }" class="bg-white border rounded-lg p-6 shadow-sm space-y-5 text-center">
@@ -49,13 +49,11 @@
         </div>
 
         <p>Pembayaran akan dialihkan ke halaman resmi <span class="font-semibold text-red-600">Payment Gateway</span>.</p>
-    </section>
 
-    <!-- Konfirmasi -->
+        <!-- Konfirmasi -->
     <p class="text-center text-xs text-gray-400 my-2">
        Dengan melanjutkan, kamu setuju dengan <a href="#" class="text-red-500 hover:underline">syarat & ketentuan pembayaran</a>.
    </p>
-    <div class="sticky bottom-0 bg-white border-t shadow-inner px-4 py-3 rounded-t-2xl">
         <a href="payment_getway" target="_blank"
             class="block w-full text-center bg-red-600 text-white py-3 rounded-lg font-semibold 
                    hover:bg-red-700 active:scale-95 focus:outline-none 
@@ -63,6 +61,6 @@
                    shadow-md hover:shadow-lg">
             Lanjutkan Pembayaran
         </a>
-    </div>
+    </section>
 </main>
 @endsection

@@ -19,7 +19,7 @@
     <div class="max-w-lg mx-auto">
         <!-- Breadcrumb -->
         <nav class="px-4 py-3 text-sm text-gray-500 flex items-center space-x-2">
-            <a href="#" class="hover:underline">Dashboard</a>
+            <a href="{{ route('dashboard') }}" class="hover:underline">Dashboard</a>
             <span>/</span>
             <span class="text-gray-800 font-medium">Cafe Lorem</span>
             <span>/</span>

@@ -200,9 +200,6 @@
         </div>
 
         <!-- Tombol Pembayaran -->
-        <div class="sticky bottom-0 bg-white border-t shadow-inner px-4 py-3 rounded-t-2xl"
-            x-data
-            x-init="$watch('method', value => console.log('Metode dipilih:', value))">
             <button
                 @click="
             if (method === 'qris') {
@@ -218,10 +215,11 @@
                 class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold 
                hover:bg-red-700 active:scale-95 focus:outline-none 
                focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
-               shadow-md hover:shadow-lg">
+               shadow-md hover:shadow-lg my-6"
+               x-data
+            x-init="$watch('method', value => console.log('Metode dipilih:', value))">
                 Bayar Sekarang
             </button>
-        </div>
     </section>
 
 

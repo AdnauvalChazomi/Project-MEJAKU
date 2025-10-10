@@ -19,7 +19,7 @@
     class="mx-auto min-h-screen relative">
 
     <!-- Content -->
-    <main class="p-4 space-y-5 max-w-lg mx-auto">
+    <main class="p-4 space-y-5 max-w-lg mx-auto bg-white md:rounded-lg md:mt-2 mb-10 md:p-10">
 
         <!-- Search Input -->
         <div class="relative">
@@ -28,7 +28,6 @@
                 x-model="search"
                 placeholder="Cari makanan atau minuman..."
                 class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-200 focus:outline-none text-sm">
-
             <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-3 top-2.5 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
             </svg>
@@ -47,7 +46,7 @@
         </div>
 
         <!-- Menu Grid -->
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4 mb-10">
             @foreach ([
             [
             'id' => 1,
@@ -85,7 +84,7 @@
             <div
                 x-show="(category === 'all' || category === '{{ $menu['category'] }}') && (search === '' || '{{ strtolower($menu['name']) }}'.includes(search.toLowerCase()))"
                 x-transition
-                class="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition bg-white group p-2 relative">
+                class="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition bg-white group p-2 relative mb-6">
 
                 <!-- Gambar -->
                 <div class="relative overflow-hidden">
@@ -133,29 +132,25 @@
                     </div>
                 </div>
             </div>
-
             @endforeach
         </div>
 
         <!-- Footer Total -->
-        <div class="sticky bottom-0 left-0 right-0 bg-white border-t shadow-inner px-4 py-3 rounded-t-2xl">
-            <div class="flex items-center justify-between mb-3">
-                <p class="text-sm text-gray-600 font-medium">Total Pesanan</p>
-                <p class="text-lg font-semibold text-gray-800">
-                    Rp <span x-text="total.toLocaleString('id-ID')"></span>
-                </p>
-            </div>
+        <div class="flex items-center justify-between mb-3">
+            <p class="text-sm text-gray-600 font-medium">Total Pesanan</p>
+            <p class="text-lg font-semibold text-gray-800">
+                Rp <span x-text="total.toLocaleString('id-ID')"></span>
+            </p>
+        </div>
 
-            <button
-                @click="window.location.href='{{ route('order') }}'"
-                class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold 
+        <button
+            @click="window.location.href='{{ route('order') }}'"
+            class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold 
                     hover:bg-red-700 active:scale-95 focus:outline-none 
                     focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
                     shadow-md hover:shadow-lg">
-                Pesan Sekarang
-            </button>
-        </div>
-
+            Pesan Sekarang
+        </button>
     </main>
 </div>
 

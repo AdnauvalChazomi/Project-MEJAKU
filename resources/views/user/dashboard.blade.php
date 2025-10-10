@@ -2,7 +2,7 @@
 @section('title', 'MejaKu')
 
 @section('content')
-<div class="min-h-screen bg-[#FDEEDC] flex flex-col">
+<div class="min-h-screen flex flex-col">
     {{-- Hero Section --}}
     <section
         class="relative bg-cover bg-center bg-no-repeat flex items-center justify-center lg:justify-start text-center lg:text-left px-6 lg:px-20 py-20 lg:py-32"
@@ -13,7 +13,7 @@
 
         <div class="relative z-10 flex flex-col items-center lg:items-start max-w-2xl text-white space-y-5">
             <h1 class="text-5xl lg:text-6xl font-extrabold tracking-wide leading-tight drop-shadow-lg font-sans">
-                Meja<span class="text-[#FDEEDC]">Ku</span>
+                MejaKu
             </h1>
             <h2 class="text-lg lg:text-2xl font-medium tracking-wide text-[#FDEEDC]">
                 Reservasi Cepat, Makan Nikmat!
