@@ -14,6 +14,7 @@
     <header class="bg-white shadow-sm">
         <x-navbar>
     </header>
+
     <main>
         @yield('content')
     </main>
