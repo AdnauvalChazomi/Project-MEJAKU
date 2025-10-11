@@ -12,18 +12,14 @@
 <body class="bg-[#FDEEDC] text-gray-800 min-h-screen flex flex-col">
 
     <header class="bg-white shadow-sm">
-        @hasSection('navbar')
-            @yield('navbar')
-        @else
-            @include('components.navbar-dashboard')
-        @endif
+        <x-navbar>
     </header>
     <main>
         @yield('content')
     </main>
 
     <footer>
-        @include('components.footer')
+        <x-footer>
     </footer>
 
     @stack('scripts')
