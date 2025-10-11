@@ -24,9 +24,9 @@
             </p>
 
             <a href="#reservasi"
-                class="px-8 py-3 mt-4 bg-red-600 text-white py-3 rounded-full font-semibold 
-                    hover:bg-red-700 active:scale-95 focus:outline-none 
-                    focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
+                class="px-8 py-3 mt-4 bg-red-600 text-white py-3 rounded-full font-semibold
+                    hover:bg-red-700 active:scale-95 focus:outline-none
+                    focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
                     shadow-md hover:shadow-lg">
                 Reservasi Sekarang
             </a>
@@ -45,9 +45,9 @@
 
         {{-- Tombol Arah ke Halaman Cari --}}
         <a href="{{ url('/search') }}"
-            class="group relative inline-flex items-center justify-center px-8 py-4 bg-red-600 text-white py-3 rounded-full font-semibold 
-                    hover:bg-red-700 active:scale-95 focus:outline-none 
-                    focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
+            class="group relative inline-flex items-center justify-center px-8 py-4 bg-red-600 text-white py-3 rounded-full font-semibold
+                    hover:bg-red-700 active:scale-95 focus:outline-none
+                    focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
                     shadow-md hover:shadow-lg gap-2">
                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
