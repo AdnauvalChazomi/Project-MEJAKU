@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('user.dashboard');
+    return view('user.dashboard2');
 });
 
 
@@ -24,7 +24,7 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard', function () {
-    return view('user.dashboard');
+    return view('user.dashboard2');
 })->name('dashboard');
 
 Route::get('/search', function () {
@@ -74,17 +74,6 @@ Route::get('/status', function () {
 Route::get('/history', function () {
     return view('user.history');
 })->name('history');
-
-
-
-
-
-
-
-
-
-
-
 
 
 Route::post('/logout', function () {
