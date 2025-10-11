@@ -33,7 +33,6 @@
         </div>
     </section>
 
-
     {{-- Search Section --}}
     <section class="flex flex-col items-center justify-center px-6 lg:px-20 py-16 text-center" id="reservasi">
         <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-6 tracking-wide">
