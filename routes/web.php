@@ -23,9 +23,19 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// hanya bisa diakses role owner
+Route::middleware(['auth', 'role:owner'])->group(function () {
+    Route::get('/owner/dashboard', function () {
+        return view('owner.dashboard');
+    })->name('owner.dashboard');
+});
+
+// hanya bisa diakses role customer
+Route::middleware(['auth', 'role:customer'])->group(function () {
+    Route::get('/customer/dashboard', function () {
+        return view('customer.dashboard');
+    })->name('customer.dashboard');
+});
 
 Route::get('/dashboard-login', function () {
     return view('dashboard-login');
@@ -49,9 +59,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 Route::post('/logout', function () {
     // Auth::logout(); // hapus session user
     return redirect()->route('login'); // arahkan ke route login
 })->name('logout');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
