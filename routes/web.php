@@ -18,7 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
@@ -34,18 +33,6 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
         return view('customer.dashboard');
     })->name('customer.dashboard');
 });
-
-Route::get('/reservasi', function () {
-    return view('reservasi');
-})->name('reservasi');
-
-Route::get('/waktu-reservasi', function () {
-    return view('waktu-reservasi');
-})->name('waktu-reservasi');
-
-Route::get('/preorder-1', function () {
-    return view('preorder-1');
-})->name('preorder-1');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
