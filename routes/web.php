@@ -35,10 +35,6 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     })->name('customer.dashboard');
 });
 
-Route::get('/dashboard-login', function () {
-    return view('dashboard-login');
-})->name('dashboard-login');
-
 Route::get('/reservasi', function () {
     return view('reservasi');
 })->name('reservasi');
