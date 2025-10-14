@@ -3,12 +3,10 @@
 
 @section('content')
 <div class="min-h-screen flex flex-col">
-    {{-- Hero Section --}}
     <section
         class="relative bg-cover bg-center bg-no-repeat flex items-center justify-center lg:justify-start text-center lg:text-left px-6 lg:px-20 py-20 lg:py-32"
         style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80');">
 
-        {{-- Overlay gelap agar teks tetap terbaca --}}
         <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
         <div class="relative z-10 flex flex-col items-center lg:items-start max-w-2xl text-white space-y-5">
@@ -24,7 +22,7 @@
             </p>
 
             <a href="#reservasi"
-                class="px-8 py-3 mt-4 bg-red-600 text-white py-3 rounded-full font-semibold
+                class="px-8 py-3 mt-4 bg-red-600 text-white rounded-full font-semibold
                     hover:bg-red-700 active:scale-95 focus:outline-none
                     focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
                     shadow-md hover:shadow-lg">
@@ -44,7 +42,7 @@
 
         {{-- Tombol Arah ke Halaman Cari --}}
         <a href="{{ url('/search') }}"
-            class="group relative inline-flex items-center justify-center px-8 py-4 bg-red-600 text-white py-3 rounded-full font-semibold
+            class="group relative inline-flex items-center justify-center px-8 py-4 bg-red-600 text-white rounded-full font-semibold
                     hover:bg-red-700 active:scale-95 focus:outline-none
                     focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
                     shadow-md hover:shadow-lg gap-2">
@@ -81,6 +79,7 @@
                     </div>
                 </div>
             </div>
+
             {{-- Card 1 --}}
             <div class="bg-white rounded-xl shadow-md overflow-hidden hover:scale-[1.02] transition">
                 <img src="https://images.unsplash.com/photo-1555993539-1732b0258235?w=800&q=80"

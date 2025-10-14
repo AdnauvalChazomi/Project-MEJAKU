@@ -27,7 +27,7 @@
 
     <!-- Pilih Menu -->
     <a href="{{ route('select-menu') }}"
-        class="block w-full bg-gray-100 rounded-lg p-4 mb-4 flex justify-between font-semibold transform transition-all duration-300 ease-in-out hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 active:scale-95">
+        class="block w-full bg-gray-100 rounded-lg p-4 mb-4 justify-between font-semibold transform transition-all duration-300 ease-in-out hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 active:scale-95">
         <span class="text-sm font-medium">Pilih Menu</span>
         <span>›</span>
     </a>
@@ -86,8 +86,8 @@
                     <div class="flex items-center gap-2 bg-gray-50 rounded-lg px-2 py-1 shadow-sm">
                         <button
                             @click="decrease(menu.id)"
-                            :class="cart[menu.id] && cart[menu.id] > 0 
-                            ? 'hover:bg-red-100 active:scale-95' 
+                            :class="cart[menu.id] && cart[menu.id] > 0
+                            ? 'hover:bg-red-100 active:scale-95'
                             : 'opacity-40 cursor-not-allowed'"
                             class="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 transition-all duration-200"
                             :disabled="!cart[menu.id] || cart[menu.id] === 0">
