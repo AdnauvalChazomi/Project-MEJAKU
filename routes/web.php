@@ -24,7 +24,7 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('user.dashboard');
 })->name('dashboard');
 
 Route::middleware(['auth', 'role:owner'])->group(function () {
@@ -38,10 +38,6 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
         return view('customer.dashboard');
     })->name('customer.dashboard');
 });
-
-Route::get('/dashboard', function () {
-    return view('user.dashboard2');
-})->name('dashboard');
 
 Route::get('/search', function () {
     return view('user.search');

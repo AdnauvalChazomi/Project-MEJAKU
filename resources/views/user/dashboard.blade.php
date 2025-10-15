@@ -4,25 +4,25 @@
 @section('content')
 <div class="min-h-screen flex flex-col">
     <section
-        class="relative bg-cover bg-center bg-no-repeat flex items-center justify-center lg:justify-start text-center lg:text-left px-6 lg:px-20 py-20 lg:py-32"
+        class="lg:h-screen relative bg-cover bg-center bg-no-repeat flex items-center justify-center lg:justify-start text-center lg:text-left px-6 lg:px-20 py-20 lg:py-32"
         style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80');">
 
         <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
         <div class="relative z-10 flex flex-col items-center lg:items-start max-w-2xl text-white space-y-5">
-            <h1 class="text-5xl lg:text-6xl font-extrabold tracking-wide leading-tight drop-shadow-lg font-sans">
+            <h1 class="text-5xl lg:text-7xl font-extrabold tracking-wide leading-tight drop-shadow-lg font-sans">
                 MejaKu
             </h1>
-            <h2 class="text-lg lg:text-2xl font-medium tracking-wide text-[#FDEEDC]">
+            <h2 class="text-lg lg:text-3xl font-medium tracking-wide text-[#FDEEDC]">
                 Reservasi Cepat, Makan Nikmat!
             </h2>
-            <p class="text-sm lg:text-base text-gray-200 max-w-md leading-relaxed">
+            <p class="text-sm lg:text-lg text-gray-200 max-w-md leading-relaxed">
                 Pesan tempat favoritmu tanpa antre, nikmati hidangan tanpa gangguan.
                 Rasakan pengalaman reservasi yang praktis dan menyenangkan!
             </p>
 
             <a href="#reservasi"
-                class="px-8 py-3 mt-4 bg-red-600 text-white rounded-full font-semibold
+                class="px-8 py-3 bg-red-600 text-white rounded-full font-semibold
                     hover:bg-red-700 active:scale-95 focus:outline-none
                     focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
                     shadow-md hover:shadow-lg">
