@@ -135,6 +135,41 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
+Route::get('/dashboard-owner', function () {
+     return view('owner.dashboard');
+});
+
+Route::get('/notifikasi', function () {
+     return view('owner.notification');
+});
+
+Route::get('/pengaturan', function () {
+     return view('owner.settings');
+});
+
+Route::get('/manajemen-reservasi', function () {
+     return view('owner.reservations.index');
+});
+
+Route::get('/kelola-menu', function () {
+     return view('owner.menu.index');
+});
+
+Route::get('/kelola-pesanan', function () {
+     return view('owner.orders.index');
+});
+
+Route::get('/kelola-promo', function () {
+     return view('owner.promos.index');
+});
+
+
+
+
+
+
 Route::post('/logout', function () {
     // Auth::logout(); // hapus session user
     return redirect()->route('login'); // arahkan ke route login
