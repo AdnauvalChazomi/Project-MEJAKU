@@ -35,7 +35,7 @@
                             <span class="ml-1 text-gray-400 text-xs">({{ $restoran->reviews->count() }} ulasan)</span>
                         </div>
                     </div>
-                    <a href="{{ route('reservations') }}"
+                    <a href="{{ route('reservations.create', ['id' => $restoran->id]) }}"
                         class="mt-3 md:mt-0 px-5 py-2 bg-red-600 text-white rounded-lg text-sm font-semibold hover:bg-red-700 active:scale-95 focus:outline-none
                     focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg">
                         Reservasi
@@ -104,7 +104,7 @@
             </section>
 
             <!-- Tombol Reservasi -->
-            <button @click="window.location.href='{{ route('reservations') }}'"
+            <button @click="window.location.href='{{ route('reservations.create', ['id' => $restoran->id]) }}'"
                 class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold
             hover:bg-red-700 active:scale-95 focus:outline-none
             focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out

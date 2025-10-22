@@ -15,7 +15,6 @@ class DashboardController extends Controller
             ->take(4)
             ->get();
 
-
         return view('user.dashboard', compact('rekomendasi'));
     }
 
@@ -25,7 +24,6 @@ class DashboardController extends Controller
 
         return view('user.restoran.show', compact('restoran'));
     }
-
     public function search(Request $request)
     {
         $keyword = $request->input('q');

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\user\DashboardController;
+use App\Http\Controllers\user\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,8 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/search', [DashboardController::class, 'search'])->name('search');
 
 Route::get('/restoran/{id}', [DashboardController::class, 'show'])->name('user.restoran.show');
+Route::get('/reservations/{id}', [ReservationController::class, 'create'])
+    ->name('reservations.create');
 
 
 // Route::get('/dashboard', function () {

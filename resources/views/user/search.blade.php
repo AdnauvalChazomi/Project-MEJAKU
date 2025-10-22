@@ -55,7 +55,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
             @forelse ($restoran as $r)
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:scale-[1.02] transition">
-                    <img src="{{ $r->foto_restoran ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjw4ZFGKu7QiaF1gfIPuKsmxOEctEVO8WJ-w&s' }}"
+                    <img src="{{ $r->foto_restoran ? asset('storage/' . $r->foto_restoran) : 'https://via.placeholder.com/1200x400' }}"
                         alt="{{ $r->nama_restoran }}" class="w-full h-44 object-cover">
                     <div class="p-4">
                         <h3 class="font-semibold text-gray-900 text-lg">{{ $r->nama_restoran }}</h3>
@@ -82,7 +82,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="{{ route('detail', ['id' => $r->id]) }}"
+                            <a href="{{ route('user.restoran.show', ['id' => $r->id]) }}"
                                 class="block text-center py-2 rounded-full bg-red-600 text-white font-medium text-sm hover:bg-red-700 transition">
                                 Lihat Detail
                             </a>

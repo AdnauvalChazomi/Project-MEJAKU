@@ -43,9 +43,9 @@
                         <span class="ml-1">4.5</span>
                     </div>
                 </div>
-                <a href="{{ route('reservations') }}"
-                    class="mt-3 md:mt-0 px-5 py-2 bg-red-600 text-white rounded-lg text-sm font-semibold hover:bg-red-700 active:scale-95 focus:outline-none 
-                    focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
+                <a href="{{ route('reservations.create', ['id' => $restoran->id]) }}"
+                    class="mt-3 md:mt-0 px-5 py-2 bg-red-600 text-white rounded-lg text-sm font-semibold hover:bg-red-700 active:scale-95 focus:outline-none
+                    focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
                     shadow-md hover:shadow-lg">
                     Reservasi
                 </a>
@@ -134,9 +134,9 @@
         <!-- Tombol Reservasi -->
         <button
             @click="window.location.href='{{ route('reservations') }}'"
-            class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold 
-                    hover:bg-red-700 active:scale-95 focus:outline-none 
-                    focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
+            class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold
+                    hover:bg-red-700 active:scale-95 focus:outline-none
+                    focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
                     shadow-md hover:shadow-lg my-6">
             Reservasi Sekarang
         </button>
