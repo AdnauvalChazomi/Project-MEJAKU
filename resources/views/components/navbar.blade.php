@@ -158,7 +158,7 @@ $role = $user->role ?? null;
             <ul class="space-y-4">
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-home-4-line text-lg"></i>
-                    <a href="{{ url('/customer/dashboard') }}">Dashboard</a>
+                    <a href="{{ url('/') }}">Dashboard</a>
                 </li>
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-calendar-line text-lg"></i>

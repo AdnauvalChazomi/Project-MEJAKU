@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\user\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('user.dashboard');
-});
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/search', [DashboardController::class, 'search'])->name('search');
+
+Route::get('/restoran/{id}', [DashboardController::class, 'show'])->name('user.restoran.show');
 
 
 // Route::get('/dashboard', function () {
@@ -39,9 +41,9 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     })->name('customer.dashboard');
 });
 
-Route::get('/search', function () {
-    return view('user.search');
-});
+// Route::get('/search', function () {
+//     return view('user.search');
+// });
 
 Route::get('/detail', function () {
     return view('user.detail');

@@ -4,27 +4,28 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('operational', function (Blueprint $table) {
+        Schema::create('foto_menu', function (Blueprint $table) {
             $table->id();
             $table->foreignId('owner_id')->constrained('owners')->onDelete('cascade');
 
-            $table->time('jam_buka');
-            $table->time('jam_tutup');
-
-            $table->integer('jumlah_meja');
-            $table->integer('jumlah_kursi');
-
-            $table->string('kategori_layanan');
+            $table->string('url');
 
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('operational_data');
+        Schema::dropIfExists('foto_menu');
     }
 };
