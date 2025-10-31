@@ -10,6 +10,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
+
+        if ($user && $user->role === 'owner') {
+            return redirect()->route('owner.dashboard');
+        }
+
         $rekomendasi = Owner::select('id', 'nama_restoran', 'alamat_restoran', 'foto_restoran', 'summary')
             ->latest()
             ->take(4)

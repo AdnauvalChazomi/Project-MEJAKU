@@ -17,7 +17,6 @@
 @section('content')
     <div x-data="{ open: false }" class="relative">
         <div class="max-w-lg mx-auto">
-            <!-- Breadcrumb -->
             <nav class="px-4 py-3 text-sm text-gray-500 flex items-center space-x-2">
                 <a href="{{ route('dashboard') }}" class="hover:underline">Dashboard</a>
                 <span>/</span>
@@ -89,7 +88,7 @@
 
                             <!-- Gambar -->
                             <div class="relative overflow-hidden">
-                                <img src="{{ asset($menu->foto ?? 'images/menu/placeholder.png') }}"
+                                <img src="{{ asset($menu->foto ?? 'storage/images/menu/placeholder.png') }}"
                                     alt="{{ $menu->nama }}"
                                     class="w-full h-32 object-cover transform transition-transform duration-500 group-hover:scale-110">
                                 <div x-show="hover" x-transition
