@@ -167,6 +167,18 @@ Route::get('/kelola-promo', function () {
      return view('owner.promos.index');
 });
 
+Route::get('/analytic', function () {
+     return view('owner.analytics.index');
+});
+
+Route::get('/integrasi-pre-order', function () {
+     return view('owner.integrasi-pre-order.index');
+});
+
+Route::get('/manajemen-acara', function () {
+     return view('owner.manajemen-acara.index');
+});
+
 
 
 

@@ -2,8 +2,8 @@
 @section('title', 'Dashboard Owner | MejaKu')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 px-5 md:px-10 py-8 space-y-10">
-    <section class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="relative max-w-lg mx-auto min-h-screen p-3">
+    <section class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 my-3">
         <div>
             <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Dashboard</h1>
             <p class="text-sm text-gray-500 mt-1">Cafe Lorem</p>
@@ -23,7 +23,7 @@
 
     {{-- Menu Utama --}}
     <section>
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Manajemen Restoran</h2>
+        <h2 class="text-lg font-semibold text-gray-800 my-4">Manajemen Restoran</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             @foreach([
                 ['icon' => 'https://cdn-icons-png.flaticon.com/512/2890/2890793.png', 'label' => 'Manajemen Reservasi'],
@@ -42,7 +42,7 @@
 
     {{-- Fitur Premium --}}
     <section>
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Fitur Premium</h2>
+        <h2 class="text-lg font-semibold text-gray-800 my-4">Fitur Premium</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             @foreach([
                 ['label' => 'Analitik Pelanggan'],
@@ -60,8 +60,8 @@
     </section>
 
     {{-- Promosi & Iklan --}}
-    <section>
-        <div class="flex items-center justify-between mb-4">
+    <section class="mb-3">
+        <div class="flex items-center justify-between my-4">
             <h2 class="text-lg font-semibold text-gray-800">Promosi & Iklan</h2>
             <button
                 class="text-xs border border-gray-300 px-3 py-1.5 rounded-full hover:bg-gray-100 transition font-medium text-gray-600 flex items-center gap-1">
@@ -85,7 +85,7 @@
     </section>
 
     {{-- Statistik --}}
-    <section class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
+    <section class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 mb-3">
         <div class="flex items-center justify-between mb-4">
             <h2 class="text-lg font-semibold text-gray-800">Statistik</h2>
             <select
