@@ -2,7 +2,7 @@
 @section('title', 'Kelola Promo | MejaKu')
 
 @section('content')
-<div x-data="{ tab: 'aktif' }" class="min-h-screen bg-gray-50 px-5 md:px-10 py-8 space-y-8">
+<div x-data="{ tab: 'aktif' }" class="relative max-w-lg mx-auto min-h-screen">
 
     {{-- Header --}}
     <header class="flex items-center gap-3">
@@ -13,7 +13,7 @@
                     d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-xl md:text-2xl font-semibold text-gray-900">Kelola Promo</h1>
+        <h1 class="text-xl md:text-2xl font-semibold text-gray-900 my-3">Kelola Promo</h1>
     </header>
 
     {{-- Tab Promo --}}

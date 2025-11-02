@@ -38,19 +38,15 @@
             </div>
         </section>
 
-        <section>
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Fitur Premium</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                @foreach ([['label' => 'Analitik Pelanggan'], ['label' => 'Integrasi Pre-Order'], ['label' => 'Manajemen Acara']] as $item)
-                    <div
-                        class="bg-gradient-to-br from-amber-50 to-[#FFF7F1] border border-amber-200 rounded-2xl p-5 flex flex-col items-center justify-center hover:shadow-md transition">
-                        <span
-                            class="inline-block bg-red-500 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full mb-2 shadow-sm">PRO</span>
-                        <p class="font-medium text-gray-800 text-sm text-center">{{ $item['label'] }}</p>
-                    </div>
-                @endforeach
-            </div>
-        </section>
+    {{-- Promosi & Iklan --}}
+    <section class="mb-3">
+        <div class="flex items-center justify-between my-4">
+            <h2 class="text-lg font-semibold text-gray-800">Promosi & Iklan</h2>
+            <button
+                class="text-xs border border-gray-300 px-3 py-1.5 rounded-full hover:bg-gray-100 transition font-medium text-gray-600 flex items-center gap-1">
+                <span>+</span> Promo
+            </button>
+        </div>
 
         <section>
             <div class="flex items-center justify-between mb-4">
@@ -76,15 +72,16 @@
             </div>
         </section>
 
-        <section class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-lg font-semibold text-gray-800">Statistik</h2>
-                <select
-                    class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-50">
-                    <option>Bulan Ini</option>
-                    <option>Minggu Ini</option>
-                </select>
-            </div>
+    {{-- Statistik --}}
+    <section class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 mb-3">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold text-gray-800">Statistik</h2>
+            <select
+                class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-50">
+                <option>Bulan Ini</option>
+                <option>Minggu Ini</option>
+            </select>
+        </div>
 
             <div class="space-y-5">
                 <div>
