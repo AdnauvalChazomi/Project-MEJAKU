@@ -21,7 +21,7 @@
         <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=300&q=80"
             alt="Cafe Image"
             class="w-24 h-24 rounded-full object-cover shadow-md mb-4">
-        <h2 class="text-lg font-semibold text-gray-900">Cafe Lorem</h2>
+        <h2 class="text-lg font-semibold text-gray-900">{{ $user->name }}</h2>
         <p class="text-sm text-gray-500">Jakarta</p>
         <p class="text-sm text-green-600 font-medium mt-1">Buka • tutup Pukul 22:00</p>
 

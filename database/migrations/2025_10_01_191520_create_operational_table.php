@@ -11,8 +11,14 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('owner_id')->constrained('owners')->onDelete('cascade');
 
+            $table->enum('hari', [
+                'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'
+            ]);
+
             $table->time('jam_buka');
             $table->time('jam_tutup');
+
+            $table->enum('area', ['Indoor', 'Outdoor', 'Semi Outdoor'])->nullable();
 
             $table->integer('jumlah_meja');
             $table->integer('jumlah_kursi');
@@ -25,6 +31,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('operational_data');
+        Schema::dropIfExists('operational');
     }
 };

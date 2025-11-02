@@ -68,7 +68,7 @@ $role = $user->role ?? null;
                 </button>
 
                 {{-- Pengaturan --}}
-                <a href="{{ url('/owner/settings') }}" class="text-gray-700 hover:text-[#A63232]">
+                <a href="{{ route('setting.index', ['id' => $ownerId]) }}" class="text-gray-700 hover:text-[#A63232]">
                     <i class="ri-settings-3-line text-2xl"></i>
                 </a>
             </div>

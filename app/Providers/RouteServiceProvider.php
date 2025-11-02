@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    public const HOME = '/';
 
     public static function redirectTo(): string
     {
@@ -30,7 +30,7 @@ class RouteServiceProvider extends ServiceProvider
 
         return match ($user->role) {
             'owner' => '/owner/dashboard',
-            'customer'  => '/customer/dashboard',
+            'customer'  => '/',
             default => self::HOME,
         };
     }

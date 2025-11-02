@@ -20,6 +20,11 @@ class Owner extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function menus()
+    {
+        return $this->hasMany(Menu::class, 'owner_id');
+    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class, 'owner_id', 'id');

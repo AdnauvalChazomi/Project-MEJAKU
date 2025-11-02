@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\owner\ReservationManageController;
+use App\Http\Controllers\owner\SettingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\user\DashboardController;
+use App\Http\Controllers\owner\DashboardController as DashboardOwnerController;
+use App\Http\Controllers\user\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,20 +23,24 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/search', [DashboardController::class, 'search'])->name('search');
 
 Route::get('/restoran/{id}', [DashboardController::class, 'show'])->name('user.restoran.show');
+Route::get('/restoran/{id}/reservasi', [ReservationController::class, 'create'])
+    ->name('reservations.create');
+
+Route::get('/owner/settings/{id}', [SettingController::class, 'index'])
+    ->name('setting.index');
 
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('user.dashboard');
-})->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('user.dashboard');
+// })->name('dashboard');
 
 Route::middleware(['auth', 'role:owner'])->group(function () {
-    Route::get('/owner/dashboard', function () {
-        return view('owner.dashboard');
-    })->name('owner.dashboard');
+    Route::get('/owner/dashboard', [DashboardOwnerController::class, 'index'])->name('owner.dashboard');
+    Route::get('/owner/dashboard/reservasi', [ReservationManageController::class, 'index'])->name('owner.reservations');
 });
 
 Route::middleware(['auth', 'role:customer'])->group(function () {
@@ -172,31 +180,31 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/dashboard-owner', function () {
-     return view('owner.dashboard');
+    return view('owner.dashboard');
 });
 
 Route::get('/notifikasi', function () {
-     return view('owner.notification');
+    return view('owner.notification');
 });
 
 Route::get('/pengaturan', function () {
-     return view('owner.settings');
+    return view('owner.settings');
 });
 
 Route::get('/manajemen-reservasi', function () {
-     return view('owner.reservations.index');
+    return view('owner.reservations.index');
 });
 
 Route::get('/kelola-menu', function () {
-     return view('owner.menu.index');
+    return view('owner.menu.index');
 });
 
 Route::get('/kelola-pesanan', function () {
-     return view('owner.orders.index');
+    return view('owner.orders.index');
 });
 
 Route::get('/kelola-promo', function () {
-     return view('owner.promos.index');
+    return view('owner.promos.index');
 });
 
 Route::get('/analytic', function () {
@@ -210,8 +218,6 @@ Route::get('/integrasi-pre-order', function () {
 Route::get('/manajemen-acara', function () {
      return view('owner.manajemen-acara.index');
 });
-
-
 
 
 
