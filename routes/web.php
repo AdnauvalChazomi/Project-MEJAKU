@@ -131,6 +131,38 @@ Route::get('/metode-pembayaran', function () {
     return view('metode-pembayaran');
 })->name('metode-pembayaran');
 
+Route::get('/kelola-menu/tambahmenu', function () {
+    return view('owner.menu.create');
+})->name('kelola-menu.create');
+
+Route::get('/owner/settings', function () {
+    return view('owner.settings');
+})->name('owner.settings');
+
+Route::get('/owner/promos', function () {
+    return view('owner.promos.create');
+})->name('promos.create');
+
+Route::get('/owner/profilrestoran', function () {
+    return view('owner.profile.profilerestoran');
+})->name('profile.profilrestoran');
+
+Route::get('/owner/premium', function () {
+    return view('owner.premium.index');
+})->name('premium.index');
+
+Route::get('/premium/pembayaran', function () {
+    return view('owner.premium.pembayaran');
+})->name('premium.pembayaran'); 
+
+Route::get('owner/metadata', function () {
+    return view('auth.owner.owner-metadata');
+})->name('owner.owner-metadata'); 
+
+Route::get('owner/pembayaran', function () {
+    return view('auth.owner.detail-pembayaran');
+})->name('owner.detail-pembayaran'); 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
