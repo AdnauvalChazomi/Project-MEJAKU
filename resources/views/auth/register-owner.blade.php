@@ -16,9 +16,9 @@
         @csrf
 
         <!-- Nama Lengkap Pemilik -->
-        <div class="space-y-2"> 
+        <div class="space-y-2">
             <label for="name" class="block text-sm font-medium text-gray-700">Nama Lengkap Pemilik</label>
-            <input id="name" name="name" type="text" required 
+            <input id="name" name="name" type="text" required
                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                    placeholder="Masukkan nama lengkap pemilik" value="{{ old('name') }}">
             @error('name')
@@ -29,7 +29,7 @@
         <!-- Email -->
         <div class="space-y-2">
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-            <input id="email" name="email" type="email" required 
+            <input id="email" name="email" type="email" required
                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                    placeholder="Masukkan email" value="{{ old('email') }}">
             @error('email')
@@ -40,7 +40,7 @@
         <!-- Nomor Telepon -->
         <div class="space-y-2">
             <label for="no_hp" class="block text-sm font-medium text-gray-700">Nomor Telepon</label>
-            <input id="no_hp" name="no_hp" type="tel" required 
+            <input id="no_hp" name="no_hp" type="tel" required
                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                    placeholder="Masukkan nomor telepon" value="{{ old('no_hp') }}"
                    inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
@@ -53,7 +53,7 @@
         <div class="space-y-2">
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
             <div class="relative">
-                <input id="password" name="password" type="password" required 
+                <input id="password" name="password" type="password" required
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                        placeholder="Masukkan password">
                 <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
@@ -70,7 +70,7 @@
 
         <!-- Terms Checkbox -->
         <div class="flex items-start space-x-2">
-            <input id="terms" name="terms" type="checkbox" required 
+            <input id="terms" name="terms" type="checkbox" required
                    class="mt-1 h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-2 focus:ring-red-500">
             <label for="terms" class="text-sm text-gray-700">
                 Dengan mengklik "Daftar" Anda menerima syarat dan ketentuan kami
@@ -111,7 +111,7 @@
         <!-- Login Link -->
         <div class="text-center">
             <p class="text-sm text-gray-600">
-                Sudah punya akun? 
+                Sudah punya akun?
                 <a href="{{ route('login') }}" class="text-red-600 hover:text-red-800 font-medium">
                     Masuk
                 </a>
