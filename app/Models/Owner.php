@@ -13,6 +13,10 @@ class Owner extends Model
         'user_id',
         'nama_restoran',
         'alamat_restoran',
+        'foto_restoran',
+        'lokasi_restoran',
+        'nib',
+
     ];
 
     public function user()
