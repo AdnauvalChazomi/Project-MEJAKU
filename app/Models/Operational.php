@@ -5,24 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class Operational extends Model
 {
     use HasFactory;
 
-    protected $table = 'menus';
+    protected $table = 'operational';
 
     protected $fillable = [
         'owner_id',
-        'nama',
-        'deskripsi',
-        'kategori',
-        'harga',
-        'foto',
+        'hari',
+        'jam_buka',
+        'jam_tutup',
+        'area',
+        'jumlah_meja',
+        'jumlah_kursi',
+        'kategori_layanan',
     ];
 
-    /**
-     * Relasi: satu menu dimiliki oleh satu owner.
-     */
     public function owner()
     {
         return $this->belongsTo(Owner::class, 'owner_id');

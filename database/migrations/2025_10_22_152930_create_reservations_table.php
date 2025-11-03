@@ -23,6 +23,11 @@ return new class extends Migration
                 ->constrained('owners')
                 ->cascadeOnDelete();
 
+            $table->foreignId('meja_id')
+                ->nullable()
+                ->constrained('mejas')
+                ->nullOnDelete();
+
             $table->date('tanggal_reservasi');
             $table->time('jam_reservasi');
             $table->integer('jumlah_tamu');
@@ -39,9 +44,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Balikkan migration.
-     */
     public function down(): void
     {
         Schema::dropIfExists('reservations');

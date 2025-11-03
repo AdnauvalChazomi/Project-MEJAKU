@@ -1,120 +1,170 @@
 @extends('layouts.app')
 @section('title', 'Kelola Menu | MejaKu')
 
+@php
+    $owner = $user->owner;
+@endphp
+
 @section('content')
-<div x-data="{ category: 'makanan' }" class="relative max-w-lg mx-auto min-h-screen">
+    <div x-data="{ category: 'makanan' }" class="relative max-w-lg mx-auto min-h-screen">
 
-    {{-- Header --}}
-    <header class="flex items-center gap-3">
-        <button onclick="window.history.back()" class="p-2 hover:bg-gray-100 rounded-full transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 19l-7-7 7-7" />
-            </svg>
-        </button>
-        <h1 class="text-xl md:text-2xl font-semibold text-gray-900 my-3">Kelola Menu</h1>
-    </header>
-
-    {{-- Search & Tabs --}}
-    <div class="space-y-5">
-        {{-- Search Bar --}}
-        <div class="relative">
-            <input type="text" placeholder="Cari Disini..."
-                class="w-full rounded-full border border-gray-200 bg-white pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 shadow-sm placeholder-gray-400" />
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 absolute left-3.5 top-2.5 text-gray-400"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-        </div>
-
-        {{-- Tabs Kategori --}}
-        <div class="flex items-center gap-3">
-            <button @click="category = 'makanan'"
-                :class="category === 'makanan' ? 'bg-red-700 text-white' : 'bg-white border border-gray-300 text-gray-800'"
-                class="px-4 py-2 rounded-full text-sm font-medium transition mb-3">
-                Makanan
-            </button>
-            <button @click="category = 'minuman'"
-                :class="category === 'minuman' ? 'bg-red-700 text-white' : 'bg-white border border-gray-300 text-gray-800'"
-                class="px-4 py-2 rounded-full text-sm font-medium transition mb-3">
-                Minuman
-            </button>
-            <button
-                class="ml-auto p-2.5 rounded-full bg-red-700 hover:bg-red-800 text-white shadow-sm transition"
-                title="Tambah Kategori">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+        {{-- Header --}}
+        <header class="flex items-center gap-3">
+            <button onclick="window.history.back()" class="p-2 hover:bg-gray-100 rounded-full transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 4v16m8-8H4" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
             </button>
-        </div>
-    </div>
+            <h1 class="text-xl md:text-2xl font-semibold text-gray-900 my-3">Kelola Menu</h1>
+        </header>
 
-    {{-- Grid Menu --}}
-    <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" x-show="category === 'makanan'" x-transition>
-        @foreach ([
-            ['img' => 'https://images.unsplash.com/photo-1601924582971-d9da5f4c67af?w=800&q=80', 'name' => 'Pizza', 'price' => 'Rp 25.000'],
-            ['img' => 'https://images.unsplash.com/photo-1632207194852-8e8bb8a24d43?w=800&q=80', 'name' => 'Tahu', 'price' => 'Rp 25.000'],
-            ['img' => 'https://images.unsplash.com/photo-1632207194852-8e8bb8a24d43?w=800&q=80', 'name' => 'Bakso Goreng', 'price' => 'Rp 25.000'],
-        ] as $menu)
-        <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition">
+        {{-- Input Pencarian --}}
+        <div class="space-y-5">
             <div class="relative">
-                <img src="{{ $menu['img'] }}" alt="{{ $menu['name'] }}" class="w-full h-32 object-cover">
-                <button
-                    class="absolute top-2 right-2 bg-red-700 text-white p-1.5 rounded-md shadow-sm hover:bg-red-800 transition"
-                    title="Edit Menu">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                <input type="text" placeholder="Cari Disini..."
+                    class="w-full rounded-full border border-gray-200 bg-white pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 shadow-sm placeholder-gray-400" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 absolute left-3.5 top-2.5 text-gray-400"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+
+            {{-- Tabs Kategori --}}
+            <div class="flex items-center gap-3">
+                <button @click="category = 'makanan'"
+                    :class="category === 'makanan' ? 'bg-red-700 text-white' : 'bg-white border border-gray-300 text-gray-800'"
+                    class="px-4 py-2 rounded-full text-sm font-medium transition mb-3">
+                    Makanan
+                </button>
+                <button @click="category = 'minuman'"
+                    :class="category === 'minuman' ? 'bg-red-700 text-white' : 'bg-white border border-gray-300 text-gray-800'"
+                    class="px-4 py-2 rounded-full text-sm font-medium transition mb-3">
+                    Minuman
+                </button>
+                <button @click="category = 'dessert'"
+                    :class="category === 'dessert' ? 'bg-red-700 text-white' : 'bg-white border border-gray-300 text-gray-800'"
+                    class="px-4 py-2 rounded-full text-sm font-medium transition mb-3">
+                    Dessert
+                </button>
+                <button @click="category = 'lainnya'"
+                    :class="category === 'lainnya' ? 'bg-red-700 text-white' : 'bg-white border border-gray-300 text-gray-800'"
+                    class="px-4 py-2 rounded-full text-sm font-medium transition mb-3">
+                    Lainnya
+                </button>
+
+                <button class="ml-auto p-2.5 rounded-full bg-red-700 hover:bg-red-800 text-white shadow-sm transition"
+                    title="Tambah Menu" onclick="window.location='{{ route('menu.create', ['id' => $owner->id]) }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 5h2m2 0h2M5 5h2m-2 4h14m-14 4h14m-14 4h14" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
                 </button>
             </div>
-            <div class="p-3 text-center">
-                <h3 class="text-sm font-semibold text-gray-800">{{ $menu['name'] }}</h3>
-                <p class="text-xs text-gray-500">{{ $menu['price'] }}</p>
-            </div>
         </div>
-        @endforeach
-    </section>
 
-    {{-- Grid Minuman --}}
-    <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" x-show="category === 'minuman'" x-transition>
-        @foreach ([
-            ['img' => 'https://images.unsplash.com/photo-1588361861040-7e0b9c9b1b57?w=800&q=80', 'name' => 'Es Teh Manis', 'price' => 'Rp 10.000'],
-            ['img' => 'https://images.unsplash.com/photo-1613470209380-1e7b12a23d25?w=800&q=80', 'name' => 'Kopi Susu', 'price' => 'Rp 15.000'],
-        ] as $menu)
-        <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition">
-            <div class="relative">
-                <img src="{{ $menu['img'] }}" alt="{{ $menu['name'] }}" class="w-full h-32 object-cover">
-                <button
-                    class="absolute top-2 right-2 bg-red-700 text-white p-1.5 rounded-md shadow-sm hover:bg-red-800 transition"
-                    title="Edit Menu">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 5h2m2 0h2M5 5h2m-2 4h14m-14 4h14m-14 4h14" />
-                    </svg>
+        {{-- Grid Menu Berdasarkan Kategori --}}
+        @foreach (['makanan', 'minuman', 'dessert', 'lainnya'] as $kategori)
+            <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4"
+                x-show="category === '{{ $kategori }}'" x-transition>
+                @php
+                    $filteredMenus = $menus->where('kategori', $kategori);
+                @endphp
+
+                @forelse ($filteredMenus as $menu)
+                    <div
+                        class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition">
+                        <div class="relative">
+                            <img src="{{ asset('storage/' . $menu->foto) }}" alt="{{ $menu->nama }}"
+                                class="w-full h-32 object-cover">
+                            <a href="{{ route('menu.edit', ['id' => $menu->id]) }}"
+                                class="absolute top-2 right-2 bg-red-700 text-white p-1.5 rounded-md shadow-sm hover:bg-red-800 transition"
+                                title="Edit Menu">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15.232 5.232l3.536 3.536M9 11l6.232-6.232a2.121 2.121 0 113 3L12 14H9v-3z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 19H5a2 2 0 01-2-2V7a2 2 0 012-2h7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h3 class="text-sm font-semibold text-gray-800">{{ $menu->nama }}</h3>
+                            <p class="text-xs text-gray-500">Rp {{ number_format($menu->harga, 0, ',', '.') }}</p>
+                        </div>
+                    </div>
+                @empty
+                    <p class="col-span-full text-center text-gray-500 text-sm py-4">
+                        Belum ada menu {{ $kategori }}.
+                    </p>
+                @endforelse
+            </section>
+        @endforeach
+
+        {{-- Tombol Tambah Menu --}}
+        <div class="pt-4">
+            <a href="{{ route('menu.create', ['id' => $owner->id]) }}"
+                class="block w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-3 rounded-full transition-all duration-200 shadow-sm hover:shadow-md text-center">
+                Tambah Menu
+            </a>
+        </div>
+
+        <div class="mt-10 border-t border-gray-200 pt-6">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Foto Menu Restoran</h2>
+
+            <form action="{{ route('menu.uploadFoto') }}" method="POST" enctype="multipart/form-data"
+                class="flex items-center gap-3">
+                @csrf
+                <input type="hidden" name="owner_id" value="{{ $owner->id }}">
+                <input type="file" name="foto" accept="image/*" required
+                    class="block w-full border border-gray-300 rounded-lg text-sm text-gray-700 file:mr-3 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-red-700 file:text-white hover:file:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-1">
+                <button type="submit"
+                    class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-md shadow-sm transition">
+                    Upload
                 </button>
-            </div>
-            <div class="p-3 text-center">
-                <h3 class="text-sm font-semibold text-gray-800">{{ $menu['name'] }}</h3>
-                <p class="text-xs text-gray-500">{{ $menu['price'] }}</p>
+            </form>
+
+            <div x-data="{ openImage: null }">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-66 gap-4 my-6">
+                    @forelse ($fotoMenus as $foto)
+                        <div class="flex flex-col items-center space-y-2 cursor-pointer"
+                            @click="openImage = '{{ asset('storage/' . $foto->url) }}'">
+                            <img src="{{ asset('storage/' . $foto->url) }}" alt="Foto Menu"
+                                class="w-full h-full object-cover rounded-lg border border-gray-200 shadow-sm hover:scale-105 transition-transform duration-300">
+
+                            <form action="{{ route('menu.destroyFoto', $foto->id) }}" method="POST"
+                                onsubmit="return confirm('Yakin ingin menghapus foto ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="flex items-center justify-center space-x-1 px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md shadow-sm transition-all duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    <span>Hapus</span>
+                                </button>
+                            </form>
+                        </div>
+                    @empty
+                        <p class="col-span-full text-gray-500 text-sm text-center">Belum ada foto menu.</p>
+                    @endforelse
+                </div>
+
+                {{-- Modal Full Image --}}
+                <div x-show="openImage" style="display: none;"
+                    class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+                    @click.self="openImage = null">
+                    <div class="relative max-w-3xl max-h-[90vh] overflow-auto">
+                        <img :src="openImage" class="w-full h-auto rounded-lg shadow-lg cursor-zoom-in"
+                            @click="$el.classList.toggle('scale-150')">
+                        <button @click="openImage = null"
+                            class="absolute top-2 right-2 text-white text-2xl font-bold">&times;</button>
+                    </div>
+                </div>
             </div>
         </div>
-        @endforeach
-    </section>
-
-    {{-- Tombol Tambah --}}
-    <div class="pt-4">
-        <button
-            class="w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-3 rounded-full transition-all duration-200 shadow-sm hover:shadow-md">
-            Tambah Menu
-        </button>
     </div>
-
-</div>
 @endsection

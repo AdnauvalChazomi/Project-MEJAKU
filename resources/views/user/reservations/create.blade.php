@@ -50,15 +50,26 @@
                     </div>
                 </div>
 
-                <!-- Pilih Jam -->
-                <h4 class="font-semibold text-base mb-2">Pilih Jam</h4>
-                <div id="jam-container" class="grid grid-cols-3 sm:grid-cols-4 gap-3 mb-6 w-full">
-                    @foreach (['08:00', '09:00', '10:00', '11:00', '15:00', '21:00', '22:00', '23:00'] as $jam)
-                        <button
-                            class="jam-btn w-full py-3 rounded-xl bg-gray-100 text-gray-800 text-lg font-semibold transition hover:bg-gray-200">
-                            {{ $jam }}
-                        </button>
-                    @endforeach
+                <!-- Jam Operasional -->
+                <div class="mb-4">
+                    <h4 class="font-semibold text-base mb-2">Jam Operasional</h4>
+                    <div class="flex items-center gap-6 text-gray-700">
+                        <div>
+                            <span class="block text-sm text-gray-500 mb-1">Jam Buka</span>
+                            <span class="font-semibold text-lg">08:00</span>
+                        </div>
+                        <div>
+                            <span class="block text-sm text-gray-500 mb-1">Jam Tutup</span>
+                            <span class="font-semibold text-lg">23:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Jam Reservasi -->
+                <div class="mb-6">
+                    <h4 class="font-semibold text-base mb-2">Pilih Jam Reservasi</h4>
+                    <input type="time" name="jam_reservasi"
+                        class="w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none text-gray-800 font-semibold text-lg">
                 </div>
 
                 <!-- Pilih Area -->
@@ -88,8 +99,7 @@
 
                             <!-- Gambar -->
                             <div class="relative overflow-hidden">
-                                <img src="{{ asset($menu->foto ?? 'storage/images/menu/placeholder.png') }}"
-                                    alt="{{ $menu->nama }}"
+                                <img src="{{ asset('storage/' . $menu->foto) }}" alt="{{ $menu->nama }}"
                                     class="w-full h-32 object-cover transform transition-transform duration-500 group-hover:scale-110">
                                 <div x-show="hover" x-transition
                                     class="absolute inset-0 bg-black/40 flex items-center justify-center p-3">

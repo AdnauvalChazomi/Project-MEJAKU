@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\owner\MenuController;
+use App\Http\Controllers\owner\OrderController;
+use App\Http\Controllers\owner\PromoController;
 use App\Http\Controllers\owner\ReservationManageController;
 use App\Http\Controllers\owner\SettingController;
 use App\Http\Controllers\ProfileController;
@@ -26,14 +29,42 @@ Route::get('/restoran/{id}', [DashboardController::class, 'show'])->name('user.r
 Route::get('/restoran/{id}/reservasi', [ReservationController::class, 'create'])
     ->name('reservations.create');
 
+Route::prefix('owner/{ownerId}/reservations')->group(function () {
+    Route::get('/', [ReservationManageController::class, 'index'])->name('reservations.index');
+    Route::get('/data', [ReservationManageController::class, 'getData'])->name('owner.reservations.data');
+    Route::post('/', [ReservationManageController::class, 'store'])->name('reservations.store');
+    Route::delete('/last', [ReservationManageController::class, 'destroyLast'])->name('reservations.destroyLast');
+});
+
+// Untuk ubah status meja tertentu
+Route::patch('/meja/{meja}/status', [ReservationManageController::class, 'updateStatus'])->name('reservations.updateStatus');
+
 Route::get('/owner/settings/{id}', [SettingController::class, 'index'])
     ->name('setting.index');
 
+Route::prefix('owner/dashboard/menu')->group(function () {
+    Route::get('/', [MenuController::class, 'index'])->name('menu.index');
+    Route::get('/{id}/create', [MenuController::class, 'create'])->name('menu.create');
+    Route::post('/store', [MenuController::class, 'store'])->name('menu.store');
+    Route::get('/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
+    Route::put('/update/{id}', [MenuController::class, 'update'])->name('menu.update');
+    Route::delete('/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+
+    Route::post('/upload-foto', [MenuController::class, 'uploadFoto'])->name('menu.uploadFoto');
+    Route::delete('/foto/{id}', [MenuController::class, 'destroyFoto'])->name('menu.destroyFoto');
+});
+
+Route::prefix('owner/dashboard/pesanan')->group(function () {
+    Route::get('/', [OrderController::class, 'index'])->name('pesanan.index');
+});
+
+Route::prefix('owner/dashboard/promo')->group(function () {
+    Route::get('/', [PromoController::class, 'index'])->name('promo.index');
+});
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
-
 // Route::get('/dashboard', function () {
 //     return view('user.dashboard');
 // })->name('dashboard');
@@ -161,15 +192,15 @@ Route::get('/owner/premium', function () {
 
 Route::get('/premium/pembayaran', function () {
     return view('owner.premium.pembayaran');
-})->name('premium.pembayaran'); 
+})->name('premium.pembayaran');
 
 Route::get('owner/metadata', function () {
     return view('auth.owner.owner-metadata');
-})->name('owner.owner-metadata'); 
+})->name('owner.owner-metadata');
 
 Route::get('owner/pembayaran', function () {
     return view('auth.owner.detail-pembayaran');
-})->name('owner.detail-pembayaran'); 
+})->name('owner.detail-pembayaran');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

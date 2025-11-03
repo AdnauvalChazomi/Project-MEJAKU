@@ -13,7 +13,8 @@ return new class extends Migration {
 
             $table->string('nama');
             $table->text('deskripsi')->nullable();
-
+            $table->text('deskripsi')->nullable();
+            $table->enum('kategori', ['makanan', 'minuman', 'dessert'])->default('makanan');
             $table->decimal('harga', 12, 2);
 
             $table->string('foto')->default('images/menu/placeholder.png');
