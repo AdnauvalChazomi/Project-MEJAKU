@@ -13,17 +13,29 @@ class Operational extends Model
 
     protected $fillable = [
         'owner_id',
-        'hari',
         'jam_buka',
         'jam_tutup',
         'area',
-        'jumlah_meja',
-        'jumlah_kursi',
         'kategori_layanan',
+    ];
+
+    protected $casts = [
+        'area' => 'array',
+        'kategori_layanan' => 'array',
     ];
 
     public function owner()
     {
         return $this->belongsTo(Owner::class, 'owner_id');
+    }
+
+    public function getJamBukaAttribute($value)
+    {
+        return date('H:i', strtotime($value));
+    }
+
+    public function getJamTutupAttribute($value)
+    {
+        return date('H:i', strtotime($value));
     }
 }

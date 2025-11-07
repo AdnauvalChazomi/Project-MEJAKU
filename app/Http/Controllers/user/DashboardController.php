@@ -30,6 +30,7 @@ class DashboardController extends Controller
 
         return view('user.restoran.show', compact('restoran'));
     }
+
     public function search(Request $request)
     {
         $keyword = $request->input('q');

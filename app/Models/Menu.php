@@ -27,4 +27,9 @@ class Menu extends Model
     {
         return $this->belongsTo(Owner::class, 'owner_id');
     }
+
+    public function unggulan()
+    {
+        return $this->hasOne(MenuUnggulan::class);
+    }
 }

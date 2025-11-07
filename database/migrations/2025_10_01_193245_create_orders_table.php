@@ -11,6 +11,8 @@ return new class extends Migration {
             $table->id();
 
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->foreignId('reservation_id')->constrained('reservations')->onDelete('cascade');
+            $table->string('nomor_pesanan');
 
             $table->enum('status', ['pending', 'paid', 'completed', 'cancelled'])->default('pending');
 

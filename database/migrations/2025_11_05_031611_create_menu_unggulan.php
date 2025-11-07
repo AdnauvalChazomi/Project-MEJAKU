@@ -7,22 +7,17 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('operational', function (Blueprint $table) {
+        Schema::create('menu_unggulan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('menu_id')->constrained('menus')->onDelete('cascade');
             $table->foreignId('owner_id')->constrained('owners')->onDelete('cascade');
-
-            $table->time('jam_buka');
-            $table->time('jam_tutup');
-
-            $table->json('area')->nullable();
-            $table->json('kategori_layanan')->nullable();
-
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('operational');
+        Schema::dropIfExists('menu_unggulan');
     }
 };

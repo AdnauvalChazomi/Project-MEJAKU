@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -45,14 +45,14 @@
                 <h2 class="text-sm text-gray-500 font-medium mb-1">Detail Reservasi</h2>
                 <p class="text-sm font-medium text-gray-500">Total</p>
                 <p class="text-3xl font-bold text-gray-900 mb-4 color-mejaku-main">Rp 50.000</p>
-                
+
                 <p class="text-sm font-medium text-gray-500 mb-2">Nomor Virtual Akun</p>
                 <p class="text-2xl font-bold text-gray-900 tracking-wide mb-4">12345678909876</p>
             </section>
 
             <section class="mb-8 border-b pb-6">
                 <h2 class="text-lg font-bold text-gray-900 mb-3">Tata Cara</h2>
-                
+
                 <ol class="list-decimal list-inside ml-5 space-y-2 text-gray-700 text-base mb-6">
                     <li>1. Masuk ke menu Transfer pada myBCA.</li>
                     <li>2. Pilih Virtual Account > Transfer to new beneficiary.</li>
@@ -61,7 +61,7 @@
                     <li>5. Status transaksi akan dikirim melalui SMS dan dapat digunakan sebagai bukti pembayaran.</li>
                 </ol>
             </section>
-            
+
             <section class="mb-16">
                 <div class="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg border">
                     <i class="fas fa-clock text-3xl text-gray-600"></i>
@@ -74,7 +74,7 @@
             </section>
 
         </main>
-        
+
         <div class="w-full max-w-lg mx-auto p-4 bg-white border-t shadow-lg">
             <button
                 class="w-full py-3 text-white font-semibold rounded-lg shadow bg-mejaku-main hover:bg-mejaku-dark transition">
@@ -85,4 +85,4 @@
     </div>
 </body>
 
-</html>
+</html> --}}

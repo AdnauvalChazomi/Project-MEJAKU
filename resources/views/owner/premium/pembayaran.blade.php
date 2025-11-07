@@ -4,25 +4,21 @@
 @section('content')
     <div class="max-w-2xl mx-auto space-y-6 py-8">
 
-    <!-- Paket Information -->
     <div class="space-y-2">
         <h3 class="font-medium text-gray-900">Paket</h3>
         <p class="text-gray-600">Paket Premium Bulanan</p>
     </div>
 
-    <!-- Payment Method -->
     <div class="space-y-2">
         <h3 class="font-medium text-gray-900">Metode Pembayaran</h3>
-        
-        <!-- Select Payment Method -->
+
         <div class="border border-gray-300 rounded-lg p-3 flex justify-between items-center cursor-pointer hover:bg-gray-50">
             <span class="text-gray-700">Pilih Metode pembayaran</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
         </div>
-        
-        <!-- Voucher Success Message -->
+
         <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
@@ -36,10 +32,9 @@
         </div>
     </div>
 
-    <!-- Order Summary -->
     <div class="space-y-2">
         <h3 class="font-medium text-gray-900">Ringkasan Pesanan</h3>
-        
+
         <div class="border-t border-gray-200 pt-4 space-y-2">
             <div class="flex justify-between">
                 <span class="text-gray-700">Total Harga</span>
@@ -60,7 +55,6 @@
         </div>
     </div>
 
-    <!-- Pay Button -->
     <div class="pt-8">
         <button class="w-full py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
             Bayar

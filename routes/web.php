@@ -6,8 +6,11 @@ use App\Http\Controllers\owner\PromoController;
 use App\Http\Controllers\owner\ReservationManageController;
 use App\Http\Controllers\owner\SettingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\owner\RestoranController;
 use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\owner\DashboardController as DashboardOwnerController;
+use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\User\PreorderController;
 use App\Http\Controllers\user\ReservationController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +31,24 @@ Route::get('/search', [DashboardController::class, 'search'])->name('search');
 Route::get('/restoran/{id}', [DashboardController::class, 'show'])->name('user.restoran.show');
 Route::get('/restoran/{id}/reservasi', [ReservationController::class, 'create'])
     ->name('reservations.create');
+Route::post('/reservations', [ReservationController::class, 'store'])
+    ->middleware('auth')
+    ->name('user.reservations.store');
+Route::get('/preorder/{reservation}', [PreorderController::class, 'index'])->name('preorder');
+Route::post('/preorder/{reservation}', [PreorderController::class, 'store'])->name('preorder.store');
+Route::get('/preorder/{reservation}/show', [PreorderController::class, 'show'])->name('preorder.show');
+Route::post('/preorder/{id}/confirm', [PreorderController::class, 'confirm'])->name('preorder.confirm');
+Route::delete('/preorder/{id}/destroy', [PreorderController::class, 'destroy'])->name('preorder.destroy');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/payment/{id}', [PaymentController::class, 'show'])->name('payment.show');
+    Route::post('/payment/{id}/confirm', [PaymentController::class, 'confirm'])->name('payment.confirm');
+    Route::post('/midtrans/callback', [PaymentController::class, 'callback'])->name('midtrans.callback');
+});
+
+Route::prefix('/restoran/{id}/menu')->group(function () {
+    Route::get('/', [\App\Http\Controllers\user\MenuController::class, 'index'])->name('user.menu.index');
+});
 
 Route::prefix('owner/{ownerId}/reservations')->group(function () {
     Route::get('/', [ReservationManageController::class, 'index'])->name('reservations.index');
@@ -36,7 +57,6 @@ Route::prefix('owner/{ownerId}/reservations')->group(function () {
     Route::delete('/last', [ReservationManageController::class, 'destroyLast'])->name('reservations.destroyLast');
 });
 
-// Untuk ubah status meja tertentu
 Route::patch('/meja/{meja}/status', [ReservationManageController::class, 'updateStatus'])->name('reservations.updateStatus');
 
 Route::get('/owner/settings/{id}', [SettingController::class, 'index'])
@@ -54,12 +74,25 @@ Route::prefix('owner/dashboard/menu')->group(function () {
     Route::delete('/foto/{id}', [MenuController::class, 'destroyFoto'])->name('menu.destroyFoto');
 });
 
+
 Route::prefix('owner/dashboard/pesanan')->group(function () {
     Route::get('/', [OrderController::class, 'index'])->name('pesanan.index');
 });
 
 Route::prefix('owner/dashboard/promo')->group(function () {
     Route::get('/', [PromoController::class, 'index'])->name('promo.index');
+});
+
+Route::middleware(['auth'])->prefix('owner/restoran')->name('owner.restoran.')->group(function () {
+    Route::get('/', [RestoranController::class, 'edit'])->name('edit');
+    Route::post('/foto', [RestoranController::class, 'storeFotoMenu'])->name('foto.menu.store');
+    Route::delete('/foto/{id}', [RestoranController::class, 'destroyFotoMenu'])->name('foto.menu.destroy');
+    Route::post('/restoran/foto', [RestoranController::class, 'storeFotoRestoran'])->name('foto.store');
+    Route::delete('/restoran/foto', [RestoranController::class, 'deleteFotoRestoran'])->name('foto.destroy');
+    Route::put('/restoran', [RestoranController::class, 'storeRestoran'])->name('store');
+    Route::put('/operational', [RestoranController::class, 'storeOperational'])->name('operational.store');
+    Route::post('/unggulan', [RestoranController::class, 'storeMenuUnggulan'])->name('unggulan.store');
+    Route::delete('/unggulan', [RestoranController::class, 'destroyMenuUnggulan'])->name('unggulan.destroy');
 });
 
 // Route::get('/dashboard', function () {
@@ -91,10 +124,6 @@ Route::get('/detail', function () {
 Route::get('/reservations', function () {
     return view('user.reservations');
 })->name('reservations');
-
-Route::get('/preorder', function () {
-    return view('user.preorder');
-})->name('preorder');
 
 Route::get('/select-menu', function () {
     return view('user.select-menu');
@@ -151,7 +180,7 @@ Route::get('/pilih-menu', function () {
 })->name('pilih-menu');
 
 Route::get('/pembayaran', function () {
-    return view('pembayaran');
+    return view('user.pembayaran');
 })->name('pembayaran');
 
 Route::get('/pembayaran-berhasil', function () {
@@ -239,15 +268,15 @@ Route::get('/kelola-promo', function () {
 });
 
 Route::get('/analytic', function () {
-     return view('owner.analytics.index');
+    return view('owner.analytics.index');
 });
 
 Route::get('/integrasi-pre-order', function () {
-     return view('owner.integrasi-pre-order.index');
+    return view('owner.integrasi-pre-order.index');
 });
 
 Route::get('/manajemen-acara', function () {
-     return view('owner.manajemen-acara.index');
+    return view('owner.manajemen-acara.index');
 });
 
 

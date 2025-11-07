@@ -13,10 +13,10 @@ class Owner extends Model
         'user_id',
         'nama_restoran',
         'alamat_restoran',
-        'foto_restoran',
+        'summary',
         'lokasi_restoran',
         'nib',
-
+        'foto_restoran',
     ];
 
     public function user()
@@ -24,9 +24,26 @@ class Owner extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function operational()
+    {
+        return $this->hasOne(Operational::class, 'owner_id');
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'owner_id');
+    }
+
     public function menus()
     {
         return $this->hasMany(Menu::class, 'owner_id');
+    }
+
+    public function menuUnggulan()
+    {
+        return $this->hasMany(MenuUnggulan::class, 'owner_id')
+            ->where('is_active', true)
+            ->with('menu');
     }
 
     public function reviews()
@@ -34,7 +51,8 @@ class Owner extends Model
         return $this->hasMany(Review::class, 'owner_id', 'id');
     }
 
-    public function fotoMenus() {
-    return $this->hasMany(FotoMenu::class, 'owner_id');
-}
+    public function fotoMenus()
+    {
+        return $this->hasMany(FotoMenu::class, 'owner_id');
+    }
 }

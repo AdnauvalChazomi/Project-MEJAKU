@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -138,7 +138,7 @@
 
                 <div class="mt-4 border-t border-gray-200">
                     <form method="POST" action="/logout"> @csrf
-                        <button type="submit" class="w-full text-left p-4 text-gray-700 font-medium hover:bg-red-50 hover:text-red-700 transition duration-150 text-center">
+                        <button type="submit" class="w-full text-left p-4 text-gray-700 font-medium hover:bg-red-50 hover:text-red-700 transition duration-150">
                             Log Out
                         </button>
                     </form>
@@ -173,4 +173,4 @@
     </script>
 </body>
 
-</html>
+</html> --}}
