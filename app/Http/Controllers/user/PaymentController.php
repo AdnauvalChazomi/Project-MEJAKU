@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Models\Reservation;
 use App\Services\MidtransSnapService;
 use Illuminate\Http\Request;
@@ -17,9 +16,6 @@ class PaymentController extends Controller
         $this->midtransSnapService = $midtransSnapService;
     }
 
-    /**
-     * Halaman detail pembayaran
-     */
     public function show($id)
     {
         $reservation = Reservation::with([
@@ -33,48 +29,85 @@ class PaymentController extends Controller
             abort(403, 'Anda tidak berhak mengakses reservasi ini.');
         }
 
-        return view('user.payment.index', compact('reservation'));
+        $reservationFee = 10000;
+
+        return view('user.payment.index', compact('reservation', 'reservationFee'));
     }
 
-    /**
-     * Proses checkout ke Midtrans (dari tombol “Bayar”)
-     */
     public function confirm(Request $request, $id)
     {
-        $reservation = Reservation::with('order')->findOrFail($id);
-        $order = $reservation->order;
+        $reservation = Reservation::with('order.items.menu')->findOrFail($id);
         $user = auth()->user();
 
         $reservation->update([
             'catatan' => $request->input('catatan')
         ]);
 
-        $total = (int) round($order->total_harga * 1.1);
+        $reservationFee = 10000;
+        $subtotal = 0;
+        $tax = 0;
+        $itemDetails = [];
+
+        if ($reservation->order) {
+            $order = $reservation->order;
+            $subtotal = (int) $order->total_harga;
+            $tax = (int) round($subtotal * 0.1);
+
+            $itemDetails = $order->items->map(function ($item) {
+                return [
+                    'id' => $item->id ?? uniqid(),
+                    'price' => (int) $item->menu->harga,
+                    'quantity' => (int) $item->jumlah,
+                    'name' => $item->menu->nama_menu ?? 'Item Tanpa Nama',
+                ];
+            })->toArray();
+
+            $itemDetails[] = [
+                'id' => 'tax-10',
+                'price' => $tax,
+                'quantity' => 1,
+                'name' => 'Pajak 10%',
+            ];
+        }
+
+        $itemDetails[] = [
+            'id' => 'reservation-fee',
+            'price' => $reservationFee,
+            'quantity' => 1,
+            'name' => 'Biaya Reservasi',
+        ];
+
+        $computedTotal = collect($itemDetails)->sum(function ($item) {
+            return $item['price'] * $item['quantity'];
+        });
 
         $params = [
             'transaction_details' => [
-                'order_id' => $order->nomor_pesanan,
-                'gross_amount' => $total,
+                'order_id' => $reservation->nomor_pesanan ?? 'RES-' . $reservation->id,
+                'gross_amount' => $computedTotal,
             ],
+            'item_details' => $itemDetails,
             'customer_details' => [
                 'first_name' => $user->name,
                 'email' => $user->email,
             ],
         ];
 
-        // Generate Snap token
         $snapToken = $this->midtransSnapService->createSnapToken($params);
 
-        // Kirim token ke Blade agar popup Snap bisa tampil
         return view('user.payment.snap', [
             'snapToken' => $snapToken,
             'reservation' => $reservation,
+            'total' => $computedTotal,
+            'items' => $reservation->order?->items ?? collect(),
+            'tax' => $tax,
+            'subtotal' => $subtotal,
+            'reservationFee' => $reservationFee,
         ]);
     }
 
-    /**
-     * Callback Midtrans untuk update status order
-     */
+
+
     public function callback(Request $request)
     {
         $serverKey = config('midtrans.server_key');
@@ -91,19 +124,32 @@ class PaymentController extends Controller
             return response()->json(['message' => 'Invalid signature'], 403);
         }
 
-        $order = Order::where('nomor_pesanan', $orderId)->first();
+        $reservation = Reservation::where('nomor_pesanan', $orderId)->first();
 
-        if (!$order) {
-            return response()->json(['message' => 'Order not found'], 404);
+        if (!$reservation) {
+            return response()->json(['message' => 'reservation not found'], 404);
         }
 
         match ($transactionStatus) {
-            'capture', 'settlement' => $order->update(['status' => 'paid']),
-            'pending' => $order->update(['status' => 'pending']),
-            'cancel', 'expire', 'deny' => $order->update(['status' => 'unpaid']),
+            'capture', 'settlement' => $reservation->update(['status' => 'paid']),
+            'pending' => $reservation->update(['status' => 'pending']),
+            'cancel', 'expire', 'deny' => $reservation->update(['status' => 'pending']),
             default => null,
         };
 
         return response()->json(['message' => 'Callback handled'], 200);
+    }
+
+    public function cancel($id)
+    {
+        $reservation = Reservation::with('order')->findOrFail($id);
+
+        if ($reservation->customer_id !== auth()->user()->customer->id) {
+            abort(403, 'Anda tidak berhak membatalkan reservasi ini.');
+        }
+
+        $reservation->update(['status' => 'cancelled']);
+
+        return redirect()->route('payment.show', ['id' => $reservation->id])->with('success', 'Pesanan berhasil dibatalkan.');
     }
 }

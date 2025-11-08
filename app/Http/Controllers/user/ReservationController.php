@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Owner;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ReservationController extends Controller
 {
@@ -36,11 +37,23 @@ class ReservationController extends Controller
         $validated['customer_id'] = $customer->id;
         $validated['status'] = 'pending';
 
+        $tanggal = now()->format('Ymd');
+        $random = strtoupper(Str::random(6));
+        $nomorPesanan = "RES-{$tanggal}-{$random}";
+
+        while (Reservation::where('nomor_pesanan', $nomorPesanan)->exists()) {
+            $random = strtoupper(Str::random(6));
+            $nomorPesanan = "RES-{$tanggal}-{$random}";
+        }
+
+        $validated['nomor_pesanan'] = $nomorPesanan;
+
         $reservation = Reservation::create($validated);
 
         return redirect()
             ->route('preorder', ['reservation' => $reservation->id])
             ->with('success', 'Reservasi berhasil dibuat! Silakan pilih menu Anda.');
     }
+
 }
 

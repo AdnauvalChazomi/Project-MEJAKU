@@ -13,16 +13,11 @@
     </header>
 @endsection
 
-@php
-    $order = $reservation->order;
-    $subtotal = $order->total_harga;
-    $pajak = $subtotal * 0.1;
-    $total = $subtotal + $pajak;
-@endphp
-
 @section('content')
     <div class="mx-auto min-h-screen relative">
         <main class="p-4 space-y-5 max-w-lg mx-auto bg-white md:rounded-lg md:mt-2 mb-10 md:p-10">
+
+            {{-- Informasi Pemesan --}}
             <section class="bg-white border rounded-lg p-4 shadow-sm">
                 <h2 class="text-sm font-semibold text-gray-700 mb-2">Informasi Pemesan</h2>
                 <div class="text-sm text-gray-600 space-y-1">
@@ -31,13 +26,19 @@
                         {{ $reservation->tanggal_reservasi ? \Carbon\Carbon::parse($reservation->tanggal_reservasi)->format('d M Y') : '-' }},
                         {{ $reservation->jam_reservasi ?? '-' }}
                     </p>
-                    <p><span class="font-medium">Nomor Pesanan:</span> {{ $order->nomor_pesanan ?? '-' }}</p>
+                    <p><span class="font-medium">Nomor Pesanan:</span> {{ $reservation->nomor_pesanan ?? '-' }}</p>
                     <p><span class="font-medium">Nomor Meja:</span> {{ $reservation->meja?->nomor ?? 'Belum ada' }}</p>
                     <p><span class="font-medium">Area:</span> {{ $reservation->area ?? 'Belum ada' }}</p>
                 </div>
             </section>
 
+            {{-- Daftar Order Items (opsional) --}}
             @if ($reservation->order && $reservation->order->items->isNotEmpty())
+                @php
+                    $order = $reservation->order;
+                    $subtotal = $order->total_harga;
+                    $pajak = $subtotal * 0.1;
+                @endphp
 
                 <section class="bg-white border rounded-lg p-4 shadow-sm relative">
                     <div class="divide-y">
@@ -49,8 +50,7 @@
                                     <div>
                                         <p class="text-sm font-medium text-gray-800">{{ $item->menu->nama_menu }}</p>
                                         <p class="text-xs text-gray-500">
-                                            {{ $item->jumlah }}x
-                                            Rp{{ number_format($item->harga_satuan, 0, ',', '.') }}
+                                            {{ $item->jumlah }}x Rp{{ number_format($item->harga_satuan, 0, ',', '.') }}
                                         </p>
                                     </div>
                                 </div>
@@ -60,50 +60,109 @@
                             </div>
                         @endforeach
                     </div>
-
-                    <div class="border-t mt-3 pt-3">
-                        <div class="flex justify-between text-sm font-medium text-gray-700">
-                            <p>Subtotal</p>
-                            <p>Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
+                    @if ($order->status === 'pending')
+                        <div class="mt-4 text-center">
+                            <a href="{{ route('preorder', $reservation->id) }}"
+                                class="inline-flex items-center gap-1 text-xs font-medium text-red-600 hover:underline">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.232 5.232l3.536 3.536M9 11l-3 3m3-3l9-9a2.121 2.121 0 013 3l-9 9m-3-3L3 21h6l9-9" />
+                                </svg>
+                                Ingin ganti menu? Klik di sini
+                            </a>
                         </div>
-                        <div class="flex justify-between text-sm text-gray-500">
-                            <p>Pajak (10%)</p>
-                            <p>Rp{{ number_format($pajak, 0, ',', '.') }}</p>
-                        </div>
-                        <div class="flex justify-between text-base font-semibold text-gray-800 mt-2">
-                            <p>Total</p>
-                            <p>Rp{{ number_format($total, 0, ',', '.') }}</p>
-                        </div>
-                    </div>
+                    @endif
                 </section>
+            @else
+                @php
+                    $subtotal = 0;
+                    $pajak = 0;
+                @endphp
             @endif
 
+            @php
+                $reservationFee = 10000;
+                $total = $subtotal + $pajak + $reservationFee;
+            @endphp
+
+            {{-- Subtotal, Pajak, Biaya Reservasi, Total --}}
+            <section class="bg-white border rounded-lg p-4 shadow-sm">
+                <div class="flex justify-between text-sm font-medium text-gray-700">
+                    <p>Subtotal</p>
+                    <p>Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
+                </div>
+                <div class="flex justify-between text-sm text-gray-500">
+                    <p>Pajak (10%)</p>
+                    <p>Rp{{ number_format($pajak, 0, ',', '.') }}</p>
+                </div>
+                <div class="flex justify-between text-sm mt-2 font-medium text-gray-700">
+                    <p>Biaya Reservasi</p>
+                    <p>Rp{{ number_format($reservationFee, 0, ',', '.') }}</p>
+                </div>
+                <div class="flex justify-between text-base font-semibold text-gray-800 mt-2">
+                    <p>Total</p>
+                    <p>Rp{{ number_format($total, 0, ',', '.') }}</p>
+                </div>
+            </section>
+
+            {{-- Catatan dan tombol --}}
             <section class="bg-white border rounded-lg p-4 shadow-sm">
                 <h2 class="text-sm font-semibold text-gray-700 mb-2">Catatan</h2>
-
                 <form action="{{ route('payment.confirm', $reservation->id) }}" method="POST" class="space-y-3">
                     @csrf
                     <textarea name="catatan" placeholder="Contoh: tanpa pedas, saus terpisah..."
                         class="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-red-200 focus:outline-none resize-none">{{ old('catatan', $reservation->catatan) }}</textarea>
 
-                    <p class="flex items-center gap-1 text-sm text-gray-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-600" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
-                        </svg>
-                        <span>Silakan periksa history secara berkala untuk melihat update nomor meja</span>
-                    </p>
-
-                    <button type="submit"
-                        class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold
-                   hover:bg-red-700 active:scale-95 focus:outline-none
-                   focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
-                   shadow-md hover:shadow-lg">
-                        Bayar
-                    </button>
+                    @if ($reservation->status === 'completed')
+                        <button type="button"
+                            class="w-full bg-gray-200 text-gray-600 py-3 rounded-lg font-semibold cursor-default">Reservasi
+                            Selesai</button>
+                    @elseif ($reservation->status === 'cancelled')
+                        <button type="button"
+                            class="w-full bg-gray-200 text-gray-600 py-3 rounded-lg font-semibold cursor-default">Reservasi
+                            Dibatalkan</button>
+                    @elseif ($reservation->status === 'paid')
+                        <button type="button"
+                            class="w-full bg-green-200 text-green-600 py-3 rounded-lg font-semibold cursor-default">Reservasi
+                            Sudah Dibayar</button>
+                    @else
+                        <button type="submit"
+                            class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700">Lanjutkan</button>
+                    @endif
                 </form>
+
+                @if (!in_array($reservation->status, ['completed', 'cancelled', 'paid']))
+                    <form id="cancelForm" action="{{ route('payment.cancel', $reservation->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="button" id="cancelButton"
+                            class="w-full bg-gray-100 text-red-600 border border-red-300 py-3 rounded-lg font-semibold hover:bg-red-50 mt-4">
+                            Batalkan Reservasi
+                        </button>
+                    </form>
+                @endif
             </section>
         </main>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('cancelButton')?.addEventListener('click', function() {
+            Swal.fire({
+                title: 'Batalkan Reservasi?',
+                text: "Apakah Anda yakin ingin membatalkan reservasi ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, batalkan!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('cancelForm').submit();
+                }
+            });
+        });
+    </script>
 @endsection

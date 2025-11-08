@@ -6,11 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Reservation;
-use App\Models\Owner;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class PreorderController extends Controller
 {
@@ -51,26 +49,20 @@ class PreorderController extends Controller
             'items.*.quantity' => 'required|integer|min:1',
         ]);
 
-        return DB::transaction(function () use ($validated, $reservation) {
-            $user = auth()->user();
-            $customer = $user->customer;
+        return DB::transaction(function () use ($validated, $reservation, $customer) {
+            $order = Order::where('reservation_id', $reservation->id)
+                ->where('customer_id', $customer->id)
+                ->first();
 
-            $tanggal = now()->format('Ymd');
-            $random = strtoupper(Str::random(6));
-            $nomorPesanan = "INV-{$tanggal}-{$random}";
-
-            while (Order::where('nomor_pesanan', $nomorPesanan)->exists()) {
-                $random = strtoupper(Str::random(6));
-                $nomorPesanan = "INV-{$tanggal}-{$random}";
+            if (!$order) {
+                $order = Order::create([
+                    'customer_id' => $customer->id,
+                    'reservation_id' => $reservation->id,
+                    'total_harga' => 0,
+                ]);
+            } else {
+                $order->items()->delete();
             }
-
-            $order = Order::create([
-                'customer_id' => $customer->id,
-                'reservation_id' => $reservation->id,
-                'nomor_pesanan' => $nomorPesanan,
-                'status' => 'pending',
-                'total_harga' => 0,
-            ]);
 
             $totalHarga = 0;
 
@@ -94,7 +86,7 @@ class PreorderController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Preorder berhasil disimpan!',
+                'message' => 'Order berhasil disimpan dan item diperbarui!',
                 'total' => $totalHarga,
                 'redirect' => route('payment', $reservation->id)
             ]);
@@ -131,8 +123,7 @@ class PreorderController extends Controller
         ]);
 
         $reservation->update([
-            'catatan' => $validated['catatan'],
-            'status' => 'confirmed',
+            'catatan' => $validated['catatan']
         ]);
 
         return redirect()

@@ -14,6 +14,7 @@ class Reservation extends Model
         'owner_id',
         'meja_id',
         'tanggal_reservasi',
+        'nomor_pesanan',
         'jam_reservasi',
         'jumlah_tamu',
         'area',

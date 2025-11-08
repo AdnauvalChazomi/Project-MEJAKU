@@ -28,6 +28,8 @@ return new class extends Migration
                 ->constrained('mejas')
                 ->nullOnDelete();
 
+            $table->string('nomor_pesanan');
+
             $table->date('tanggal_reservasi');
             $table->time('jam_reservasi');
             $table->integer('jumlah_tamu');
@@ -35,7 +37,7 @@ return new class extends Migration
             $table->enum('area', ['Indoor', 'Outdoor', 'Semi Outdoor'])
                 ->default('Indoor');
 
-            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed'])
+            $table->enum('status', ['pending', 'paid', 'cancelled', 'completed'])
                 ->default('pending');
 
             $table->text('catatan')->nullable();

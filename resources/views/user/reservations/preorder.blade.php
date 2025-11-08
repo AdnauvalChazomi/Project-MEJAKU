@@ -204,7 +204,17 @@
                     },
                     pesanSekarang() {
                         if (this.total === 0) {
-                            window.location.href = "{{ route('preorder.show', $reservation->id) }}";
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Yey!',
+                                text: 'Reservasi berhasil!',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Lihat detail reservasi'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ route('history') }}";
+                                }
+                            });
                             return;
                         }
 

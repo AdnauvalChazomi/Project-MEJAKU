@@ -97,7 +97,7 @@
                             class="block w-full py-3 rounded-xl bg-gray-100 text-gray-800 text-lg font-semibold text-center cursor-pointer border-2 transition hover:bg-gray-200"
                             :class="{
                                 'border-gray-100': selectedArea !== '{{ $area }}',
-                                ' border-red-600 ring-4 ring-red-500 ring-offset-2': selectedArea === '{{ $area }}'
+                                ' border-red-600 ring-1': selectedArea === '{{ $area }}'
                             }">
                             {{ $area }}
                         </label>

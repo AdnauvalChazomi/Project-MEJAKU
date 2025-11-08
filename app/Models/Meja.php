@@ -15,4 +15,9 @@ class Meja extends Model
     {
         return $this->belongsTo(Owner::class, 'owner_id');
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'meja_id');
+    }
 }

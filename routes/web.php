@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\owner\RestoranController;
 use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\owner\DashboardController as DashboardOwnerController;
+use App\Http\Controllers\user\HistoryController;
 use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\PreorderController;
 use App\Http\Controllers\user\ReservationController;
@@ -29,11 +30,13 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/search', [DashboardController::class, 'search'])->name('search');
 
 Route::get('/restoran/{id}', [DashboardController::class, 'show'])->name('user.restoran.show');
-Route::get('/restoran/{id}/reservasi', [ReservationController::class, 'create'])
-    ->name('reservations.create');
-Route::post('/reservations', [ReservationController::class, 'store'])
-    ->middleware('auth')
-    ->name('user.reservations.store');
+Route::get('/restoran/{id}/reservasi', [ReservationController::class, 'create'])->name('reservations.create');
+Route::prefix('/restoran/{id}/menu')->group(function () {
+    Route::get('/', [\App\Http\Controllers\user\MenuController::class, 'index'])->name('user.menu.index');
+});
+
+Route::post('/reservations', [ReservationController::class, 'store'])->middleware('auth')->name('user.reservations.store');
+
 Route::get('/preorder/{reservation}', [PreorderController::class, 'index'])->name('preorder');
 Route::post('/preorder/{reservation}', [PreorderController::class, 'store'])->name('preorder.store');
 Route::get('/preorder/{reservation}/show', [PreorderController::class, 'show'])->name('preorder.show');
@@ -43,11 +46,7 @@ Route::delete('/preorder/{id}/destroy', [PreorderController::class, 'destroy'])-
 Route::middleware(['auth'])->group(function () {
     Route::get('/payment/{id}', [PaymentController::class, 'show'])->name('payment.show');
     Route::post('/payment/{id}/confirm', [PaymentController::class, 'confirm'])->name('payment.confirm');
-    Route::post('/midtrans/callback', [PaymentController::class, 'callback'])->name('midtrans.callback');
-});
-
-Route::prefix('/restoran/{id}/menu')->group(function () {
-    Route::get('/', [\App\Http\Controllers\user\MenuController::class, 'index'])->name('user.menu.index');
+    Route::patch('/payment/{id}/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
 });
 
 Route::prefix('owner/{ownerId}/reservations')->group(function () {
@@ -61,6 +60,9 @@ Route::patch('/meja/{meja}/status', [ReservationManageController::class, 'update
 
 Route::get('/owner/settings/{id}', [SettingController::class, 'index'])
     ->name('setting.index');
+
+Route::get('/history', [HistoryController::class, 'index'])
+    ->name('history');
 
 Route::prefix('owner/dashboard/menu')->group(function () {
     Route::get('/', [MenuController::class, 'index'])->name('menu.index');
@@ -95,13 +97,6 @@ Route::middleware(['auth'])->prefix('owner/restoran')->name('owner.restoran.')->
     Route::delete('/unggulan', [RestoranController::class, 'destroyMenuUnggulan'])->name('unggulan.destroy');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-// Route::get('/dashboard', function () {
-//     return view('user.dashboard');
-// })->name('dashboard');
-
 Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::get('/owner/dashboard', [DashboardOwnerController::class, 'index'])->name('owner.dashboard');
     Route::get('/owner/dashboard/reservasi', [ReservationManageController::class, 'index'])->name('owner.reservations');
@@ -112,10 +107,6 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
         return view('customer.dashboard');
     })->name('customer.dashboard');
 });
-
-// Route::get('/search', function () {
-//     return view('user.search');
-// });
 
 Route::get('/detail', function () {
     return view('user.detail');
@@ -153,14 +144,9 @@ Route::get('/status', function () {
     return view('user.status');
 })->name('status');
 
-Route::get('/history', function () {
-    return view('user.history');
-})->name('history');
-
 
 Route::post('/logout', function () {
-    // Auth::logout(); // hapus session user
-    return redirect()->route('login'); // arahkan ke route login
+    return redirect()->route('login');
 })->name('logout');
 
 Route::get('/waktu-reservasi', function () {
