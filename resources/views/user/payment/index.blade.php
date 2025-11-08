@@ -60,25 +60,32 @@
                             </div>
                         @endforeach
                     </div>
-                    @if ($order->status === 'pending')
-                        <div class="mt-4 text-center">
-                            <a href="{{ route('preorder', $reservation->id) }}"
-                                class="inline-flex items-center gap-1 text-xs font-medium text-red-600 hover:underline">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M15.232 5.232l3.536 3.536M9 11l-3 3m3-3l9-9a2.121 2.121 0 013 3l-9 9m-3-3L3 21h6l9-9" />
-                                </svg>
-                                Ingin ganti menu? Klik di sini
-                            </a>
-                        </div>
-                    @endif
+                    <section class="text-center mt-6">
+                        <form action="{{ route('preorder.destroy', $reservation->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="inline-block text-red-700 py-2 px-4 rounded-lg hover:text-red-800 text-sm font-medium">
+                                Mau ganti menu? Klik disini
+                            </button>
+                        </form>
+                    </section>
                 </section>
             @else
                 @php
                     $subtotal = 0;
                     $pajak = 0;
                 @endphp
+
+                @if ($reservation->status === 'pending')
+                    <section class="bg-white border rounded-lg p-4 shadow-sm text-center">
+                        <p class="text-sm text-gray-600 mb-2">Belum ada menu yang dipesan.</p>
+                        <a href="{{ route('preorder', $reservation->id) }}"
+                            class="inline-block text-red-700 py-2 px-4 rounded-lg hover:text-red-800 text-sm font-medium">
+                            Tambah Menu
+                        </a>
+                    </section>
+                @endif
             @endif
 
             @php
@@ -88,14 +95,16 @@
 
             {{-- Subtotal, Pajak, Biaya Reservasi, Total --}}
             <section class="bg-white border rounded-lg p-4 shadow-sm">
-                <div class="flex justify-between text-sm font-medium text-gray-700">
-                    <p>Subtotal</p>
-                    <p>Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
-                </div>
-                <div class="flex justify-between text-sm text-gray-500">
-                    <p>Pajak (10%)</p>
-                    <p>Rp{{ number_format($pajak, 0, ',', '.') }}</p>
-                </div>
+                @if ($reservation->order && $reservation->order->items->isNotEmpty())
+                    <div class="flex justify-between text-sm font-medium text-gray-700">
+                        <p>Subtotal</p>
+                        <p>Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <p>Pajak (10%)</p>
+                        <p>Rp{{ number_format($pajak, 0, ',', '.') }}</p>
+                    </div>
+                @endif
                 <div class="flex justify-between text-sm mt-2 font-medium text-gray-700">
                     <p>Biaya Reservasi</p>
                     <p>Rp{{ number_format($reservationFee, 0, ',', '.') }}</p>
@@ -106,7 +115,6 @@
                 </div>
             </section>
 
-            {{-- Catatan dan tombol --}}
             <section class="bg-white border rounded-lg p-4 shadow-sm">
                 <h2 class="text-sm font-semibold text-gray-700 mb-2">Catatan</h2>
                 <form action="{{ route('payment.confirm', $reservation->id) }}" method="POST" class="space-y-3">

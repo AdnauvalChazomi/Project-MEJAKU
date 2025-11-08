@@ -41,7 +41,7 @@ Route::get('/preorder/{reservation}', [PreorderController::class, 'index'])->nam
 Route::post('/preorder/{reservation}', [PreorderController::class, 'store'])->name('preorder.store');
 Route::get('/preorder/{reservation}/show', [PreorderController::class, 'show'])->name('preorder.show');
 Route::post('/preorder/{id}/confirm', [PreorderController::class, 'confirm'])->name('preorder.confirm');
-Route::delete('/preorder/{id}/destroy', [PreorderController::class, 'destroy'])->name('preorder.destroy');
+Route::delete('/preorder/{id}', [PreorderController::class, 'destroy'])->name('preorder.destroy');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/payment/{id}', [PaymentController::class, 'show'])->name('payment.show');

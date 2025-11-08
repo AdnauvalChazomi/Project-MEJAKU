@@ -23,6 +23,12 @@ class PreorderController extends Controller
             abort(403, 'Anda tidak berhak mengakses reservasi ini.');
         }
 
+        if ($reservation->order) {
+            return redirect()
+                ->route('payment.show', $reservation->id)
+                ->with('error', 'Anda tidak dapat memesan lagi, reservasi sudah memiliki order.');
+        }
+
         $restoran = $reservation->owner;
         $menus = $restoran->menus()->orderBy('nama')->get();
 
@@ -43,8 +49,21 @@ class PreorderController extends Controller
             ], 403);
         }
 
+        $items = $request->input('items', []);
+
+        // Jika items kosong, tidak buat order
+        if (empty($items)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Tidak ada menu yang dipilih.',
+                'total' => 0,
+                'redirect' => route('payment', $reservation->id)
+            ]);
+        }
+
+        // Validasi items jika ada
         $validated = $request->validate([
-            'items' => 'required|array|min:1',
+            'items' => 'array|min:1',
             'items.*.menu_id' => 'required|exists:menus,id',
             'items.*.quantity' => 'required|integer|min:1',
         ]);
@@ -93,6 +112,7 @@ class PreorderController extends Controller
         });
     }
 
+
     public function show($id)
     {
         $reservation = Reservation::with([
@@ -129,5 +149,18 @@ class PreorderController extends Controller
         return redirect()
             ->route('history')
             ->with('success', 'Catatan berhasil disimpan.');
+    }
+
+    public function destroy($id)
+    {
+        $order = Order::where('reservation_id', $id)->first();
+
+        if (!$order) {
+            return back()->with('error', 'Order tidak ditemukan.');
+        }
+
+        $order->delete();
+
+        return redirect()->route('preorder', $id)->with('success', 'Order beserta semua menu berhasil dihapus.');
     }
 }

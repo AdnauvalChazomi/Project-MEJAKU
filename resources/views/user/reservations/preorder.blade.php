@@ -203,20 +203,6 @@
                         this.total = sum;
                     },
                     pesanSekarang() {
-                        if (this.total === 0) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Yey!',
-                                text: 'Reservasi berhasil!',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Lihat detail reservasi'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = "{{ route('history') }}";
-                                }
-                            });
-                            return;
-                        }
 
                         const items = Object.entries(this.cart)
                             .filter(([_, qty]) => qty > 0)

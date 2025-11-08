@@ -152,6 +152,21 @@
 
     @push('scripts')
         <script>
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: "{{ session('success') }}",
+                });
+            @elseif (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: "{{ session('error') }}",
+                });
+            @endif
+        </script>
+        <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const confirmBtn = document.getElementById('confirmReservationBtn');
                 const form = document.querySelector('form[action="{{ route('user.reservations.store') }}"]');

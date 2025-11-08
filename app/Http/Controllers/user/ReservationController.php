@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Meja;
 use App\Models\Owner;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
@@ -34,6 +35,16 @@ class ReservationController extends Controller
         $user = auth()->user();
         $customer = $user->customer;
 
+        $allUsed = Meja::where('owner_id', $validated['owner_id'])
+            ->where('status', 'digunakan')
+            ->count();
+
+        $totalMeja = Meja::where('owner_id', $validated['owner_id'])->count();
+
+        if ($totalMeja > 0 && $allUsed >= $totalMeja) {
+            return redirect()->back()->with('error', 'Maaf, semua meja di restoran ini sedang digunakan.')->withInput();
+        }
+
         $validated['customer_id'] = $customer->id;
         $validated['status'] = 'pending';
 
@@ -54,6 +65,7 @@ class ReservationController extends Controller
             ->route('preorder', ['reservation' => $reservation->id])
             ->with('success', 'Reservasi berhasil dibuat! Silakan pilih menu Anda.');
     }
+
 
 }
 
