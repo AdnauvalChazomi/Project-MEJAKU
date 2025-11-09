@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Midtrans\Config;
 use Midtrans\Notification;
-use App\Http\Controllers\payment\ReservationCallback;
-use App\Http\Controllers\payment\ActivationCallback;
-use App\Http\Controllers\payment\MonthlyCallback;
-use App\Http\Controllers\payment\YearlyCallback;
+use App\Http\Controllers\callback\ReservationCallback;
+use App\Http\Controllers\callback\ActivationCallback;
+use App\Http\Controllers\callback\MonthlyCallback;
+use App\Http\Controllers\callback\YearlyCallback;
 
 class MidtransCallbackController extends Controller
 {

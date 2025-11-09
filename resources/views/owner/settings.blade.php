@@ -66,7 +66,7 @@
             </svg>
         </a>
 
-        <a href="#" class="flex justify-between items-center p-4 hover:bg-gray-50 transition">
+        <a href="{{ route('premium') }}" class="flex justify-between items-center p-4 hover:bg-gray-50 transition">
             <span class="text-sm text-gray-800 font-medium">Paket Premium</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -76,7 +76,6 @@
         </a>
     </section>
 
-    {{-- Pengaturan Tambahan --}}
     <section class="bg-white rounded-xl shadow-sm border border-gray-100 divide-y divide-gray-100 overflow-hidden">
         <div class="p-4 text-sm text-red-600 font-semibold bg-[#FDEEDC]">
             Pengaturan

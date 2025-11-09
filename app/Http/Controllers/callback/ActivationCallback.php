@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\payment;
+namespace App\Http\Controllers\callback;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

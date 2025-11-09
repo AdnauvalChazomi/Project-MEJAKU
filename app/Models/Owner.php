@@ -56,4 +56,11 @@ class Owner extends Model
     {
         return $this->hasMany(FotoMenu::class, 'owner_id');
     }
+
+    public function getActiveTierAttribute()
+    {
+        return ($this->tier && $this->tier_end_at && now()->lt($this->tier_end_at))
+            ? $this->tier
+            : 'subs';
+    }
 }

@@ -117,7 +117,7 @@
 
             <section class="bg-white border rounded-lg p-4 shadow-sm">
                 <h2 class="text-sm font-semibold text-gray-700 mb-2">Catatan</h2>
-                <form action="{{ route('payment.confirm', $reservation->id) }}" method="POST" class="space-y-3">
+                <form action="{{ route('neopayment.confirm', $reservation->id) }}" method="POST" class="space-y-3">
                     @csrf
                     <textarea name="catatan" placeholder="Contoh: tanpa pedas, saus terpisah..."
                         class="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-red-200 focus:outline-none resize-none">{{ old('catatan', $reservation->catatan) }}</textarea>

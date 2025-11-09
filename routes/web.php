@@ -3,6 +3,7 @@
 use App\Http\Controllers\owner\MenuController;
 use App\Http\Controllers\owner\MetadataController;
 use App\Http\Controllers\owner\OrderController;
+use App\Http\Controllers\owner\PremiumController;
 use App\Http\Controllers\owner\PromoController;
 use App\Http\Controllers\owner\ReservationManageController;
 use App\Http\Controllers\owner\SettingController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\owner\DashboardController as DashboardOwnerController;
 use App\Http\Controllers\user\HistoryController;
 use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\PaymentController as NeoPaymentController;
 use App\Http\Controllers\User\PreorderController;
 use App\Http\Controllers\user\ReservationController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +52,10 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/payment/{id}/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/neopayment/{id}/confirm', [NeoPaymentController::class, 'confirm'])->name('neopayment.confirm');
+});
+
 Route::prefix('owner/{ownerId}/reservations')->group(function () {
     Route::get('/', [ReservationManageController::class, 'index'])->name('reservations.index');
     Route::get('/data', [ReservationManageController::class, 'getData'])->name('owner.reservations.data');
@@ -77,7 +83,6 @@ Route::prefix('owner/dashboard/menu')->group(function () {
     Route::delete('/foto/{id}', [MenuController::class, 'destroyFoto'])->name('menu.destroyFoto');
 });
 
-
 Route::prefix('owner/dashboard/pesanan')->group(function () {
     Route::get('/', [OrderController::class, 'index'])->name('pesanan.index');
 });
@@ -104,6 +109,8 @@ Route::middleware(['auth'])->prefix('owner/restoran')->name('owner.restoran.')->
     Route::post('/unggulan', [RestoranController::class, 'storeMenuUnggulan'])->name('unggulan.store');
     Route::delete('/unggulan', [RestoranController::class, 'destroyMenuUnggulan'])->name('unggulan.destroy');
 });
+
+Route::get('/owner/premium', [PremiumController::class, 'index'])->name('premium');
 
 Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::get('/owner/dashboard', [DashboardOwnerController::class, 'index'])->name('owner.dashboard');
@@ -208,10 +215,6 @@ Route::get('/owner/promos', function () {
 Route::get('/owner/profilrestoran', function () {
     return view('owner.profile.profilerestoran');
 })->name('profile.profilrestoran');
-
-Route::get('/owner/premium', function () {
-    return view('owner.premium.index');
-})->name('premium.index');
 
 Route::get('/premium/pembayaran', function () {
     return view('owner.premium.pembayaran');

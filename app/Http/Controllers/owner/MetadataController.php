@@ -47,7 +47,7 @@ class MetadataController extends Controller
         $request->validate([
             'nama_restoran' => ['required', 'string', 'max:255'],
             'alamat_restoran' => ['required', 'string'],
-            'summary' => ['required', 'string']
+            'summary' => ['required', 'string'],
         ]);
 
         $user = Auth::user();
@@ -63,39 +63,14 @@ class MetadataController extends Controller
             $data['foto_restoran'] = $request->file('foto_restoran')->store('foto_restoran', 'public');
         }
 
-        Owner::create($data);
+        $owner = Owner::create($data);
 
-        $activationFee = 250000 * 1.1;
-
-        $params = [
-            'transaction_details' => [
-                'order_id' => 'ACT-' . time() . '-' . $user->id,
-                'gross_amount' => $activationFee,
-            ],
-            'customer_details' => [
-                'first_name' => $user->name,
-                'email' => $user->email,
-                'phone' => $user->no_hp,
-            ],
-            'item_details' => [
-                [
-                    'id' => 'activation_fee',
-                    'price' => $activationFee,
-                    'quantity' => 1,
-                    'name' => 'Biaya Aktivasi Akun Owner',
-                ],
-            ],
-        ];
-
-        $snapToken = $this->midtransSnapService->createSnapToken($params);
-
-        session([
-            'snap_token' => $snapToken,
-            'activation_fee' => $activationFee,
+        return redirect()->route('neopayment.confirm', [
+            'id' => $owner->id,
+            'type' => 'activation'
         ]);
-
-        return redirect()->route('owner.metadata.payment');
     }
+
 
     public function paymentPage(): View|RedirectResponse
     {

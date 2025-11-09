@@ -95,7 +95,7 @@ class PaymentController extends Controller
 
         $snapToken = $this->midtransSnapService->createSnapToken($params);
 
-        return view('user.payment.snap', [
+        return view('payments.index', [
             'snapToken' => $snapToken,
             'reservation' => $reservation,
             'total' => $computedTotal,

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\payment;
+namespace App\Http\Controllers\callback;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Owner;
 
-class YearlyCallback extends Controller
+class MonthlyCallback extends Controller
 {
     public function callback(Request $request)
     {
@@ -29,7 +29,11 @@ class YearlyCallback extends Controller
 
             $owner = Owner::where('user_id', $userId)->first();
             if ($owner) {
-                $owner->update(['tier' => 'year']);
+                $owner->update([
+                    'tier' => 'month',
+                    'tier_start_at' => now(),
+                    'tier_end_at' => now()->addMonth(),
+                ]);
             }
 
             return response()->json(['message' => 'Owner tier updated successfully']);

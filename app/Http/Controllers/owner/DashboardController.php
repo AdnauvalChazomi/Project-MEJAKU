@@ -16,8 +16,10 @@ class DashboardController extends Controller
         }
 
         if ($user->owner->tier === null) {
-            return redirect('/owner/metadata/payment')
-                ->with('warning', 'Silakan Lakukan pembayaran');
+            return redirect()->route('neopayment.confirm', [
+                'id' => $user->owner->id,
+                'type' => 'activation',
+            ])->with('warning', 'Silakan lakukan pembayaran aktivasi.');
         }
 
         return view('owner.dashboard', compact('user'));
