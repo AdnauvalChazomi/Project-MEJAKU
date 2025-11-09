@@ -78,40 +78,40 @@
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Galeri Foto Menu</label>
-                <div class="flex space-x-2 flex-wrap">
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 my-6">
-                        @forelse ($fotoMenus as $foto)
-                            <div class="flex flex-col items-center space-y-2 cursor-pointer"
-                                @click="openImage = '{{ asset('storage/' . $foto->url) }}'">
-                                <img src="{{ asset('storage/' . $foto->url) }}" alt="Foto Menu"
-                                    class="w-24 h-24 object-cover rounded-lg border border-gray-200 shadow-sm hover:scale-105 transition-transform duration-300">
 
-                                <form action="{{ route('owner.restoran.foto.menu.destroy', $foto->id) }}" method="POST"
-                                    onsubmit="return confirm('Yakin ingin menghapus foto ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="flex items-center justify-center space-x-1 px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md shadow-sm transition-all duration-200">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                        <span>Hapus</span>
-                                    </button>
-                                </form>
-                            </div>
-                        @empty
-                            <p class="col-span-full text-gray-500 text-sm text-center">Belum ada foto menu.</p>
-                        @endforelse
-                    </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 my-6">
+                    @forelse ($fotoMenus as $foto)
+                        <div class="flex flex-col items-center space-y-2 cursor-pointer"
+                            @click="openImage = '{{ asset('storage/' . $foto->url) }}'">
+                            <img src="{{ asset('storage/' . $foto->url) }}" alt="Foto Menu"
+                                class="w-24 h-24 object-cover rounded-lg border border-gray-200 shadow-sm hover:scale-105 transition-transform duration-300">
 
+                            <form action="{{ route('owner.restoran.foto.menu.destroy', $foto->id) }}" method="POST"
+                                onsubmit="return confirm('Yakin ingin menghapus foto ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="flex items-center justify-center space-x-1 px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md shadow-sm transition-all duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    <span>Hapus</span>
+                                </button>
+                            </form>
+                        </div>
+                    @empty
+                        <p class="col-span-full text-gray-500 text-sm text-center">Belum ada foto menu.</p>
+                    @endforelse
+
+                    <!-- Tombol Tambah -->
                     <form action="{{ route('owner.restoran.foto.menu.store') }}" method="POST"
                         enctype="multipart/form-data"
                         class="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition">
                         @csrf
                         <input type="file" name="foto" id="uploadMenuFoto" class="hidden"
                             onchange="this.form.submit()">
-                        <label for="uploadMenuFoto">
+                        <label for="uploadMenuFoto" class="cursor-pointer flex items-center justify-center w-full h-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

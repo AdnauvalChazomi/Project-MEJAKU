@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\owner\MenuController;
+use App\Http\Controllers\owner\MetadataController;
 use App\Http\Controllers\owner\OrderController;
 use App\Http\Controllers\owner\PromoController;
 use App\Http\Controllers\owner\ReservationManageController;
@@ -83,6 +84,13 @@ Route::prefix('owner/dashboard/pesanan')->group(function () {
 
 Route::prefix('owner/dashboard/promo')->group(function () {
     Route::get('/', [PromoController::class, 'index'])->name('promo.index');
+});
+
+Route::prefix('owner/metadata')->name('owner.metadata.')->group(function () {
+    Route::get('/', [MetadataController::class, 'create'])->name('create');
+    Route::post('/', [MetadataController::class, 'store'])->name('store');
+    Route::post('/foto', [MetadataController::class, 'storeFoto'])->name('store.foto');
+    Route::get('/payment', [MetadataController::class, 'paymentPage'])->name('payment');
 });
 
 Route::middleware(['auth'])->prefix('owner/restoran')->name('owner.restoran.')->group(function () {
@@ -209,9 +217,9 @@ Route::get('/premium/pembayaran', function () {
     return view('owner.premium.pembayaran');
 })->name('premium.pembayaran');
 
-Route::get('owner/metadata', function () {
-    return view('auth.owner.owner-metadata');
-})->name('owner.owner-metadata');
+// Route::get('owner/metadata', function () {
+//     return view('auth.owner.metadata');
+// })->name('owner.metadata');
 
 Route::get('owner/pembayaran', function () {
     return view('auth.owner.detail-pembayaran');

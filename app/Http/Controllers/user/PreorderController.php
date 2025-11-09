@@ -51,7 +51,6 @@ class PreorderController extends Controller
 
         $items = $request->input('items', []);
 
-        // Jika items kosong, tidak buat order
         if (empty($items)) {
             return response()->json([
                 'success' => true,
@@ -61,7 +60,6 @@ class PreorderController extends Controller
             ]);
         }
 
-        // Validasi items jika ada
         $validated = $request->validate([
             'items' => 'array|min:1',
             'items.*.menu_id' => 'required|exists:menus,id',
@@ -111,7 +109,6 @@ class PreorderController extends Controller
             ]);
         });
     }
-
 
     public function show($id)
     {

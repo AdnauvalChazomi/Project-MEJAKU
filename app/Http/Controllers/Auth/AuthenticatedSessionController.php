@@ -30,9 +30,15 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        return $user->role === 'owner'
-            ? redirect()->intended('/owner/dashboard')
-            : redirect()->intended('/');
+        if ($user->role === 'owner') {
+            if (!$user->owner) {
+                return redirect()->route('owner.metadata.create');
+            }
+
+            return redirect()->intended('/owner/dashboard');
+        }
+
+        return redirect()->intended('/');
     }
 
     /**

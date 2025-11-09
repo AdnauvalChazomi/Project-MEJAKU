@@ -17,6 +17,7 @@ class Owner extends Model
         'lokasi_restoran',
         'nib',
         'foto_restoran',
+        'tier'
     ];
 
     public function user()

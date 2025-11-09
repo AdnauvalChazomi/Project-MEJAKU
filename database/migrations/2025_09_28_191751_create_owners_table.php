@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->text('lokasi_restoran')->nullable();
             $table->string('foto_restoran')->nullable();
             $table->string('nib')->nullable();
+            $table->enum('subs', ['subs', 'month', 'year'])->nullable()->default(null);
             $table->timestamps();
         });
     }

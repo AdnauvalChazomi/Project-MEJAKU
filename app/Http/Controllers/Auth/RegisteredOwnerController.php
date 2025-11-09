@@ -18,7 +18,7 @@ class RegisteredOwnerController extends Controller
 {
     public function create(): View
     {
-        return view('auth.register-owner');
+        return view('auth.owner.register');
     }
 
     public function store(Request $request): RedirectResponse
@@ -28,8 +28,6 @@ class RegisteredOwnerController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'no_hp' => ['required', 'regex:/^[0-9]+$/', 'min:10', 'max:15'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'nama_restoran' => ['required', 'string', 'max:255'],
-            'alamat_restoran' => ['required', 'string'],
         ]);
 
         $user = User::create([
@@ -40,15 +38,9 @@ class RegisteredOwnerController extends Controller
             'role' => 'owner',
         ]);
 
-        Owner::create([
-            'user_id' => $user->id,
-            'nama_restoran' => $request->nama_restoran,
-            'alamat_restoran' => $request->alamat_restoran,
-        ]);
-
         event(new Registered($user));
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('owner.metadata.create');
     }
 }
