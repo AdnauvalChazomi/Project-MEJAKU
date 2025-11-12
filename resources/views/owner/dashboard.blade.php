@@ -30,7 +30,7 @@
                 @foreach ([
                     ['icon' => 'https://cdn-icons-png.flaticon.com/512/2890/2890793.png', 'label' => 'Manajemen Reservasi', 'route' => route('reservations.index', ['ownerId' => $owner->id])],
                     ['icon' => 'https://cdn-icons-png.flaticon.com/512/857/857681.png', 'label' => 'Kelola Menu', 'route' => route('menu.index')],
-                    ['icon' => 'https://cdn-icons-png.flaticon.com/512/921/921594.png', 'label' => 'Kelola Pesanan', 'route' => route('pesanan.index')],
+                    ['icon' => 'https://cdn-icons-png.flaticon.com/512/921/921594.png', 'label' => 'Kelola Pesanan', 'route' => route('orders.index', ['id' => $owner->id])],
                     ['icon' => 'https://cdn-icons-png.flaticon.com/512/833/833524.png', 'label' => 'Kelola Promo', 'route' => route('promo.index')]] as $item)
                     <a href="{{ $item['route'] }}"
                         class="group bg-white hover:bg-[#FDEEDC] transition-all duration-300 border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md flex flex-col items-center justify-center space-y-2">
