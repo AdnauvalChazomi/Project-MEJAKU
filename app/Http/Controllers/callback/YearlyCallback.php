@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\callback;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Owner;
 
@@ -31,8 +32,8 @@ class YearlyCallback extends Controller
             if ($owner) {
                 $owner->update([
                     'tier' => 'year',
-                    'tier_start_at' => now(),
-                    'tier_end_at' => now()->addYear(),
+                    'tier_start_at' => Carbon::now(),
+                    'tier_end_at' => Carbon::now()->addYear(),
                 ]);
             }
 

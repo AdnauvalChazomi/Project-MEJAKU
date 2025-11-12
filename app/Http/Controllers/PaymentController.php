@@ -21,6 +21,12 @@ class PaymentController extends Controller
     {
         $user = auth()->user();
         $type = $request->input('type', 'reservation');
+        $owner = Owner::where('user_id', $user->id)->first();
+
+        if ($owner && $owner->tier !== null && $type === 'activation') {
+            return redirect()->route('owner.dashboard')
+                ->with('info', 'Kamu sudah aktif. Tidak perlu melakukan aktivasi lagi.');
+        }
 
         $reservationFee = 10000;
         $subtotal = 0;
@@ -80,7 +86,7 @@ class PaymentController extends Controller
                     'name' => $plan->nama_paket,
                 ];
 
-                $orderId = 'MNS-' . date('Ymd') . '-' . random_int(100000, 999999) . $plan->id;
+                $orderId = 'MNS-' . date('Ymd') . '-' . random_int(100000, 999999) . '-' . $user->id;
                 break;
 
             case 'yearly':
@@ -96,7 +102,7 @@ class PaymentController extends Controller
                     'name' => $plan->nama_paket,
                 ];
 
-                $orderId = 'YRS-' . date('Ymd') . '-' . random_int(100000, 999999) . $plan->id;
+                $orderId = 'YRS-' . date('Ymd') . '-' . random_int(100000, 999999) . '-' . $user->id;
                 break;
 
             case 'activation':
@@ -112,7 +118,7 @@ class PaymentController extends Controller
                     'name' => $plan->nama_paket,
                 ];
 
-                $orderId = 'ACT-' . date('Ymd') . '-' . random_int(100000, 999999) . $plan->id;
+                $orderId = 'ACT-' . date('Ymd') . '-' . random_int(100000, 999999) . '-' . $user->id;
                 break;
 
             default:

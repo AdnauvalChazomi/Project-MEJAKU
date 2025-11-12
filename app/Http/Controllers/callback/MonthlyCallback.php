@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\callback;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Owner;
 
@@ -31,14 +32,13 @@ class MonthlyCallback extends Controller
             if ($owner) {
                 $owner->update([
                     'tier' => 'month',
-                    'tier_start_at' => now(),
-                    'tier_end_at' => now()->addMonth(),
+                    'tier_start_at' => Carbon::now(),
+                    'tier_end_at' => Carbon::now()->addMonth(),
                 ]);
             }
 
             return response()->json(['message' => 'Owner tier updated successfully']);
         }
-
         return response()->json(['message' => 'Payment not settled yet']);
     }
 }

@@ -16,7 +16,9 @@ return new class extends Migration {
             $table->text('lokasi_restoran')->nullable();
             $table->string('foto_restoran')->nullable();
             $table->string('nib')->nullable();
-            $table->enum('subs', ['subs', 'month', 'year'])->nullable()->default(null);
+            $table->enum('tier', ['subs', 'month', 'year'])->nullable()->default(null);
+            $table->dateTime('tier_start_at')->nullable();
+            $table->dateTime('tier_end_at')->nullable();
             $table->timestamps();
         });
     }

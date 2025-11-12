@@ -17,7 +17,9 @@ class Owner extends Model
         'lokasi_restoran',
         'nib',
         'foto_restoran',
-        'tier'
+        'tier',
+        'tier_start_at',
+        'tier_end_at',
     ];
 
     public function user()
@@ -59,8 +61,10 @@ class Owner extends Model
 
     public function getActiveTierAttribute()
     {
-        return ($this->tier && $this->tier_end_at && now()->lt($this->tier_end_at))
-            ? $this->tier
-            : 'subs';
+        if ($this->tier && $this->tier_end_at && now()->lt($this->tier_end_at)) {
+            return $this->tier;
+        }
+
+        return $this->tier;
     }
 }
