@@ -40,6 +40,8 @@ return new class extends Migration
             $table->enum('status', ['pending', 'paid', 'cancelled', 'completed'])
                 ->default('pending');
 
+            $table->boolean('arrive')->default('false');
+
             $table->text('catatan')->nullable();
 
             $table->timestamps();

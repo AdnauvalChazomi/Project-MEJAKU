@@ -3,6 +3,7 @@
 use App\Http\Controllers\owner\MenuController;
 use App\Http\Controllers\owner\MetadataController;
 use App\Http\Controllers\owner\OrderController;
+use App\Http\Controllers\owner\OrderManageController;
 use App\Http\Controllers\owner\PremiumController;
 use App\Http\Controllers\owner\PromoController;
 use App\Http\Controllers\owner\ReservationManageController;
@@ -65,6 +66,9 @@ Route::prefix('owner/{ownerId}/reservations')->group(function () {
 
 Route::patch('/meja/{meja}/status', [ReservationManageController::class, 'updateStatus'])->name('reservations.updateStatus');
 
+Route::get('/owner/orders/{id}', [OrderManageController::class, 'index'])
+    ->name('orders.index');
+
 Route::get('/owner/settings/{id}', [SettingController::class, 'index'])
     ->name('setting.index');
 
@@ -109,6 +113,12 @@ Route::middleware(['auth'])->prefix('owner/restoran')->name('owner.restoran.')->
     Route::post('/unggulan', [RestoranController::class, 'storeMenuUnggulan'])->name('unggulan.store');
     Route::delete('/unggulan', [RestoranController::class, 'destroyMenuUnggulan'])->name('unggulan.destroy');
 });
+
+Route::post('/owner/reservations/{id}/assign-meja', [ReservationManageController::class, 'assignMeja'])
+    ->name('owner.reservations.assign-meja');
+
+Route::patch('/owner/reservations/{id}/selesai', [ReservationManageController::class, 'markAsSelesai'])
+    ->name('owner.reservations.markAsSelesai');
 
 Route::get('/owner/premium', [PremiumController::class, 'index'])->name('premium');
 

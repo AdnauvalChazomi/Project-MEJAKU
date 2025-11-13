@@ -4,6 +4,8 @@ namespace App\Http\Controllers\owner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Meja;
+use App\Models\Reservation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReservationManageController extends Controller
@@ -14,14 +16,66 @@ class ReservationManageController extends Controller
             ->orderBy('nomor')
             ->get();
 
-        return view('owner.reservations.index', compact('mejas', 'ownerId'));
+        $penuh = Reservation::with(['customer.user', 'order.items.menu', 'meja'])
+            ->where('owner_id', $ownerId)
+            ->whereNotNull('meja_id')
+            ->get()
+            ->sortBy(function ($item) {
+                // completed di bawah, sisanya di atas — tapi tetap urut terbaru di dalam kelompok
+                return [
+                    $item->status === 'completed' ? 1 : 0, // 1 = bawah, 0 = atas
+                    -$item->created_at->timestamp // urut terbaru di atas
+                ];
+            })
+            ->values();
+
+        $direservasi = Reservation::with(['customer.user', 'order.items.menu'])
+            ->where('owner_id', $ownerId)
+            ->whereNull('meja_id')
+            ->latest()
+            ->get();
+
+        return view('owner.reservations.index', compact('mejas', 'ownerId', 'penuh', 'direservasi'));
     }
+
 
     public function getData($ownerId)
     {
         return Meja::where('owner_id', $ownerId)
             ->orderBy('nomor')
             ->get(['id', 'nomor', 'status']);
+    }
+
+    public function assignMeja(Request $request, $id)
+    {
+        $request->validate([
+            'meja_id' => 'required|exists:mejas,id',
+        ]);
+
+        $reservation = Reservation::findOrFail($id);
+
+        $reservation->meja_id = $request->meja_id;
+        $reservation->save();
+
+        $meja = Meja::findOrFail($request->meja_id);
+        $meja->update(['status' => 'digunakan']);
+
+        return back()->with('success', 'Meja berhasil ditambahkan ke reservasi!');
+    }
+
+    public function markAsSelesai($id)
+    {
+        $reservation = Reservation::with('meja')->findOrFail($id);
+
+        if (!$reservation->meja) {
+            return redirect()->back()->with('error', 'Reservasi ini belum memiliki meja.');
+        }
+
+        $reservation->update(['status' => 'completed']);
+
+        $reservation->meja->update(['status' => 'tersedia']);
+
+        return redirect()->back()->with('success', 'Reservasi ditandai selesai dan meja kini tersedia kembali.');
     }
 
     public function store(Request $request, $ownerId)

@@ -60,16 +60,18 @@
                             </div>
                         @endforeach
                     </div>
-                    <section class="text-center mt-6">
-                        <form action="{{ route('preorder.destroy', $reservation->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="inline-block text-red-700 py-2 px-4 rounded-lg hover:text-red-800 text-sm font-medium">
-                                Mau ganti menu? Klik disini
-                            </button>
-                        </form>
-                    </section>
+                    @if ($reservation->status === 'pending')
+                        <section class="text-center mt-6">
+                            <form action="{{ route('preorder.destroy', $reservation->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="inline-block text-red-700 py-2 px-4 rounded-lg hover:text-red-800 text-sm font-medium">
+                                    Mau ganti menu? Klik disini
+                                </button>
+                            </form>
+                        </section>
+                    @endif
                 </section>
             @else
                 @php
@@ -117,7 +119,7 @@
 
             <section class="bg-white border rounded-lg p-4 shadow-sm">
                 <h2 class="text-sm font-semibold text-gray-700 mb-2">Catatan</h2>
-                <form action="{{ route('neopayment.confirm', $reservation->id) }}" method="POST" class="space-y-3">
+                <form action="{{ route('neopayment.confirm', $reservation->id) }}" method="GET" class="space-y-3">
                     @csrf
                     <textarea name="catatan" placeholder="Contoh: tanpa pedas, saus terpisah..."
                         class="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-red-200 focus:outline-none resize-none">{{ old('catatan', $reservation->catatan) }}</textarea>

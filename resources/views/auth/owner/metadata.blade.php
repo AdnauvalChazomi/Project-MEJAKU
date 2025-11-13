@@ -105,8 +105,13 @@
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
                 </div>
 
-                <button type="button" @click="validateStep1"
-                    class="w-full py-3 bg-red-600 text-white rounded-lg">Lanjut</button>
+                <template x-if="warningMessage">
+                    <p x-text="warningMessage" class="text-red-600 text-sm text-center font-medium"></p>
+                </template>
+
+                <button type="button" @click="validateStep1" class="w-full py-3 bg-red-600 text-white rounded-lg">
+                    Lanjut
+                </button>
             </div>
         </div>
 
@@ -134,7 +139,7 @@
                     </template>
                 </ul>
             </div>
-            <button @click="nextStep"
+            <button type="button" @click="nextStep"
                 class="w-full py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition">
                 Lanjut
             </button>
@@ -182,6 +187,7 @@
                 description: '',
                 fotoRestoran: null,
                 fotoPreview: null,
+                warningMessage: '', // ← tambahkan ini
 
                 handleFileChange(event) {
                     const file = event.target.files[0];
@@ -192,10 +198,15 @@
                 },
 
                 validateStep1() {
+                    // Reset pesan sebelumnya
+                    this.warningMessage = '';
+
+                    // Validasi form
                     if (!this.restaurantName || !this.restaurantAddress || !this.description) {
-                        alert("Harap isi semua field terlebih dahulu!");
+                        this.warningMessage = "⚠️ Harap isi semua field terlebih dahulu sebelum melanjutkan.";
                         return;
                     }
+
                     this.nextStep();
                 },
 
@@ -209,7 +220,9 @@
                         return;
                     }
 
-                    event.target.submit();
+                    if (event.submitter && event.submitter.type === "submit") {
+                        event.target.submit();
+                    }
                 }
             }
         }
