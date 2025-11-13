@@ -98,11 +98,11 @@
                         <p class="text-gray-400 text-center">Belum ada ulasan untuk restoran ini.</p>
                     @endforelse
                 </div>
-                @if ($restoran->reviews->count() > 0)
-                    <p class="text-center text-gray-400 text-sm mt-4">
-                        <a href="#semua-review" class="hover:underline">Lihat semua ulasan</a>
-                    </p>
-                @endif
+                <p class="text-center text-[#9D3935] text-md mt-4">
+                    <a href="{{ route('reservations.review', ['id' => $restoran->id]) }}" class="hover:underline">
+                        Berikan ulasan
+                    </a>
+                </p>
             </section>
 
             <!-- Tombol Reservasi -->

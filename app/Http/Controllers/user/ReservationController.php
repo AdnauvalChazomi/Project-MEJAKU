@@ -7,6 +7,7 @@ use App\Models\Meja;
 use App\Models\Notification;
 use App\Models\Owner;
 use App\Models\Reservation;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -76,6 +77,34 @@ class ReservationController extends Controller
             ->with('success', 'Reservasi berhasil dibuat! Silakan pilih menu Anda.');
     }
 
+    public function review($ownerId)
+    {
+        $owner = Owner::findOrFail($ownerId);
 
+        $reviews = Review::where('owner_id', $ownerId)
+            ->latest()
+            ->with('user')
+            ->get();
+
+        return view('user.reservations.review', compact('owner', 'reviews'));
+    }
+
+    public function storeReview(Request $request, $ownerId)
+    {
+        $validated = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:1000',
+        ]);
+
+        Review::create([
+            'owner_id' => $ownerId,
+            'user_id' => auth()->id(),
+            'rating' => $validated['rating'],
+            'comment' => $validated['comment'] ?? null,
+        ]);
+
+        return redirect()->route('reservations.review', $ownerId)
+            ->with('success', 'Terima kasih! Review Anda telah disimpan.');
+    }
 }
 

@@ -26,7 +26,12 @@ class DashboardController extends Controller
 
     public function show($id)
     {
-        $restoran = Owner::with(['reviews', 'fotoMenus'])->findOrFail($id);
+        $restoran = Owner::with([
+            'reviews' => function ($query) {
+                $query->latest()->take(3)->with('user');
+            },
+            'fotoMenus'
+        ])->findOrFail($id);
 
         return view('user.restoran.show', compact('restoran'));
     }
