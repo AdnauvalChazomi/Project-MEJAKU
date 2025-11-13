@@ -37,39 +37,11 @@ class PaymentController extends Controller
 
         switch ($type) {
             case 'reservation':
-                $reservation = Reservation::with('order.items.menu')->findOrFail($id);
+                $reservation = Reservation::with('order.items.menu', 'order.promo')->findOrFail($id);
                 $reservation->update(['catatan' => $request->input('catatan')]);
 
-                if ($reservation->order) {
-                    $order = $reservation->order;
-                    $subtotal = (int) $order->total_harga;
-                    $tax = (int) round($subtotal * 0.1);
-
-                    $items = $order->items;
-                    $itemDetails = $items->map(function ($item) {
-                        return [
-                            'id' => $item->id ?? uniqid(),
-                            'price' => (int) $item->menu->harga,
-                            'quantity' => (int) $item->jumlah,
-                            'name' => $item->menu->nama_menu ?? 'Item Tanpa Nama',
-                        ];
-                    })->toArray();
-
-                    $itemDetails[] = [
-                        'id' => 'tax-10',
-                        'price' => $tax,
-                        'quantity' => 1,
-                        'name' => 'Pajak 10%',
-                    ];
-                }
-
-                $itemDetails[] = [
-                    'id' => 'reservation-fee',
-                    'price' => $reservationFee,
-                    'quantity' => 1,
-                    'name' => 'Biaya Reservasi',
-                ];
-
+                $total = $this->prepareReservationItems($reservation, $request, $subtotal, $tax, $items, $itemDetails, $promo);
+                $promo = $reservation->order->promo ?? null;
                 $orderId = $reservation->nomor_pesanan ?? 'RES-' . $reservation->id;
                 break;
 
@@ -148,10 +120,81 @@ class PaymentController extends Controller
             'total' => $total,
             'tax' => $tax,
             'subtotal' => $subtotal,
+            'promo' => $promo,
             'reservationFee' => $reservationFee,
             'reservation' => $type === 'reservation' ? $reservation : null,
             'plan' => in_array($type, ['monthly', 'yearly', 'activation']) ? $plan : null,
             'activationPlan' => $type === 'activation' ? $plan : null,
         ]);
     }
+
+    private function prepareReservationItems(Reservation $reservation, Request $request, &$subtotal, &$tax, &$items, &$itemDetails, &$promo)
+    {
+        $reservationFee = 10000;
+
+        if (!$reservation->order) {
+            $subtotal = 0;
+            $tax = 0;
+            $items = collect();
+            $itemDetails = [
+                [
+                    'id' => 'reservation-fee',
+                    'price' => $reservationFee,
+                    'quantity' => 1,
+                    'name' => 'Biaya Reservasi',
+                ]
+            ];
+            return $reservationFee;
+        }
+
+        $order = $reservation->order;
+        $promo = null;
+        $diskon = 0;
+
+        if ($order->promo_id) {
+            $promo = $order->promo;
+            $diskon = $order->diskon ?? 0;
+            $subtotal = (int) $order->total_setelah_diskon;
+        } else {
+            $subtotal = (int) $order->total_harga;
+        }
+
+        $tax = (int) round($subtotal * 0.1);
+        $items = $order->items;
+
+        $itemDetails = $items->map(function ($item) {
+            return [
+                'id' => $item->id ?? uniqid(),
+                'price' => (int) $item->menu->harga,
+                'quantity' => (int) $item->jumlah,
+                'name' => $item->menu->nama_menu ?? 'Item Tanpa Nama',
+            ];
+        })->toArray();
+
+        $itemDetails[] = [
+            'id' => 'tax-10',
+            'price' => $tax,
+            'quantity' => 1,
+            'name' => 'Pajak 10%',
+        ];
+
+        if ($promo) {
+            $itemDetails[] = [
+                'id' => 'promo-discount',
+                'price' => -1 * $diskon,
+                'quantity' => 1,
+                'name' => 'Diskon Promo (' . strtoupper($promo->kode) . ')',
+            ];
+        }
+
+        $itemDetails[] = [
+            'id' => 'reservation-fee',
+            'price' => $reservationFee,
+            'quantity' => 1,
+            'name' => 'Biaya Reservasi',
+        ];
+
+        return $subtotal + $tax + $reservationFee - $diskon;
+    }
+
 }

@@ -90,55 +90,85 @@
                 @endif
             @endif
 
-            @php
-                $reservationFee = 10000;
-                $total = $subtotal + $pajak + $reservationFee;
-            @endphp
+            <section class="bg-white border rounded-lg p-4 shadow-sm" id="summarySection">
+                <div class="divide-y">
+                    @if ($order && $order->items->isNotEmpty())
+                        <div class="flex justify-between py-2 text-sm font-medium text-gray-700">
+                            <p>Subtotal</p>
+                            <p id="subtotalDisplay">Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
+                        </div>
+                        <div class="flex justify-between py-2 text-sm text-gray-500">
+                            <p>Pajak (10%)</p>
+                            <p id="pajakDisplay">Rp{{ number_format($pajak, 0, ',', '.') }}</p>
+                        </div>
+                    @endif
 
-            {{-- Subtotal, Pajak, Biaya Reservasi, Total --}}
-            <section class="bg-white border rounded-lg p-4 shadow-sm">
-                @if ($reservation->order && $reservation->order->items->isNotEmpty())
-                    <div class="flex justify-between text-sm font-medium text-gray-700">
-                        <p>Subtotal</p>
-                        <p>Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
+                    <div class="flex justify-between py-2 text-sm font-medium text-gray-700">
+                        <p>Biaya Reservasi</p>
+                        <p id="feeDisplay">Rp{{ number_format($reservationFee, 0, ',', '.') }}</p>
                     </div>
-                    <div class="flex justify-between text-sm text-gray-500">
-                        <p>Pajak (10%)</p>
-                        <p>Rp{{ number_format($pajak, 0, ',', '.') }}</p>
+
+                    <div id="promoRow"
+                        class="{{ $promoApplied ? 'flex' : 'hidden' }} justify-between py-2 text-sm text-green-600 font-medium">
+                        <p>Promo</p>
+                        <p id="promoAmount">- Rp{{ number_format($diskon, 0, ',', '.') }}</p>
                     </div>
-                @endif
-                <div class="flex justify-between text-sm mt-2 font-medium text-gray-700">
-                    <p>Biaya Reservasi</p>
-                    <p>Rp{{ number_format($reservationFee, 0, ',', '.') }}</p>
-                </div>
-                <div class="flex justify-between text-base font-semibold text-gray-800 mt-2">
-                    <p>Total</p>
-                    <p>Rp{{ number_format($total, 0, ',', '.') }}</p>
+
+                    <div class="flex justify-between py-2 text-base font-semibold text-gray-800">
+                        <p>Total</p>
+                        <p id="totalDisplay">Rp{{ number_format($total, 0, ',', '.') }}</p>
+                    </div>
                 </div>
             </section>
 
             <section class="bg-white border rounded-lg p-4 shadow-sm">
-                <h2 class="text-sm font-semibold text-gray-700 mb-2">Catatan</h2>
+                <h2 class="text-sm font-semibold text-gray-700 mb-2">Catatan & Promo</h2>
+
                 <form action="{{ route('neopayment.confirm', $reservation->id) }}" method="GET" class="space-y-3">
                     @csrf
+
                     <textarea name="catatan" placeholder="Contoh: tanpa pedas, saus terpisah..."
                         class="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-red-200 focus:outline-none resize-none">{{ old('catatan', $reservation->catatan) }}</textarea>
 
+                    @if ($reservation->status === 'pending')
+                        <div>
+                            <label for="promo_code" class="block text-sm font-medium text-gray-700">
+                                Kode Promo (opsional)
+                            </label>
+                            <div class="flex gap-2">
+                                <input type="text" id="promo_code" name="promo_code"
+                                    value="{{ old('promo_code', $reservation->order->promo->kode ?? '') }}"
+                                    placeholder="Masukkan kode promo, contoh: WEEKEND50"
+                                    class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-sm">
+                                <button type="button" id="checkPromoBtn"
+                                    class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-black text-sm rounded-lg">
+                                    Terapkan
+                                </button>
+                            </div>
+                            <p id="promoMessage" class="text-xs mt-1 text-gray-500"></p>
+                        </div>
+                    @endif
+
                     @if ($reservation->status === 'completed')
                         <button type="button"
-                            class="w-full bg-gray-200 text-gray-600 py-3 rounded-lg font-semibold cursor-default">Reservasi
-                            Selesai</button>
+                            class="w-full bg-gray-200 text-gray-600 py-3 rounded-lg font-semibold cursor-default">
+                            Reservasi Selesai
+                        </button>
                     @elseif ($reservation->status === 'cancelled')
                         <button type="button"
-                            class="w-full bg-gray-200 text-gray-600 py-3 rounded-lg font-semibold cursor-default">Reservasi
-                            Dibatalkan</button>
+                            class="w-full bg-gray-200 text-gray-600 py-3 rounded-lg font-semibold cursor-default">
+                            Reservasi Dibatalkan
+                        </button>
                     @elseif ($reservation->status === 'paid')
                         <button type="button"
-                            class="w-full bg-green-200 text-green-600 py-3 rounded-lg font-semibold cursor-default">Reservasi
-                            Sudah Dibayar</button>
+                            class="w-full bg-green-200 text-green-600 py-3 rounded-lg font-semibold cursor-default">
+                            Reservasi Sudah Dibayar
+                        </button>
                     @else
                         <button type="submit"
-                            class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700">Lanjutkan</button>
+                            class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700">
+                            Lanjutkan
+                        </button>
                     @endif
                 </form>
 
@@ -175,4 +205,81 @@
             });
         });
     </script>
+
+    <script>
+        document.getElementById('checkPromoBtn')?.addEventListener('click', function() {
+            const promoCode = document.getElementById('promo_code').value.trim();
+            const promoMessage = document.getElementById('promoMessage');
+
+            if (!promoCode) {
+                promoMessage.textContent = "Masukkan kode promo terlebih dahulu.";
+                promoMessage.classList.add("text-red-600");
+                return;
+            }
+
+            fetch(`{{ route('payment.terapkanPromo', $reservation->id) }}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        promo_code: promoCode
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const promoRow = document.getElementById('promoRow');
+                    const promoAmount = document.getElementById('promoAmount');
+                    const subtotalDisplay = document.getElementById('subtotalDisplay');
+                    const pajakDisplay = document.getElementById('pajakDisplay');
+                    const feeDisplay = document.getElementById('feeDisplay');
+                    const totalDisplay = document.getElementById('totalDisplay');
+
+                    if (data.valid) {
+                        promoMessage.classList.remove("text-red-600");
+                        promoMessage.classList.add("text-green-600");
+                        promoMessage.textContent =
+                            `${data.message} Diskon: Rp${Number(data.diskon).toLocaleString()}`;
+
+                        // ✅ Tampilkan baris promo
+                        promoRow.classList.remove('hidden');
+                        promoAmount.textContent = `- Rp${Number(data.diskon).toLocaleString()}`;
+
+                        // ✅ Hitung ulang subtotal, pajak, dan total
+                        const subtotalAwal = Number({{ $subtotal }});
+                        const pajakRate = 0.1;
+                        const fee = Number({{ $reservationFee }});
+                        const subtotalBaru = Math.max(subtotalAwal - data.diskon, 0);
+                        const pajakBaru = subtotalBaru * pajakRate;
+                        const totalBaru = subtotalBaru + pajakBaru + fee;
+
+                        // ✅ Update tampilan angka
+                        subtotalDisplay.textContent = `Rp${subtotalBaru.toLocaleString()}`;
+                        pajakDisplay.textContent = `Rp${pajakBaru.toLocaleString()}`;
+                        totalDisplay.textContent = `Rp${totalBaru.toLocaleString()}`;
+                    } else {
+                        promoMessage.classList.remove("text-green-600");
+                        promoMessage.classList.add("text-red-600");
+                        promoMessage.textContent = data.message;
+
+                        promoRow.classList.add('hidden');
+
+                        // ✅ Kembalikan nilai awal jika promo gagal
+                        const subtotalAwal = Number({{ $subtotal }});
+                        const pajakAwal = subtotalAwal * 0.1;
+                        const totalAwal = subtotalAwal + pajakAwal + Number({{ $reservationFee }});
+
+                        subtotalDisplay.textContent = `Rp${subtotalAwal.toLocaleString()}`;
+                        pajakDisplay.textContent = `Rp${pajakAwal.toLocaleString()}`;
+                        totalDisplay.textContent = `Rp${totalAwal.toLocaleString()}`;
+                    }
+                })
+                .catch(err => {
+                    promoMessage.textContent = "Terjadi kesalahan saat memeriksa promo.";
+                    promoMessage.classList.add("text-red-600");
+                });
+        });
+    </script>
+
 @endsection

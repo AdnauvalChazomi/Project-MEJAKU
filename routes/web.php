@@ -54,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/payment/{id}', [PaymentController::class, 'show'])->name('payment.show');
     Route::post('/payment/{id}/confirm', [PaymentController::class, 'confirm'])->name('payment.confirm');
     Route::patch('/payment/{id}/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+    Route::post('/payment/{id}/terapkan-promo', [PaymentController::class, 'terapkanPromo'])->name('payment.terapkanPromo');
+
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -109,6 +111,7 @@ Route::prefix('owner/metadata')->name('owner.metadata.')->group(function () {
     Route::post('/foto', [MetadataController::class, 'storeFoto'])->name('store.foto');
     Route::get('/payment', [MetadataController::class, 'paymentPage'])->name('payment');
 });
+
 
 Route::middleware(['auth'])->prefix('owner/restoran')->name('owner.restoran.')->group(function () {
     Route::get('/', [RestoranController::class, 'edit'])->name('edit');

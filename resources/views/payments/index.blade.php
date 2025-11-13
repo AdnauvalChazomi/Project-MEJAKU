@@ -29,7 +29,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     @if ($type === 'reservation' && !empty($items) && $items->isNotEmpty())
                         @foreach ($items as $item)
                             <tr class="border-b">
@@ -41,6 +40,7 @@
                                 </td>
                             </tr>
                         @endforeach
+
                         <tr>
                             <td class="py-1 text-gray-700" colspan="2">Pajak (10%)</td>
                             <td class="py-1 text-right">Rp {{ number_format($tax ?? 0, 0, ',', '.') }}</td>
@@ -49,6 +49,17 @@
                             <td class="py-1 text-gray-700" colspan="2">Biaya Reservasi</td>
                             <td class="py-1 text-right">Rp {{ number_format($reservationFee ?? 0, 0, ',', '.') }}</td>
                         </tr>
+
+                        @if (!empty($promo))
+                            <tr>
+                                <td class="py-1 text-gray-700" colspan="2">
+                                    {{ $promo->nama_promo }} ({{ strtoupper($promo->kode) }})
+                                </td>
+                                <td class="py-1 text-right text-green-600">
+                                    - Rp {{ number_format($reservation->order->diskon ?? 0, 0, ',', '.') }}
+                                </td>
+                            </tr>
+                        @endif
                     @elseif ($type === 'monthly' && !empty($monthlyServices))
                         @foreach ($monthlyServices as $service)
                             <tr class="border-b">

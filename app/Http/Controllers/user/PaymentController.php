@@ -23,7 +23,8 @@ class PaymentController extends Controller
             'owner',
             'customer.user',
             'order.items.menu',
-            'meja'
+            'meja',
+            'order.promo'
         ])->findOrFail($id);
 
         if ($reservation->customer_id !== auth()->user()->customer->id) {
@@ -31,6 +32,31 @@ class PaymentController extends Controller
         }
 
         $reservationFee = 10000;
+
+        $order = $reservation->order;
+        $subtotal = 0;
+        $diskon = 0;
+        $pajak = 0;
+        $total = 0;
+        $promoApplied = null;
+
+        if ($order && $order->items->isNotEmpty()) {
+            if ($order->promo_id) {
+                $subtotal = $order->total_setelah_diskon;
+                $diskon = $order->diskon;
+                $promoApplied = $order->promo;
+            } else {
+                $subtotal = $order->total_harga;
+            }
+
+            $pajak = round($subtotal * 0.1);
+            $total = $subtotal + $pajak + $reservationFee;
+        } else {
+            $subtotal = 0;
+            $pajak = 0;
+            $diskon = 0;
+            $total = $reservationFee;
+        }
 
         if ($reservation->status === 'paid') {
             Notification::create([
@@ -43,12 +69,21 @@ class PaymentController extends Controller
             ]);
         }
 
-        return view('user.payment.index', compact('reservation', 'reservationFee'));
+        return view('user.payment.index', compact(
+            'reservation',
+            'reservationFee',
+            'subtotal',
+            'diskon',
+            'pajak',
+            'total',
+            'promoApplied'
+        ));
     }
+
 
     public function confirm(Request $request, $id)
     {
-        $reservation = Reservation::with('order.items.menu')->findOrFail($id);
+        $reservation = Reservation::with(['order.items.menu', 'owner'])->findOrFail($id);
         $user = auth()->user();
 
         $reservation->update([
@@ -58,11 +93,22 @@ class PaymentController extends Controller
         $reservationFee = 10000;
         $subtotal = 0;
         $tax = 0;
+        $diskon = 0;
+        $promo = null;
         $itemDetails = [];
 
         if ($reservation->order) {
             $order = $reservation->order;
-            $subtotal = (int) $order->total_harga;
+
+            // ✅ Gunakan total_setelah_diskon jika promo_id tidak null
+            if ($order->promo_id) {
+                $promo = $order->promo; // ambil relasi promo
+                $diskon = $order->diskon ?? 0;
+                $subtotal = (int) $order->total_setelah_diskon;
+            } else {
+                $subtotal = (int) $order->total_harga;
+            }
+
             $tax = (int) round($subtotal * 0.1);
 
             $itemDetails = $order->items->map(function ($item) {
@@ -73,14 +119,15 @@ class PaymentController extends Controller
                     'name' => $item->menu->nama_menu ?? 'Item Tanpa Nama',
                 ];
             })->toArray();
-
-            $itemDetails[] = [
-                'id' => 'tax-10',
-                'price' => $tax,
-                'quantity' => 1,
-                'name' => 'Pajak 10%',
-            ];
         }
+
+        // Tambahkan pajak & biaya reservasi
+        $itemDetails[] = [
+            'id' => 'tax-10',
+            'price' => $tax,
+            'quantity' => 1,
+            'name' => 'Pajak 10%',
+        ];
 
         $itemDetails[] = [
             'id' => 'reservation-fee',
@@ -89,9 +136,52 @@ class PaymentController extends Controller
             'name' => 'Biaya Reservasi',
         ];
 
-        $computedTotal = collect($itemDetails)->sum(function ($item) {
-            return $item['price'] * $item['quantity'];
-        });
+        // ✅ Jika promo_id sudah ada, tambahkan item diskon
+        if ($promo) {
+            $itemDetails[] = [
+                'id' => 'promo-discount',
+                'price' => -1 * $diskon,
+                'quantity' => 1,
+                'name' => 'Diskon Promo (' . strtoupper($promo->kode) . ')',
+            ];
+        } elseif ($request->filled('promo_code')) {
+            // Jika user memasukkan promo baru
+            $promo = \App\Models\Promo::where('kode', $request->promo_code)
+                ->where('owner_id', $reservation->owner->id)
+                ->where('aktif', true)
+                ->whereDate('tanggal_mulai', '<=', now())
+                ->whereDate('tanggal_selesai', '>=', now())
+                ->first();
+
+            if ($promo) {
+                $diskon = $promo->tipe_diskon === 'persentase'
+                    ? ($subtotal * ($promo->nilai_diskon / 100))
+                    : $promo->nilai_diskon;
+
+                $diskon = min($diskon, $subtotal);
+
+                $reservation->order->update([
+                    'promo_id' => $promo->id,
+                    'diskon' => $diskon,
+                    'total_setelah_diskon' => max(0, $subtotal - $diskon),
+                ]);
+
+                $itemDetails[] = [
+                    'id' => 'promo-discount',
+                    'price' => -1 * $diskon,
+                    'quantity' => 1,
+                    'name' => 'Diskon Promo (' . strtoupper($promo->kode) . ')',
+                ];
+            }
+        }
+
+        // Hitung total akhir
+        $computedTotal = collect($itemDetails)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $computedTotal = max(0, $computedTotal);
+
+        $reservation->order->update([
+            'total_setelah_diskon' => $computedTotal,
+        ]);
 
         $params = [
             'transaction_details' => [
@@ -107,7 +197,7 @@ class PaymentController extends Controller
 
         $snapToken = $this->midtransSnapService->createSnapToken($params);
 
-        return view('payments.index', [
+        return view('user.payment.index', [
             'snapToken' => $snapToken,
             'reservation' => $reservation,
             'total' => $computedTotal,
@@ -115,8 +205,11 @@ class PaymentController extends Controller
             'tax' => $tax,
             'subtotal' => $subtotal,
             'reservationFee' => $reservationFee,
+            'promo' => $promo,
+            'diskon' => $diskon,
         ]);
     }
+
 
     public function cancel($id)
     {
@@ -152,4 +245,57 @@ class PaymentController extends Controller
 
         return redirect()->back()->with('success', 'Pesanan berhasil dibatalkan.');
     }
+
+    public function terapkanPromo(Request $request, $id)
+    {
+        $request->validate([
+            'promo_code' => 'required|string'
+        ]);
+
+        $reservation = Reservation::with(['order', 'owner'])->findOrFail($id);
+        $order = $reservation->order;
+
+        if (!$order) {
+            return response()->json([
+                'valid' => false,
+                'message' => 'Tidak ada pesanan yang bisa diberi promo.'
+            ]);
+        }
+
+        $promo = \App\Models\Promo::where('kode', $request->promo_code)
+            ->where('owner_id', $reservation->owner->id)
+            ->where('aktif', true)
+            ->whereDate('tanggal_mulai', '<=', now())
+            ->whereDate('tanggal_selesai', '>=', now())
+            ->first();
+
+        if (!$promo) {
+            return response()->json([
+                'valid' => false,
+                'message' => 'Kode promo tidak ditemukan untuk restoran ini atau sudah tidak berlaku.'
+            ]);
+        }
+
+        $subtotal = $order->total_harga;
+        $diskon = $promo->tipe_diskon === 'persentase'
+            ? ($subtotal * ($promo->nilai_diskon / 100))
+            : $promo->nilai_diskon;
+
+        $diskon = min($diskon, $subtotal);
+        $totalSetelahDiskon = $subtotal - $diskon;
+
+        $order->update([
+            'promo_id' => $promo->id,
+            'diskon' => $diskon,
+            'total_setelah_diskon' => $totalSetelahDiskon,
+        ]);
+
+        return response()->json([
+            'valid' => true,
+            'message' => "Promo berhasil diterapkan!",
+            'diskon' => $diskon,
+            'total_setelah_diskon' => $totalSetelahDiskon,
+        ]);
+    }
+
 }

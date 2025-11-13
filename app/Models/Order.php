@@ -13,6 +13,9 @@ class Order extends Model
         'customer_id',
         'reservation_id',
         'total_harga',
+        'promo_id',
+        'diskon',
+        'total_setelah_diskon',
     ];
 
     public function user()

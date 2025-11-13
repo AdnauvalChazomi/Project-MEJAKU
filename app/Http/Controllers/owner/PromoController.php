@@ -4,6 +4,7 @@ namespace App\Http\Controllers\owner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Promo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PromoController extends Controller
@@ -14,18 +15,17 @@ class PromoController extends Controller
 
         $promos = Promo::where('owner_id', $owner->id)->get();
 
-        // Pisahkan promo aktif dan selesai
         $promosAktif = $promos->filter(function ($promo) {
             $today = now();
             return $promo->aktif &&
-                $today->lt(\Carbon\Carbon::parse($promo->tanggal_selesai)) &&
+                $today->lt(Carbon::parse($promo->tanggal_selesai)) &&
                 $promo->digunakan < $promo->batas_penggunaan;
         });
 
         $promosSelesai = $promos->filter(function ($promo) {
             $today = now();
             return !$promo->aktif ||
-                $today->gte(\Carbon\Carbon::parse($promo->tanggal_selesai)) ||
+                $today->gte(Carbon::parse($promo->tanggal_selesai)) ||
                 $promo->digunakan >= $promo->batas_penggunaan;
         });
 
@@ -72,8 +72,6 @@ class PromoController extends Controller
             ->route('owner.promos.index')
             ->with('success', 'Promo berhasil ditambahkan.');
     }
-
-
 
     public function edit(Promo $promo)
     {
