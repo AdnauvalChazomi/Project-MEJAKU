@@ -196,22 +196,22 @@ $role = $user->role ?? null;
 
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-calendar-check-line text-lg"></i>
-                    <a href="{{ route('reservasi') }}">Manajemen Reservasi</a>
+                    <a href="{{ route('reservations.index', ['ownerId' => $owner->id]) }}">Manajemen Reservasi</a>
                 </li>
 
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-restaurant-line text-lg"></i>
-                    <a href="{{ route('menu') }}">Kelola Menu</a>
+                    <a href="{{ route('menu.index') }}">Kelola Menu</a>
                 </li>
 
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-shopping-bag-3-line text-lg"></i>
-                    <a href="{{ route('pesanan') }}">Kelola Pesanan</a>
+                    <a href="{{ route('orders.index', ['id' => $owner->id]) }}">Kelola Pesanan</a>
                 </li>
 
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-price-tag-3-line text-lg"></i>
-                    <a href="{{ route('promo') }}">Kelola Promo</a>
+                    <a href="{{ route('owner.promos.index') }}">Kelola Promo</a>
                 </li>
 
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">

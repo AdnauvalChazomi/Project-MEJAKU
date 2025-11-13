@@ -290,9 +290,9 @@ Route::get('/kelola-pesanan', function () {
     return view('owner.orders.index');
 })->name('pesanan');
 
-Route::get('/kelola-promo', function () {
-    return view('owner.promos.index');
-})->name('promo');
+// Route::get('/kelola-promo', function () {
+//     return view('owner.promos.index');
+// })->name('promo');
 
 Route::get('/analytic', function () {
     return view('owner.analytics.index');
