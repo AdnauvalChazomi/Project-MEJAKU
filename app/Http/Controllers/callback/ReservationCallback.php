@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\callback;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Models\Owner;
@@ -37,6 +38,17 @@ class ReservationCallback extends Controller
             'cancel', 'expire', 'deny' => $reservation->update(['status' => 'pending']),
             default => null,
         };
+
+        if ($reservation->status === 'paid') {
+            Notification::create([
+                'notifiable_type' => 'App\Models\Owner',
+                'notifiable_id' => $reservation->owner_id,
+                'reservation_id' => $reservation->id,
+                'title' => 'Pembayaran Diterima',
+                'message' => "Pembayaran untuk reservasi #{$reservation->nomor_pesanan} oleh {$reservation->customer->user->name} telah diterima.",
+                'type' => 'success',
+            ]);
+        }
 
         return response()->json(['message' => 'Callback handled'], 200);
     }

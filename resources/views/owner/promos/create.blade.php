@@ -1,119 +1,119 @@
 @extends('layouts.app')
-@section('title', 'Kelola Promo | MejaKu')
+@section('title', 'Tambah Promo | MejaKu')
 
 @section('content')
-    <div x-data="{ promoType: 'diskon', showSuccessPopup: false }" class="max-w-2xl mx-auto space-y-6">
+<div class="max-w-2xl mx-auto space-y-6 py-8">
 
     {{-- Header --}}
-    <header class="flex items-center gap-3">
+    <header class="flex items-center gap-3 mb-6">
         <button onclick="window.history.back()" class="p-2 hover:bg-gray-100 rounded-full transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 19l-7-7 7-7" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
         <h1 class="text-xl md:text-2xl font-semibold text-gray-900">Tambah Promo</h1>
     </header>
 
-    <!-- Photo Upload Section -->
-    <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Photo</label>
-        <p class="text-sm text-gray-600">Tambahkan foto promo Anda.</p>
-        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 bg-gray-50 flex items-center justify-center">
-            <div class="text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-red-600 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span class="text-gray-500 text-sm">Klik untuk upload foto</span>
-            </div>
+    {{-- Form Tambah Promo --}}
+    <form action="{{ route('owner.promos.store') }}" method="POST" class="space-y-5">
+        @csrf
+
+        {{-- Nama Promo --}}
+        <div>
+            <label for="nama_promo" class="block text-sm font-medium text-gray-700">Nama Promo</label>
+            <input type="text" name="nama_promo" id="nama_promo" value="{{ old('nama_promo') }}"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                placeholder="Contoh: Diskon Akhir Pekan">
+            @error('nama_promo')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
         </div>
-    </div>
 
-    <!-- Nama Promo Section -->
-    <div class="space-y-2">
-        <label for="promo-name" class="block text-sm font-medium text-gray-700">Nama Promo</label>
-        <input type="text" id="promo-name" placeholder="Tulis nama promo Anda..." 
-               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
-    </div>
-
-    <!-- Jenis Promo Section -->
-    <div class="space-y-2">
-        <label for="promo-type" class="block text-sm font-medium text-gray-700">Jenis Promo</label>
-        <select id="promo-type" x-model="promoType" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
-            <option value="">Pilih jenis promo Anda</option>
-            <option value="diskon">Diskon</option>
-            <option value="buy-one-get-one">Buy One Get One</option>
-            <option value="gratis-ongkir">Gratis Ongkir</option>
-            <option value="cashback">Cashback</option>
-        </select>
-    </div>
-
-    <!-- Periode Berlaku Section -->
-    <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Periode Berlaku</label>
-        <div class="flex gap-2">
-            <div class="relative flex-1">
-                <input type="text" placeholder="dd/mm/yyyy" 
-                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
-                <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14" />
-                </svg>
-            </div>
-            <span class="text-gray-500 self-center">-</span>
-            <div class="relative flex-1">
-                <input type="text" placeholder="dd/mm/yyyy" 
-                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
-                <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14" />
-                </svg>
-            </div>
+        {{-- Kode Promo --}}
+        <div>
+            <label for="kode" class="block text-sm font-medium text-gray-700">Kode Promo</label>
+            <input type="text" name="kode" id="kode" value="{{ old('kode') }}"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                placeholder="Contoh: WEEKEND50">
+            @error('kode')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
         </div>
-    </div>
 
-    <!-- Syarat & Ketentuan Section -->
-    <div class="space-y-2">
-        <label for="terms" class="block text-sm font-medium text-gray-700">Syarat & Ketentuan</label>
-        <textarea id="terms" rows="4" placeholder="Tulis syarat dan ketentuan promo Anda..." 
-                  class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"></textarea>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="flex gap-3 pt-4">
-        <a href="{{ url()->previous() }}" class="flex-1 py-3 border-2 border-red-600 text-red-600 rounded-lg font-medium hover:bg-red-50 transition-colors text-center">
-            Batal
-        </a>
-        <button @click="showSuccessPopup = true" class="flex-1 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
-            Simpan
-        </button>
-    </div>
-
-    <!-- Success Popup -->
-    <div x-show="showSuccessPopup" @click.away="showSuccessPopup = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-xl p-6 max-w-md w-full shadow-2xl animate-fade-in">
-            <div class="text-center">
-                <h2 class="text-xl font-bold text-red-600 mb-4">Berhasil!</h2>
-                <div class="mb-4">
-                    <img src="https://placehold.co/200x150/e57373/ffffff?text=Promo+Illustration" alt="Promo Illustration" class="mx-auto rounded-lg">
-                </div>
-                <p class="text-gray-600 mb-6">Promo 'Diskon Spesial' telah berhasil ditambahkan.</p>
-                <button @click="showSuccessPopup = false" class="w-full py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
-                    Ok
-                </button>
-            </div>
+        {{-- Tipe Diskon --}}
+        <div>
+            <label for="tipe_diskon" class="block text-sm font-medium text-gray-700">Tipe Diskon</label>
+            <select name="tipe_diskon" id="tipe_diskon"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                <option value="">Pilih tipe diskon</option>
+                <option value="persentase" {{ old('tipe_diskon') == 'persentase' ? 'selected' : '' }}>Persen (%)</option>
+                <option value="nominal" {{ old('tipe_diskon') == 'nominal' ? 'selected' : '' }}>Nominal (Rp)</option>
+            </select>
+            @error('tipe_diskon')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
         </div>
-    </div>
 
-    <!-- CSS Animation -->
-    <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.3s ease-out;
-        }
-    </style>
+        {{-- Nilai Diskon --}}
+        <div>
+            <label for="nilai_diskon" class="block text-sm font-medium text-gray-700">Nilai Diskon</label>
+            <input type="number" name="nilai_diskon" id="nilai_diskon" step="0.01" value="{{ old('nilai_diskon') }}"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                placeholder="Contoh: 10 untuk 10% atau 50000 untuk Rp50.000">
+            @error('nilai_diskon')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- Periode Berlaku --}}
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Periode Berlaku</label>
+            <div class="flex gap-2">
+                <input type="date" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}"
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                <span class="self-center text-gray-500">-</span>
+                <input type="date" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}"
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+            </div>
+            @error('tanggal_mulai')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+            @error('tanggal_selesai')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- Batas Penggunaan --}}
+        <div>
+            <label for="batas_penggunaan" class="block text-sm font-medium text-gray-700">Batas Penggunaan (opsional)</label>
+            <input type="number" name="batas_penggunaan" id="batas_penggunaan" value="{{ old('batas_penggunaan') }}"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                placeholder="Contoh: 100 untuk 100 kali penggunaan">
+            @error('batas_penggunaan')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- Aktif --}}
+        <div class="flex items-center gap-3">
+            <input type="checkbox" name="aktif" id="aktif" value="1"
+                {{ old('aktif', true) ? 'checked' : '' }}
+                class="h-5 w-5 text-red-600 border-gray-300 rounded focus:ring-red-500">
+            <label for="aktif" class="text-sm font-medium text-gray-700">Promo aktif</label>
+        </div>
+
+        {{-- Tombol Aksi --}}
+        <div class="flex gap-3 pt-4">
+            <a href="{{ route('owner.promos.index') }}"
+                class="flex-1 py-3 border-2 border-red-600 text-red-600 rounded-lg font-medium hover:bg-red-50 transition-colors text-center">
+                Batal
+            </a>
+            <button type="submit"
+                class="flex-1 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+                Simpan
+            </button>
+        </div>
+    </form>
 </div>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Reservation;
 use App\Services\MidtransSnapService;
 use Illuminate\Http\Request;
@@ -30,6 +31,17 @@ class PaymentController extends Controller
         }
 
         $reservationFee = 10000;
+
+        if ($reservation->status === 'paid') {
+            Notification::create([
+                'notifiable_type' => 'App\Models\Owner',
+                'notifiable_id' => $reservation->owner_id,
+                'reservation_id' => $reservation->id,
+                'title' => 'Pembayaran Diterima',
+                'message' => "Pembayaran untuk reservasi #{$reservation->nomor_pesanan} oleh {$reservation->customer->user->name} telah diterima.",
+                'type' => 'success',
+            ]);
+        }
 
         return view('user.payment.index', compact('reservation', 'reservationFee'));
     }
@@ -109,13 +121,35 @@ class PaymentController extends Controller
     public function cancel($id)
     {
         $reservation = Reservation::with('order')->findOrFail($id);
+        $user = auth()->user();
 
-        if ($reservation->customer_id !== auth()->user()->customer->id) {
+        if (
+            !($user->customer && $reservation->customer_id === $user->customer->id) &&
+            !($user->owner && $reservation->owner_id === $user->owner->id)
+        ) {
             abort(403, 'Anda tidak berhak membatalkan reservasi ini.');
         }
 
+        Notification::create([
+            'notifiable_type' => 'App\Models\Owner',
+            'notifiable_id' => $reservation->owner_id,
+            'reservation_id' => $reservation->id,
+            'title' => 'Reservasi Dibatalkan',
+            'message' => "Reservasi #{$reservation->nomor_pesanan} oleh {$reservation->customer->user->name} telah dibatalkan.",
+            'type' => 'warning',
+        ]);
+
+        Notification::create([
+            'notifiable_type' => 'App\Models\Customer',
+            'notifiable_id' => $reservation->customer_id,
+            'reservation_id' => $reservation->id,
+            'title' => 'Reservasi Dibatalkan',
+            'message' => "Hai {$reservation->customer->user->name}, reservasi Anda (#{$reservation->nomor_pesanan}) telah dibatalkan.",
+            'type' => 'warning',
+        ]);
+
         $reservation->update(['status' => 'cancelled']);
 
-        return redirect()->route('payment.show', ['id' => $reservation->id])->with('success', 'Pesanan berhasil dibatalkan.');
+        return redirect()->back()->with('success', 'Pesanan berhasil dibatalkan.');
     }
 }

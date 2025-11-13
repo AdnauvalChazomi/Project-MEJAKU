@@ -4,6 +4,7 @@ namespace App\Http\Controllers\owner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Meja;
+use App\Models\Notification;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -60,6 +61,26 @@ class ReservationManageController extends Controller
         $meja = Meja::findOrFail($request->meja_id);
         $meja->update(['status' => 'digunakan']);
 
+        // Notifikasi untuk owner
+        Notification::create([
+            'notifiable_type' => 'App\Models\Owner',
+            'notifiable_id' => $reservation->owner_id,
+            'reservation_id' => $reservation->id,
+            'title' => 'Meja Ditambahkan ke Reservasi',
+            'message' => "Reservasi #{$reservation->nomor_pesanan} telah diberi meja nomor {$meja->nomor}.",
+            'type' => 'success',
+        ]);
+
+        // Notifikasi untuk customer
+        Notification::create([
+            'notifiable_type' => 'App\Models\Customer',
+            'notifiable_id' => $reservation->customer_id,
+            'reservation_id' => $reservation->id,
+            'title' => 'Meja Telah Ditentukan',
+            'message' => "Reservasi Anda (#{$reservation->nomor_pesanan}) telah diberikan meja nomor {$meja->nomor}.",
+            'type' => 'info',
+        ]);
+
         return back()->with('success', 'Meja berhasil ditambahkan ke reservasi!');
     }
 
@@ -74,6 +95,24 @@ class ReservationManageController extends Controller
         $reservation->update(['status' => 'completed']);
 
         $reservation->meja->update(['status' => 'tersedia']);
+
+        Notification::create([
+            'notifiable_type' => 'App\Models\Owner',
+            'notifiable_id' => $reservation->owner_id,
+            'reservation_id' => $reservation->id,
+            'title' => 'Reservasi Selesai',
+            'message' => "Reservasi #{$reservation->nomor_pesanan} telah selesai. Meja nomor {$reservation->meja->nomor} kini tersedia kembali.",
+            'type' => 'info',
+        ]);
+
+        Notification::create([
+            'notifiable_type' => 'App\Models\Customer',
+            'notifiable_id' => $reservation->customer_id,
+            'reservation_id' => $reservation->id,
+            'title' => 'Reservasi Selesai',
+            'message' => "Reservasi Anda (#{$reservation->nomor_pesanan}) telah selesai. Terima kasih telah menggunakan layanan kami!",
+            'type' => 'success',
+        ]);
 
         return redirect()->back()->with('success', 'Reservasi ditandai selesai dan meja kini tersedia kembali.');
     }

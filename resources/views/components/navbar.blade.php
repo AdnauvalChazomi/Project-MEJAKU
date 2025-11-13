@@ -60,7 +60,7 @@ $role = $user->role ?? null;
             {{-- Ikon Notifikasi dan Pengaturan untuk Owner --}}
             <div class="flex items-center gap-4">
                 {{-- Notifikasi --}}
-                <a href="{{ route('notifikasi') }}" class="relative text-gray-700 hover:text-[#A63232]">
+                <a href="{{ route('owner.notification') }}" class="relative text-gray-700 hover:text-[#A63232]">
                     <i class="ri-notification-3-line text-2xl"></i>
                     {{-- Badge notifikasi (opsional) --}}
                     <span
@@ -166,7 +166,7 @@ $role = $user->role ?? null;
                 </li>
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-notification-3-line text-lg"></i>
-                    <a href="{{ route('notifikasi') }}">Notifikasi</a>
+                    <a href="{{ route('user.notification') }}">Notifikasi</a>
                 </li>
 
             </ul>
@@ -216,7 +216,7 @@ $role = $user->role ?? null;
 
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-notification-3-line text-lg"></i>
-                    <a href="{{ route('notifikasi') }}">Notifikasi</a>
+                    <a href="{{ route('owner.notification') }}">Notifikasi</a>
                 </li>
 
             </ul>

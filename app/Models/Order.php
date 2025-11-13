@@ -30,6 +30,11 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function promo()
+    {
+        return $this->belongsTo(Promo::class);
+    }
+
     public function getTotalAttribute()
     {
         return $this->items->sum('subtotal');

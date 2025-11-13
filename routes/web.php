@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\owner\AnalyticsController;
 use App\Http\Controllers\owner\MenuController;
 use App\Http\Controllers\owner\MetadataController;
+use App\Http\Controllers\owner\NotificationController;
+use App\Http\Controllers\user\NotificationController as UserNotification;
 use App\Http\Controllers\owner\OrderController;
 use App\Http\Controllers\owner\OrderManageController;
 use App\Http\Controllers\owner\PremiumController;
@@ -92,7 +95,12 @@ Route::prefix('owner/dashboard/pesanan')->group(function () {
 });
 
 Route::prefix('owner/dashboard/promo')->group(function () {
-    Route::get('/', [PromoController::class, 'index'])->name('promo.index');
+    Route::get('/', [PromoController::class, 'index'])->name('owner.promos.index');
+    Route::get('/tambah', [PromoController::class, 'create'])->name('owner.promos.create');
+        Route::post('/', [PromoController::class, 'store'])->name('owner.promos.store');
+    Route::get('/{promo}/edit', [PromoController::class, 'edit'])->name('owner.promos.edit');
+    Route::put('/{promo}', [PromoController::class, 'update'])->name('owner.promos.update');
+    Route::delete('/{promo}', [PromoController::class, 'destroy'])->name('owner.promos.destroy');
 });
 
 Route::prefix('owner/metadata')->name('owner.metadata.')->group(function () {
@@ -121,6 +129,18 @@ Route::patch('/owner/reservations/{id}/selesai', [ReservationManageController::c
     ->name('owner.reservations.markAsSelesai');
 
 Route::get('/owner/premium', [PremiumController::class, 'index'])->name('premium');
+Route::get('/owner/dashboard/notification', [NotificationController::class, 'index'])->name('owner.notification');
+Route::get('/user/notification', [UserNotification::class, 'index'])->name('user.notification');
+Route::post('/owner/notification/reminder', [OrderManageController::class, 'sendReminder'])
+    ->middleware(['auth'])
+    ->name('owner.notification.reminder');
+Route::post('/owner/notification/pickup', [OrderManageController::class, 'notifyPickup'])
+    ->middleware(['auth'])
+    ->name('owner.notification.pickup');
+
+Route::get('/owner/dashboard/analytics', [AnalyticsController::class, 'index'])
+    ->name('owner.analytics')
+    ->middleware(['auth']);
 
 Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::get('/owner/dashboard', [DashboardOwnerController::class, 'index'])->name('owner.dashboard');
@@ -218,9 +238,9 @@ Route::get('/owner/settings', function () {
     return view('owner.settings');
 })->name('owner.settings');
 
-Route::get('/owner/promos', function () {
-    return view('owner.promos.create');
-})->name('promos.create');
+// Route::get('/owner/promos', function () {
+//     return view('owner.promos.create');
+// })->name('promos.create');
 
 Route::get('/owner/profilrestoran', function () {
     return view('owner.profile.profilerestoran');
@@ -250,9 +270,6 @@ Route::get('/dashboard-owner', function () {
     return view('owner.dashboard');
 });
 
-Route::get('/notifikasi', function () {
-    return view('owner.notification');
-})->name('notifikasi');
 
 Route::get('/pengaturan', function () {
     return view('owner.settings');

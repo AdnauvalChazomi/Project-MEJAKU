@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\Meja;
+use App\Models\Notification;
 use App\Models\Owner;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
@@ -60,6 +61,15 @@ class ReservationController extends Controller
         $validated['nomor_pesanan'] = $nomorPesanan;
 
         $reservation = Reservation::create($validated);
+
+        Notification::create([
+            'notifiable_type' => 'App\Models\Owner',
+            'notifiable_id' => $validated['owner_id'],
+            'reservation_id' => $reservation->id,
+            'title' => 'Reservasi Baru',
+            'message' => "{$customer->user->name} telah membuat reservasi untuk {$validated['jumlah_tamu']} tamu pada {$validated['tanggal_reservasi']} pukul {$validated['jam_reservasi']}.",
+            'type' => 'info',
+        ]);
 
         return redirect()
             ->route('preorder', ['reservation' => $reservation->id])
