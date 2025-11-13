@@ -35,8 +35,7 @@
                                 <td class="py-1">{{ $item->menu->nama ?? 'Item Tanpa Nama' }}</td>
                                 <td class="py-1 text-center">{{ $item->jumlah ?? 1 }}</td>
                                 <td class="py-1 text-right">
-                                    Rp
-                                    {{ number_format(($item->menu->harga ?? 0) * ($item->jumlah ?? 1), 0, ',', '.') }}
+                                    - Rp {{ number_format($reservation->order?->diskon ?? 0, 0, ',', '.') }}
                                 </td>
                             </tr>
                         @endforeach

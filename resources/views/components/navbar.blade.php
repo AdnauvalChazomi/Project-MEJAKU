@@ -168,7 +168,6 @@ $role = $user->role ?? null;
                     <i class="ri-notification-3-line text-lg"></i>
                     <a href="{{ route('user.notification') }}">Notifikasi</a>
                 </li>
-
             </ul>
 
             <h3 class="font-bold mt-6 mb-2">Account</h3>

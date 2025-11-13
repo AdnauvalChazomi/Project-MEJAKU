@@ -32,14 +32,14 @@
                 </div>
             </section>
 
+            @php
+                $order = $reservation->order;
+                $subtotal = $order?->total_harga ?? 0;
+                $pajak = $subtotal * 0.1;
+            @endphp
+
             {{-- Daftar Order Items (opsional) --}}
             @if ($reservation->order && $reservation->order->items->isNotEmpty())
-                @php
-                    $order = $reservation->order;
-                    $subtotal = $order->total_harga;
-                    $pajak = $subtotal * 0.1;
-                @endphp
-
                 <section class="bg-white border rounded-lg p-4 shadow-sm relative">
                     <div class="divide-y">
                         @foreach ($order->items as $item)

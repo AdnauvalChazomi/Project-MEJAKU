@@ -34,6 +34,7 @@ class PaymentController extends Controller
         $itemDetails = [];
         $items = collect();
         $total = 0;
+        $promo = null;
 
         switch ($type) {
             case 'reservation':
@@ -112,11 +113,13 @@ class PaymentController extends Controller
         ];
 
         $snapToken = $this->midtransSnapService->createSnapToken($params);
+        $order = $type === 'reservation' ? ($reservation->order ?? null) : null;
 
         return view('payments.index', [
             'snapToken' => $snapToken,
             'type' => $type,
             'items' => $items,
+            'order' => $order,
             'total' => $total,
             'tax' => $tax,
             'subtotal' => $subtotal,
