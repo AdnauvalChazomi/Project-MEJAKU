@@ -44,7 +44,7 @@
     <section class="px-6 py-8 max-w-lg m-auto">
         <h2 class="text-lg font-semibold text-gray-800 mb-4">Rekomendasi</h2>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4">
             @foreach ([['Cafe Lorem', 'Jakarta', 'cafe1.jpg', 4.5], ['Cafe Brasserie', 'Jakarta', 'cafe2.jpg', 4.5], ['Sushi House', 'Bandung', 'cafe3.jpg', 4.5]] as [$name, $city, $img, $rating])
                 <div class="bg-white rounded-xl shadow-md overflow-hidden">
                     <img src="{{ asset('images/' . $img) }}" alt="{{ $name }}" class="w-full h-40 object-cover">
@@ -83,7 +83,6 @@
                 </div>
             </div>
         @endforeach
-
         <div class="flex justify-center space-x-6 py-4">
             <img src="{{ asset('images/logo1.png') }}" alt="Partner 1" class="h-6">
             <img src="{{ asset('images/logo2.png') }}" alt="Partner 2" class="h-6">

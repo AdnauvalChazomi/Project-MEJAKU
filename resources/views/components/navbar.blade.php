@@ -4,7 +4,7 @@ $role = $user->role ?? null;
 @endphp
 
 <div x-data="{ open: false }" class="relative z-50">
-    <header class="flex items-center justify-between px-4 py-3 bg-white shadow-sm">
+    <header class="flex items-center justify-between p-4 bg-white shadow-sm">
         {{-- Tombol menu --}}
         <button @click="open = true" class="focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,12 +60,12 @@ $role = $user->role ?? null;
             {{-- Ikon Notifikasi dan Pengaturan untuk Owner --}}
             <div class="flex items-center gap-4">
                 {{-- Notifikasi --}}
-                <button class="relative text-gray-700 hover:text-[#A63232]">
+                <a href="{{ route('notifikasi') }}" class="relative text-gray-700 hover:text-[#A63232]">
                     <i class="ri-notification-3-line text-2xl"></i>
                     {{-- Badge notifikasi (opsional) --}}
                     <span
                         class="absolute -top-1 -right-1 bg-[#A63232] text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">3</span>
-                </button>
+                </a>
 
                 {{-- Pengaturan --}}
                 <a href="{{ route('setting.index', ['id' => $ownerId]) }}" class="text-gray-700 hover:text-[#A63232]">
@@ -165,29 +165,14 @@ $role = $user->role ?? null;
                     <a href="{{ route('history') }}">Reservasi Saya</a>
                 </li>
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
-                    <i class="ri-star-line text-lg"></i>
-                    <a href="#">Poin & Reward</a>
-                </li>
-                <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-notification-3-line text-lg"></i>
-                    <a href="#">Notifikasi</a>
+                    <a href="{{ route('notifikasi') }}">Notifikasi</a>
                 </li>
-                <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
-                    <i class="ri-heart-3-line text-lg"></i>
-                    <a href="#">Resto Favorit</a>
-                </li>
+
             </ul>
 
             <h3 class="font-bold mt-6 mb-2">Account</h3>
             <ul class="space-y-4">
-                <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
-                    <i class="ri-user-line text-lg"></i>
-                    <a href="#">Tentang MejaKu</a>
-                </li>
-                <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
-                    <i class="ri-settings-3-line text-lg"></i>
-                    <a href="#">Kebijakan Privasi</a>
-                </li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -203,34 +188,47 @@ $role = $user->role ?? null;
             @case('owner')
             <h3 class="font-bold mb-2">Menu</h3>
             <ul class="space-y-4">
+
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-home-4-line text-lg"></i>
                     <a href="{{ url('/owner/dashboard') }}">Dashboard</a>
                 </li>
+
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
-                    <i class="ri-star-line text-lg"></i>
-                    <a href="#">Manajemen Reservasi</a>
+                    <i class="ri-calendar-check-line text-lg"></i>
+                    <a href="{{ route('reservasi') }}">Manajemen Reservasi</a>
                 </li>
+
+                <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
+                    <i class="ri-restaurant-line text-lg"></i>
+                    <a href="{{ route('menu') }}">Kelola Menu</a>
+                </li>
+
+                <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
+                    <i class="ri-shopping-bag-3-line text-lg"></i>
+                    <a href="{{ route('pesanan') }}">Kelola Pesanan</a>
+                </li>
+
+                <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
+                    <i class="ri-price-tag-3-line text-lg"></i>
+                    <a href="{{ route('promo') }}">Kelola Promo</a>
+                </li>
+
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-notification-3-line text-lg"></i>
-                    <a href="#">Notifikasi</a>
+                    <a href="{{ route('notifikasi') }}">Notifikasi</a>
                 </li>
-                <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
-                    <i class="ri-heart-3-line text-lg"></i>
-                    <a href="#">Resto Favorit</a>
-                </li>
+
             </ul>
 
             <h3 class="font-bold mt-6 mb-2">Account</h3>
             <ul class="space-y-4">
-                <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
-                    <i class="ri-user-line text-lg"></i>
-                    <a href="#">Tentang MejaKu</a>
-                </li>
+
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-settings-3-line text-lg"></i>
-                    <a href="#">Kebijakan Privasi</a>
+                    <a href="{{ route('pengaturan') }}">Pengaturan</a>
                 </li>
+
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -240,7 +238,9 @@ $role = $user->role ?? null;
                         </button>
                     </form>
                 </li>
+
             </ul>
+
             @break
 
             @default

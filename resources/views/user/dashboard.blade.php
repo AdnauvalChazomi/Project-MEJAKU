@@ -59,7 +59,7 @@
 
         {{-- Rekomendasi Section --}}
         <section class="px-6 lg:px-20 py-10 max-w-7xl mx-auto">
-            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center lg:text-left">Rekomendasi</h2>
+            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Rekomendasi</h2>
 
             <div class="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 @forelse($rekomendasi as $resto)
@@ -94,7 +94,7 @@
             </div>
 
             {{-- Kenapa Harus Mejaku --}}
-            <div class="mt-10 lg:mt-16 text-center lg:text-left">
+            <div class="mt-10 text-center">
                 <h2 class="text-2xl font-bold text-gray-900 mb-3">Kenapa Harus MejaKu?</h2>
                 <p class="text-gray-700 max-w-3xl">
                     Reservasi lebih cepat, bebas antre, dan bisa pre-order.
@@ -104,22 +104,22 @@
         </section>
 
         {{-- Fitur Section --}}
-        <section class="px-6 lg:px-20 py-10 max-w-7xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <div class="bg-red-600 text-white p-6 rounded-lg">
+        <section class="px-6 lg:px-20 py-10 max-w-7xl mx-auto grid gap-4 grid-cols-1">
+            <div class="bg-red-600 text-white p-12 rounded-lg">
                 <h3 class="text-lg font-semibold mb-2">Reservasi Cepat</h3>
                 <p class="text-sm">
                     Pesan meja dengan mudah dan dapatkan antrian digital otomatis saat restoran penuh.
                 </p>
             </div>
 
-            <div class="bg-white border-2 border-red-600 text-red-600 p-6 rounded-lg">
+            <div class="bg-white border-2 border-red-600 text-red-600 p-12 rounded-lg">
                 <h3 class="text-lg font-semibold mb-2">Pre-Order & Cashless Payment</h3>
                 <p class="text-sm text-gray-700">
                     Pesan makanan sebelum tiba dan bayar langsung lewat aplikasi. Hemat waktu, bebas ribet!
                 </p>
             </div>
 
-            <div class="bg-red-600 text-white p-6 rounded-lg">
+            <div class="bg-red-600 text-white p-12 rounded-lg">
                 <h3 class="text-lg font-semibold mb-2">Kumpulkan Poin & Dapatkan Reward</h3>
                 <p class="text-sm">
                     Setiap reservasi mengumpulkan poin yang bisa ditukar dengan diskon atau promo eksklusif.

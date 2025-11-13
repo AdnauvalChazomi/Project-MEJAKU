@@ -6,7 +6,7 @@
 @endphp
 
 @section('content')
-    <div class="min-h-screen bg-gray-50 px-5 md:px-10 py-8 space-y-10">
+    <div class="max-w-lg mx-auto min-h-screen bg-gray-50 px-5 md:px-10 py-8 space-y-10">
         <section class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
                 <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Dashboard</h1>
@@ -78,7 +78,6 @@
                 <option>Minggu Ini</option>
             </select>
         </div>
-
             <div class="space-y-5">
                 <div>
                     <div class="flex justify-between mb-1">

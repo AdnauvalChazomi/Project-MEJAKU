@@ -242,27 +242,27 @@ Route::get('/dashboard-owner', function () {
 
 Route::get('/notifikasi', function () {
     return view('owner.notification');
-});
+})->name('notifikasi');
 
 Route::get('/pengaturan', function () {
     return view('owner.settings');
-});
+})->name('pengaturan');
 
 Route::get('/manajemen-reservasi', function () {
     return view('owner.reservations.index');
-});
+})->name('reservasi');
 
 Route::get('/kelola-menu', function () {
     return view('owner.menu.index');
-});
+})->name('menu');
 
 Route::get('/kelola-pesanan', function () {
     return view('owner.orders.index');
-});
+})->name('pesanan');
 
 Route::get('/kelola-promo', function () {
     return view('owner.promos.index');
-});
+})->name('promo');
 
 Route::get('/analytic', function () {
     return view('owner.analytics.index');

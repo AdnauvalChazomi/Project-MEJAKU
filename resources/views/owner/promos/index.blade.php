@@ -2,19 +2,16 @@
 @section('title', 'Kelola Promo | MejaKu')
 
 @section('content')
-<div x-data="{ tab: 'aktif' }" class="relative max-w-lg mx-auto min-h-screen">
+<div x-data="{ tab: 'aktif' }" class="relative max-w-lg mx-auto min-h-screen px-10 py-0">
 
-    {{-- Header --}}
-    <header class="flex items-center gap-3">
-        <button onclick="window.history.back()" class="p-2 hover:bg-gray-100 rounded-full transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 19l-7-7 7-7" />
-            </svg>
-        </button>
+    <button onclick="window.history.back()" class="flex items-center gap-3 hover:bg-gray-100 rounded-full transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 19l-7-7 7-7" />
+        </svg>
         <h1 class="text-xl md:text-2xl font-semibold text-gray-900 my-3">Kelola Promo</h1>
-    </header>
+    </button>
 
     {{-- Tab Promo --}}
     <section>
@@ -89,7 +86,7 @@
     </section>
 
     {{-- Tombol Tambah Promo --}}
-    <div class="pt-4">
+    <div class="pt-4 mt-4">
         <button
             class="w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-3 rounded-full transition-all duration-200 shadow-sm hover:shadow-md">
             Tambah Promo
