@@ -42,7 +42,7 @@
             </div>
             <div class="flex justify-between">
                 <span class="text-gray-700">Voucher</span>
-                <span class="text-red-600 font-medium">-Rp 4.900</span>
+                <span class="text-[#9D3935] font-medium">-Rp 4.900</span>
             </div>
             <div class="flex justify-between">
                 <span class="text-gray-700">Pajak</span>
@@ -56,7 +56,7 @@
     </div>
 
     <div class="pt-8">
-        <button class="w-full py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+        <button class="w-full py-3 bg-[#9D3935] text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
             Bayar
         </button>
     </div>

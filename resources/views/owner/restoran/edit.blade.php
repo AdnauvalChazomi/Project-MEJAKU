@@ -9,7 +9,7 @@
                 @foreach (['tentang' => 'Tentang', 'menu' => 'Menu Unggulan', 'operasional' => 'Operasional', 'ulasan' => 'Ulasan'] as $key => $label)
                     <button @click="activeTab = '{{ $key }}'"
                         :class="{
-                            'border-red-600 text-red-600': activeTab === '{{ $key }}',
+                            'border-red-600 text-[#9D3935]': activeTab === '{{ $key }}',
                             'text-gray-500 hover:text-gray-700': activeTab !== '{{ $key }}'
                         }"
                         class="py-3 px-1 border-b-2 font-medium text-sm focus:outline-none">
@@ -37,7 +37,7 @@
                             <input type="file" name="foto_restoran" id="gantiFotoRestoran" class="hidden"
                                 onchange="this.form.submit()">
                             <label for="gantiFotoRestoran"
-                                class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition">
+                                class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-[#9D3935] text-white text-sm rounded-lg hover:bg-red-700 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -52,7 +52,7 @@
                             @method('DELETE')
                             <button type="submit"
                                 onclick="return confirm('Apakah Anda yakin ingin menghapus foto restoran ini?')"
-                                class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition">
+                                class="inline-flex items-center gap-2 px-4 py-2 bg-[#9D3935] text-white text-sm rounded-lg hover:bg-red-700 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -69,7 +69,7 @@
                         <input type="file" name="foto_restoran" id="uploadFotoRestoran" class="hidden"
                             onchange="this.form.submit()">
                         <label for="uploadFotoRestoran"
-                            class="cursor-pointer px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                            class="cursor-pointer px-4 py-2 bg-[#9D3935] text-white rounded-lg hover:bg-red-700 transition">
                             Upload Foto Restoran
                         </label>
                     </form>
@@ -91,7 +91,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                    class="flex items-center justify-center space-x-1 px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md shadow-sm transition-all duration-200">
+                                    class="flex items-center justify-center space-x-1 px-3 py-1 text-sm bg-[#9D3935] hover:bg-red-700 text-white rounded-md shadow-sm transition-all duration-200">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -128,35 +128,35 @@
                 @method('PUT')
 
                 <div>
-                    <label class="block text-sm font-medium text-red-600">Nama Restoran</label>
+                    <label class="block text-sm font-medium text-[#9D3935]">Nama Restoran</label>
                     <input type="text" name="nama_restoran" value="{{ old('nama_restoran', $owner->nama_restoran) }}"
                         class="w-full border rounded-lg px-3 py-2">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-red-600">Alamat Restoran</label>
+                    <label class="block text-sm font-medium text-[#9D3935]">Alamat Restoran</label>
                     <textarea name="alamat_restoran" rows="2" class="w-full border rounded-lg px-3 py-2">{{ old('alamat_restoran', $owner->alamat_restoran) }}</textarea>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-red-600">Summary</label>
+                    <label class="block text-sm font-medium text-[#9D3935]">Summary</label>
                     <textarea name="summary" rows="2" class="w-full border rounded-lg px-3 py-2">{{ old('summary', $owner->summary) }}</textarea>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-red-600">Lokasi Restoran (Link Google Maps)</label>
+                    <label class="block text-sm font-medium text-[#9D3935]">Lokasi Restoran (Link Google Maps)</label>
                     <input type="text" name="lokasi_restoran"
                         value="{{ old('lokasi_restoran', $owner->lokasi_restoran) }}"
                         class="w-full border rounded-lg px-3 py-2">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-red-600">Nomor Induk Berusaha (NIB)</label>
+                    <label class="block text-sm font-medium text-[#9D3935]">Nomor Induk Berusaha (NIB)</label>
                     <input type="text" name="nib" value="{{ old('nib', $owner->nib) }}"
                         class="w-full border rounded-lg px-3 py-2">
                 </div>
 
-                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                <button type="submit" class="px-4 py-2 bg-[#9D3935] text-white rounded-lg hover:bg-red-700 transition">
                     Simpan Perubahan
                 </button>
             </form>
@@ -167,7 +167,7 @@
                 <div class="text-center py-10 text-gray-500">
                     <p>Belum ada menu unggulan yang ditambahkan.</p>
                     <button @click="openModal = true"
-                        class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                        class="mt-4 px-4 py-2 bg-[#9D3935] text-white rounded-lg hover:bg-red-700">
                         Tambah Menu Unggulan
                     </button>
                 </div>
@@ -201,7 +201,7 @@
                                     @method('DELETE')
                                     <input type="hidden" name="id" value="{{ $unggulan->id }}">
                                     <button type="submit"
-                                        class="w-full py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm font-medium">
+                                        class="w-full py-2 bg-[#9D3935] text-white rounded-lg hover:bg-red-700 transition text-sm font-medium">
                                         Hapus Menu
                                     </button>
                                 </form>
@@ -210,7 +210,7 @@
                     @endforeach
                 </div>
                 <div class="text-center my-12">
-                    <button @click="openModal = true" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                    <button @click="openModal = true" class="px-4 py-2 bg-[#9D3935] text-white rounded-lg hover:bg-red-700">
                         Tambah Menu Unggulan
                     </button>
                 </div>
@@ -240,7 +240,7 @@
                                 class="px-4 py-2 border rounded-lg hover:bg-gray-100">
                                 Batal
                             </button>
-                            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                            <button type="submit" class="px-4 py-2 bg-[#9D3935] text-white rounded-lg hover:bg-red-700">
                                 Simpan
                             </button>
                         </div>
@@ -257,14 +257,14 @@
                 {{-- Jam Operasional --}}
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-red-600">Jam Buka</label>
+                        <label class="block text-sm font-medium text-[#9D3935]">Jam Buka</label>
                         <input type="time" name="jam_buka"
                             value="{{ old('jam_buka', $operational->first()->jam_buka ?? '') }}"
                             class="w-full border rounded-lg px-3 py-2">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-red-600">Jam Tutup</label>
+                        <label class="block text-sm font-medium text-[#9D3935]">Jam Tutup</label>
                         <input type="time" name="jam_tutup"
                             value="{{ old('jam_tutup', $operational->first()->jam_tutup ?? '') }}"
                             class="w-full border rounded-lg px-3 py-2">
@@ -273,7 +273,7 @@
 
                 {{-- Area Pilihan --}}
                 <div>
-                    <label class="block text-sm font-medium text-red-600 mb-2">Area</label>
+                    <label class="block text-sm font-medium text-[#9D3935] mb-2">Area</label>
                     @php
                         $selectedAreas = old('area', $operational->first()->area ?? []);
                         $areaOptions = ['Indoor', 'Outdoor', 'Semi Outdoor'];
@@ -283,7 +283,7 @@
                             <label class="flex items-center gap-2">
                                 <input type="checkbox" name="area[]" value="{{ $area }}"
                                     @checked(in_array($area, $selectedAreas))
-                                    class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                                    class="rounded border-gray-300 text-[#9D3935] focus:ring-red-500">
                                 <span>{{ $area }}</span>
                             </label>
                         @endforeach
@@ -292,7 +292,7 @@
 
                 {{-- Kategori Layanan --}}
                 <div>
-                    <label class="block text-sm font-medium text-red-600 mb-2">Kategori Layanan</label>
+                    <label class="block text-sm font-medium text-[#9D3935] mb-2">Kategori Layanan</label>
                     @php
                         $selectedKategori = old('kategori_layanan', $operational->first()->kategori_layanan ?? []);
                         $kategoriOptions = ['Dine In', 'Take Away', 'Delivery', 'Reservasi', 'Catering'];
@@ -302,7 +302,7 @@
                             <label class="flex items-center gap-2">
                                 <input type="checkbox" name="kategori_layanan[]" value="{{ $kategori }}"
                                     @checked(in_array($kategori, $selectedKategori))
-                                    class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                                    class="rounded border-gray-300 text-[#9D3935] focus:ring-red-500">
                                 <span>{{ $kategori }}</span>
                             </label>
                         @endforeach
@@ -311,7 +311,7 @@
 
                 {{-- Tombol Simpan --}}
                 <div class="pt-4">
-                    <button type="submit" class="px-5 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                    <button type="submit" class="px-5 py-2 bg-[#9D3935] text-white rounded-lg hover:bg-red-700 transition">
                         Simpan Perubahan
                     </button>
                 </div>

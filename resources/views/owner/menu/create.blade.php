@@ -78,11 +78,11 @@
         {{-- Tombol Aksi --}}
         <div class="flex gap-3 pt-4">
             <a href="{{ route('menu.index', ['id' => $user->owner->id]) }}"
-                class="flex-1 py-3 border-2 border-red-600 text-red-600 rounded-lg font-medium hover:bg-red-50 transition-colors text-center">
+                class="flex-1 py-3 border-2 border-red-600 text-[#9D3935] rounded-lg font-medium hover:bg-red-50 transition-colors text-center">
                 Batal
             </a>
             <button type="submit"
-                class="flex-1 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+                class="flex-1 py-3 bg-[#9D3935] text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
                 Simpan
             </button>
         </div>
@@ -93,10 +93,10 @@
     <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-xl p-6 max-w-md w-full shadow-2xl animate-fade-in">
             <div class="text-center">
-                <h2 class="text-xl font-bold text-red-600 mb-4">Berhasil!</h2>
+                <h2 class="text-xl font-bold text-[#9D3935] mb-4">Berhasil!</h2>
                 <p class="text-gray-600 mb-6">{{ session('success') }}</p>
                 <a href="{{ route('menu.index', ['id' => $user->owner->id]) }}"
-                    class="w-full inline-block py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+                    class="w-full inline-block py-3 bg-[#9D3935] text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
                     Kembali ke Daftar Menu
                 </a>
             </div>

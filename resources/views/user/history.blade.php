@@ -4,12 +4,12 @@
 @section('navbar')
 <!-- Header -->
 <header class="flex items-center justify-between px-4 py-3 border-b sticky top-0 bg-white z-30">
-    <button onclick="window.history.back()" class="hover:text-red-600 transition">
+    <button onclick="window.history.back()" class="hover:text-[#9D3935] transition">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
     </button>
-    <h1 class="text-lg font-bold text-red-600 tracking-tight">Riwayat Reservasi</h1>
+    <h1 class="text-lg font-bold text-[#9D3935] tracking-tight">Riwayat Reservasi</h1>
     <div class="w-6"></div>
 </header>
 @endsection
@@ -94,7 +94,7 @@
             <div class="flex justify-between items-center text-sm mt-3">
                 <div>
                     <p class="text-gray-600">Total Pembayaran</p>
-                    <p class="font-semibold text-red-600">Rp{{ number_format($item['total'], 0, ',', '.') }}</p>
+                    <p class="font-semibold text-[#9D3935]">Rp{{ number_format($item['total'], 0, ',', '.') }}</p>
                 </div>
 
                 @php
@@ -119,7 +119,7 @@
             <!-- Lihat Detail -->
             <div class="mt-3 text-right">
                 <a href="{{ route('status') }}"
-                   class="inline-flex items-center gap-1 text-sm text-red-600 font-medium hover:underline">
+                   class="inline-flex items-center gap-1 text-sm text-[#9D3935] font-medium hover:underline">
                     Lihat Detail
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">

@@ -2,7 +2,7 @@
     <div class="max-w-2xl mx-auto space-y-6 py-8">
         <!-- Header -->
         <div class="text-center space-y-2">
-            <h1 class="text-2xl font-bold text-red-600">MejaKu Partner</h1>
+            <h1 class="text-2xl font-bold text-[#9D3935]">MejaKu Partner</h1>
         </div>
 
         <!-- Payment Details -->
@@ -30,7 +30,7 @@
         <!-- Payment Button -->
         <div class="pt-8">
             <button id="pay-button" type="button"
-                class="w-full py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+                class="w-full py-3 bg-[#9D3935] text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
                 Bayar Sekarang
             </button>
         </div>

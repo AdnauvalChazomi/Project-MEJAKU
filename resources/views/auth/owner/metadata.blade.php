@@ -5,7 +5,7 @@
 
         <!-- Header -->
         <div class="text-center space-y-2">
-            <h1 class="text-2xl font-bold text-red-600">MejaKu Partner</h1>
+            <h1 class="text-2xl font-bold text-[#9D3935]">MejaKu Partner</h1>
             <h2 class="text-xl font-semibold text-gray-900">Selesaikan Pendaftaran Anda</h2>
             <p class="text-gray-600">Jangkau lebih banyak pelanggan dan kelola reservasi dengan mudah.</p>
         </div>
@@ -15,7 +15,7 @@
             <template x-for="step in [1,2,3]" :key="step">
                 <div class="flex flex-col items-center w-1/3">
                     <div :class="{
-                        'bg-red-600 text-white': currentStep >= step,
+                        'bg-[#9D3935] text-white': currentStep >= step,
                         'bg-gray-300 text-gray-700': currentStep < step
                     }"
                         class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
@@ -32,7 +32,7 @@
                     </div>
                     <span
                         :class="{
-                            'text-red-600 font-medium': currentStep >= step,
+                            'text-[#9D3935] font-medium': currentStep >= step,
                             'text-gray-500': currentStep < step
                         }"
                         class="mt-2 text-xs"
@@ -106,10 +106,10 @@
                 </div>
 
                 <template x-if="warningMessage">
-                    <p x-text="warningMessage" class="text-red-600 text-sm text-center font-medium"></p>
+                    <p x-text="warningMessage" class="text-[#9D3935] text-sm text-center font-medium"></p>
                 </template>
 
-                <button type="button" @click="validateStep1" class="w-full py-3 bg-red-600 text-white rounded-lg">
+                <button type="button" @click="validateStep1" class="w-full py-3 bg-[#9D3935] text-white rounded-lg">
                     Lanjut
                 </button>
             </div>
@@ -140,7 +140,7 @@
                 </ul>
             </div>
             <button type="button" @click="nextStep"
-                class="w-full py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition">
+                class="w-full py-3 bg-[#9D3935] text-white rounded-lg font-medium hover:bg-red-700 transition">
                 Lanjut
             </button>
         </div>
@@ -172,7 +172,7 @@
             </div>
 
             <button type="submit"
-                class="w-full py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition">
+                class="w-full py-3 bg-[#9D3935] text-white rounded-lg font-medium hover:bg-red-700 transition">
                 Bayar Sekarang
             </button>
         </div>

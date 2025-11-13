@@ -28,7 +28,7 @@
 
                     {{-- Tombol Search --}}
                     <button type="submit"
-                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-red-600 transition">
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-[#9D3935] transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -83,7 +83,7 @@
 
                         <div class="mt-4">
                             <a href="{{ route('user.restoran.show', ['id' => $r->id]) }}"
-                                class="block text-center py-2 rounded-full bg-red-600 text-white font-medium text-sm hover:bg-red-700 transition">
+                                class="block text-center py-2 rounded-full bg-[#9D3935] text-white font-medium text-sm hover:bg-red-700 transition">
                                 Lihat Detail
                             </a>
                         </div>

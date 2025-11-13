@@ -26,7 +26,7 @@
                 class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="Contoh: Diskon Akhir Pekan">
             @error('nama_promo')
-                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                <p class="text-sm text-[#9D3935] mt-1">{{ $message }}</p>
             @enderror
         </div>
 
@@ -37,7 +37,7 @@
                 class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="Contoh: WEEKEND50">
             @error('kode')
-                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                <p class="text-sm text-[#9D3935] mt-1">{{ $message }}</p>
             @enderror
         </div>
 
@@ -51,7 +51,7 @@
                 <option value="nominal" {{ old('tipe_diskon') == 'nominal' ? 'selected' : '' }}>Nominal (Rp)</option>
             </select>
             @error('tipe_diskon')
-                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                <p class="text-sm text-[#9D3935] mt-1">{{ $message }}</p>
             @enderror
         </div>
 
@@ -62,7 +62,7 @@
                 class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="Contoh: 10 untuk 10% atau 50000 untuk Rp50.000">
             @error('nilai_diskon')
-                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                <p class="text-sm text-[#9D3935] mt-1">{{ $message }}</p>
             @enderror
         </div>
 
@@ -77,10 +77,10 @@
                     class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
             </div>
             @error('tanggal_mulai')
-                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                <p class="text-sm text-[#9D3935] mt-1">{{ $message }}</p>
             @enderror
             @error('tanggal_selesai')
-                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                <p class="text-sm text-[#9D3935] mt-1">{{ $message }}</p>
             @enderror
         </div>
 
@@ -91,7 +91,7 @@
                 class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="Contoh: 100 untuk 100 kali penggunaan">
             @error('batas_penggunaan')
-                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                <p class="text-sm text-[#9D3935] mt-1">{{ $message }}</p>
             @enderror
         </div>
 
@@ -99,18 +99,18 @@
         <div class="flex items-center gap-3">
             <input type="checkbox" name="aktif" id="aktif" value="1"
                 {{ old('aktif', true) ? 'checked' : '' }}
-                class="h-5 w-5 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                class="h-5 w-5 text-[#9D3935] border-gray-300 rounded focus:ring-red-500">
             <label for="aktif" class="text-sm font-medium text-gray-700">Promo aktif</label>
         </div>
 
         {{-- Tombol Aksi --}}
         <div class="flex gap-3 pt-4">
             <a href="{{ route('owner.promos.index') }}"
-                class="flex-1 py-3 border-2 border-red-600 text-red-600 rounded-lg font-medium hover:bg-red-50 transition-colors text-center">
+                class="flex-1 py-3 border-2 border-red-600 text-[#9D3935] rounded-lg font-medium hover:bg-red-50 transition-colors text-center">
                 Batal
             </a>
             <button type="submit"
-                class="flex-1 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+                class="flex-1 py-3 bg-[#9D3935] text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
                 Simpan
             </button>
         </div>

@@ -16,7 +16,7 @@
                 </svg>
             </button>
             <h1 class="text-xl md:text-2xl font-semibold text-gray-900 my-3">Integrasi Pre-Order</h1>
-            <span class="ml-2 text-xs bg-red-600 text-white px-2 py-0.5 rounded-full font-semibold">PRO</span>
+            <span class="ml-2 text-xs bg-[#9D3935] text-white px-2 py-0.5 rounded-full font-semibold">PRO</span>
         </div>
     </header>
 

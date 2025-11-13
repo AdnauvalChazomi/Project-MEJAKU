@@ -32,7 +32,7 @@
                 <span>10 / 10 profile data filled</span>
             </div>
             <div class="w-full bg-gray-200 h-1.5 rounded-full">
-                <div class="bg-red-600 h-1.5 rounded-full w-full"></div>
+                <div class="bg-[#9D3935] h-1.5 rounded-full w-full"></div>
             </div>
         </div>
     </section>
@@ -77,7 +77,7 @@
     </section>
 
     <section class="bg-white rounded-xl shadow-sm border border-gray-100 divide-y divide-gray-100 overflow-hidden">
-        <div class="p-4 text-sm text-red-600 font-semibold bg-[#FDEEDC]">
+        <div class="p-4 text-sm text-[#9D3935] font-semibold bg-[#FDEEDC]">
             Pengaturan
         </div>
 
@@ -126,7 +126,7 @@
             </svg>
         </a>
 
-        <a href="#" class="flex justify-between items-center p-4 hover:bg-gray-50 transition text-red-600 font-medium">
+        <a href="#" class="flex justify-between items-center p-4 hover:bg-gray-50 transition text-[#9D3935] font-medium">
             <span class="text-sm font-semibold">Log Out</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-400" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">

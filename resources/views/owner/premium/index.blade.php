@@ -31,7 +31,7 @@
                     <div class="text-3xl font-bold text-gray-900 mb-2">
                         Rp 1.490.000<span class="text-lg font-normal text-gray-600">/Tahun</span>
                     </div>
-                    <button type="submit" class="mt-4 w-full py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+                    <button type="submit" class="mt-4 w-full py-2 bg-[#9D3935] text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
                         Pilih Paket Tahunan
                     </button>
                 </div>
@@ -48,7 +48,7 @@
                     <div class="text-3xl font-bold text-gray-900 mb-2">
                         Rp 149.000<span class="text-lg font-normal text-gray-600">/Bulan</span>
                     </div>
-                    <button type="submit" class="mt-4 w-full py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+                    <button type="submit" class="mt-4 w-full py-2 bg-[#9D3935] text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
                         Pilih Paket Bulanan
                     </button>
                 </div>

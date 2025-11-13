@@ -4,12 +4,12 @@
 @section('navbar')
 <!-- Header -->
 <header class="flex items-center justify-between px-4 py-3 border-b sticky top-0 bg-white z-30">
-    <button onclick="window.history.back()" class="hover:text-red-600 transition">
+    <button onclick="window.history.back()" class="hover:text-[#9D3935] transition">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
     </button>
-    <h1 class="text-lg font-bold text-red-600 tracking-tight">E-Wallet</h1>
+    <h1 class="text-lg font-bold text-[#9D3935] tracking-tight">E-Wallet</h1>
     <div class="w-6"></div>
 </header>
 @endsection
@@ -45,17 +45,17 @@
         <!-- Total Payment -->
         <div class="bg-red-50 border border-red-200 rounded-lg py-2 mt-2">
             <p class="text-sm text-gray-700">Nominal Pembayaran</p>
-            <p class="text-xl font-semibold text-red-600">Rp74.800</p>
+            <p class="text-xl font-semibold text-[#9D3935]">Rp74.800</p>
         </div>
 
-        <p>Pembayaran akan dialihkan ke halaman resmi <span class="font-semibold text-red-600">Payment Gateway</span>.</p>
+        <p>Pembayaran akan dialihkan ke halaman resmi <span class="font-semibold text-[#9D3935]">Payment Gateway</span>.</p>
 
         <!-- Konfirmasi -->
     <p class="text-center text-xs text-gray-400 my-2">
        Dengan melanjutkan, kamu setuju dengan <a href="#" class="text-red-500 hover:underline">syarat & ketentuan pembayaran</a>.
    </p>
         <a href="payment_getway" target="_blank"
-            class="block w-full text-center bg-red-600 text-white py-3 rounded-lg font-semibold 
+            class="block w-full text-center bg-[#9D3935] text-white py-3 rounded-lg font-semibold 
                    hover:bg-red-700 active:scale-95 focus:outline-none 
                    focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
                    shadow-md hover:shadow-lg">

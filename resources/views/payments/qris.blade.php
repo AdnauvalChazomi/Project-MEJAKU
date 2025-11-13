@@ -4,12 +4,12 @@
 @section('navbar')
 <!-- Header -->
 <header class="flex items-center justify-between px-4 py-3 border-b sticky top-0 bg-white z-30">
-    <button onclick="window.history.back()" class="hover:text-red-600 transition">
+    <button onclick="window.history.back()" class="hover:text-[#9D3935] transition">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
     </button>
-    <h1 class="text-lg font-bold text-red-600 tracking-tight">QRIS</h1>
+    <h1 class="text-lg font-bold text-[#9D3935] tracking-tight">QRIS</h1>
     <div class="w-6"></div>
 </header>
 @endsection
@@ -33,13 +33,13 @@
         <!-- Countdown Timer -->
         <div x-data="{ time: 900, interval: null }" x-init="interval = setInterval(() => { if (time > 0) time-- }, 1000)" class="mt-3">
             <p class="text-sm text-gray-600">Sisa waktu pembayaran:</p>
-            <p class="text-lg font-semibold text-red-600"
+            <p class="text-lg font-semibold text-[#9D3935]"
                 x-text="`${Math.floor(time/60)}:${String(time%60).padStart(2,'0')}`"></p>
         </div>
 
         <!-- Button -->
         <a href="{{ route('status') }}"
-            class="block w-full text-center bg-red-600 text-white py-3 rounded-lg font-semibold 
+            class="block w-full text-center bg-[#9D3935] text-white py-3 rounded-lg font-semibold 
                   hover:bg-red-700 active:scale-95 focus:outline-none 
                   focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
                   shadow-md hover:shadow-lg">

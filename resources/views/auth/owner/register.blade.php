@@ -4,7 +4,7 @@
 
         <!-- Header -->
         <div class="text-center space-y-2">
-            <h1 class="text-2xl font-bold text-red-600">MejaKu Partner</h1>
+            <h1 class="text-2xl font-bold text-[#9D3935]">MejaKu Partner</h1>
             <h2 class="text-xl font-semibold text-gray-900">Daftarkan Restoran Anda</h2>
             <p class="text-gray-600">Jangkau lebih banyak pelanggan dan kelola reservasi dengan mudah.</p>
         </div>
@@ -16,7 +16,7 @@
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="Masukkan nama lengkap pemilik" value="{{ old('name') }}">
             @error('name')
-                <span class="text-sm text-red-600">{{ $message }}</span>
+                <span class="text-sm text-[#9D3935]">{{ $message }}</span>
             @enderror
         </div>
 
@@ -27,7 +27,7 @@
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="Masukkan email" value="{{ old('email') }}">
             @error('email')
-                <span class="text-sm text-red-600">{{ $message }}</span>
+                <span class="text-sm text-[#9D3935]">{{ $message }}</span>
             @enderror
         </div>
 
@@ -39,7 +39,7 @@
                 placeholder="Masukkan nomor telepon" value="{{ old('no_hp') }}" inputmode="numeric" pattern="[0-9]*"
                 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
             @error('no_hp')
-                <span class="text-sm text-red-600">{{ $message }}</span>
+                <span class="text-sm text-[#9D3935]">{{ $message }}</span>
             @enderror
         </div>
 
@@ -50,7 +50,7 @@
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="Masukkan password">
             @error('password')
-                <span class="text-sm text-red-600">{{ $message }}</span>
+                <span class="text-sm text-[#9D3935]">{{ $message }}</span>
             @enderror
         </div>
 
@@ -66,7 +66,7 @@
         <!-- Checkbox -->
         <div class="flex items-start space-x-2">
             <input id="terms" name="terms" type="checkbox" required
-                class="mt-1 h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-2 focus:ring-red-500">
+                class="mt-1 h-4 w-4 text-[#9D3935] border-gray-300 rounded focus:ring-2 focus:ring-red-500">
             <label for="terms" class="text-sm text-gray-700">
                 Dengan mengklik "Daftar" Anda menerima syarat dan ketentuan kami
             </label>
@@ -74,7 +74,7 @@
 
         <!-- Tombol -->
         <button type="submit"
-            class="w-full py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition">
+            class="w-full py-3 bg-[#9D3935] text-white rounded-lg font-medium hover:bg-red-700 transition">
             Daftar
         </button>
 
@@ -82,7 +82,7 @@
         <div class="text-center">
             <p class="text-sm text-gray-600">
                 Sudah punya akun?
-                <a href="{{ route('login') }}" class="text-red-600 hover:text-red-800 font-medium">Masuk</a>
+                <a href="{{ route('login') }}" class="text-[#9D3935] hover:text-red-800 font-medium">Masuk</a>
             </p>
         </div>
     </form>

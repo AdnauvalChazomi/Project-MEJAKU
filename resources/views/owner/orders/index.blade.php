@@ -57,7 +57,7 @@
                                 <p class="text-xs text-gray-500">
                                     {{ \Carbon\Carbon::parse($r->tanggal_reservasi . ' ' . $r->jam_reservasi)->locale('id')->translatedFormat('l, d M Y | H:i') }}
                                 </p>
-                                <p class="text-xs font-semibold text-red-600 uppercase mt-1">
+                                <p class="text-xs font-semibold text-[#9D3935] uppercase mt-1">
                                     Grup • {{ $r->jumlah_tamu }} Tamu
                                 </p>
                                 <h3 class="text-sm font-bold text-gray-900">{{ $r->customer->user->name ?? '-' }}</h3>
@@ -87,7 +87,7 @@
                                 </div>
                                 <p class="text-xs text-gray-500">Nomor Meja</p>
                                 <p class="text-base font-semibold text-gray-900">{{ $r->meja->nomor ?? '-' }}</p>
-                                <p class="text-sm font-semibold text-red-600 mt-1">
+                                <p class="text-sm font-semibold text-[#9D3935] mt-1">
                                     Rp{{ number_format($r->order->total_harga ?? 0, 0, ',', '.') }}
                                 </p>
                             </div>
@@ -98,7 +98,7 @@
                                 @csrf
                                 @method('PATCH')
                                 <button type="button"
-                                    class="w-full bg-gray-100 text-red-600 border border-red-300 py-2 rounded-lg text-sm hover:bg-red-50 transition cancelButton">
+                                    class="w-full bg-gray-100 text-[#9D3935] border border-red-300 py-2 rounded-lg text-sm hover:bg-red-50 transition cancelButton">
                                     Batalkan Pesanan
                                 </button>
                             </form>
@@ -129,7 +129,7 @@
                                 <p class="text-xs text-gray-500">
                                     {{ \Carbon\Carbon::parse($r->tanggal_reservasi . ' ' . $r->jam_reservasi)->locale('id')->translatedFormat('l, d M Y | H:i') }}
                                 </p>
-                                <p class="text-xs font-semibold text-red-600 uppercase mt-1">
+                                <p class="text-xs font-semibold text-[#9D3935] uppercase mt-1">
                                     Grup • {{ $r->jumlah_tamu }} Tamu
                                 </p>
                                 <h3 class="text-sm font-bold text-gray-900">{{ $r->customer->user->name ?? '-' }}</h3>
@@ -159,7 +159,7 @@
                                 </div>
                                 <p class="text-xs text-gray-500">Nomor Meja</p>
                                 <p class="text-base font-semibold text-gray-900">{{ $r->meja->nomor ?? '-' }}</p>
-                                <p class="text-sm font-semibold text-red-600 mt-1">
+                                <p class="text-sm font-semibold text-[#9D3935] mt-1">
                                     Rp{{ number_format($r->order->total_harga ?? 0, 0, ',', '.') }}
                                 </p>
                             </div>
@@ -170,7 +170,7 @@
                                 @csrf
                                 @method('PATCH')
                                 <button type="button"
-                                    class="w-full bg-gray-100 text-red-600 border border-red-300 py-2 rounded-lg text-sm hover:bg-red-50 transition cancelButton">
+                                    class="w-full bg-gray-100 text-[#9D3935] border border-red-300 py-2 rounded-lg text-sm hover:bg-red-50 transition cancelButton">
                                     Batalkan Pesanan
                                 </button>
                             </form>
