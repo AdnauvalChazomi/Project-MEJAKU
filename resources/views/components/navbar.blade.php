@@ -14,7 +14,7 @@ $role = $user->role ?? null;
 
         {{-- Logo Tengah --}}
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <a href="{{ url('/') }}" class="text-2xl font-extrabold text-red-600 tracking-tight">
+            <a href="{{ url('/') }}" class="text-2xl font-extrabold text-[#9D3935] tracking-tight">
                 MejaKu
             </a>
         </div>
@@ -82,7 +82,7 @@ $role = $user->role ?? null;
             @endswitch
             @else
             <a href="{{ route('login') }}"
-                class="px-6 h-10 flex items-center justify-center rounded-full bg-red-600 text-white font-semibold text-base shadow-md hover:bg-gray-800 transition">
+                class="px-6 h-10 flex items-center justify-center rounded-full bg-[#9D3935] text-white font-semibold text-base shadow-md hover:bg-gray-800 transition">
                 Log In
             </a>
             @endif
@@ -113,7 +113,7 @@ $role = $user->role ?? null;
                     alt="{{ $user->name }}" class="w-10 h-10 rounded-full object-cover">
                 <span class="font-medium text-sm">{{ $user->name }}</span>
             </div>
-            <button @click="open = false" class="text-2xl text-gray-700 hover:text-red-600">
+            <button @click="open = false" class="text-2xl text-gray-700 hover:text-[#9D3935]">
                 &times;
             </button>
         </div>
@@ -133,7 +133,7 @@ $role = $user->role ?? null;
                     {{ $owner?->nama_restoran ?? 'Restoran Anda' }}
                 </span>
             </div>
-            <button @click="open = false" class="text-2xl text-gray-700 hover:text-red-600">
+            <button @click="open = false" class="text-2xl text-gray-700 hover:text-[#9D3935]">
                 &times;
             </button>
         </div>

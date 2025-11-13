@@ -8,17 +8,17 @@
     <div class="border-b border-gray-300">
         <nav class="flex space-x-8">
             <button @click="activeTab = 'tentang'" 
-                    :class="{'border-red-600 text-red-600': activeTab === 'tentang', 'text-gray-500 hover:text-gray-700': activeTab !== 'tentang'}"
+                    :class="{'border-red-600 text-[#9D3935]': activeTab === 'tentang', 'text-gray-500 hover:text-gray-700': activeTab !== 'tentang'}"
                     class="py-3 px-1 border-b-2 font-medium text-sm focus:outline-none">
                 Tentang
             </button>
             <button @click="activeTab = 'menu'" 
-                    :class="{'border-red-600 text-red-600': activeTab === 'menu', 'text-gray-500 hover:text-gray-700': activeTab !== 'menu'}"
+                    :class="{'border-red-600 text-[#9D3935]': activeTab === 'menu', 'text-gray-500 hover:text-gray-700': activeTab !== 'menu'}"
                     class="py-3 px-1 border-b-2 font-medium text-sm focus:outline-none">
                 Menu Unggulan
             </button>
             <button @click="activeTab = 'ulasan'" 
-                    :class="{'border-red-600 text-red-600': activeTab === 'ulasan', 'text-gray-500 hover:text-gray-700': activeTab !== 'ulasan'}"
+                    :class="{'border-red-600 text-[#9D3935]': activeTab === 'ulasan', 'text-gray-500 hover:text-gray-700': activeTab !== 'ulasan'}"
                     class="py-3 px-1 border-b-2 font-medium text-sm focus:outline-none">
                 Ulasan
             </button>
@@ -64,10 +64,10 @@
 
         <!-- Nama Restoran Section -->
         <div class="space-y-2">
-            <label class="block text-sm font-medium text-red-600">Nama Restoran</label>
+            <label class="block text-sm font-medium text-[#9D3935]">Nama Restoran</label>
             <div class="flex items-center justify-between p-3 border border-gray-300 rounded-lg">
                 <span class="text-gray-900">Cafe Lorem</span>
-                <button class="text-red-600 hover:text-red-800">
+                <button class="text-[#9D3935] hover:text-red-800">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-5L20.586 19H19.072a2 2 0 00-2 2V20a2 2 0 002 2h1.072a2 2 0 002-2v-1.072a2 2 0 00-2-2H19.072M19.072 19H19.072" />
                     </svg>
@@ -77,10 +77,10 @@
 
         <!-- Jam Buka Section -->
         <div class="space-y-2">
-            <label class="block text-sm font-medium text-red-600">Jam Buka</label>
+            <label class="block text-sm font-medium text-[#9D3935]">Jam Buka</label>
             <div class="flex items-center justify-between p-3 border border-gray-300 rounded-lg">
                 <span class="text-gray-900">08:00 - 22:00</span>
-                <button class="text-red-600 hover:text-red-800">
+                <button class="text-[#9D3935] hover:text-red-800">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-5L20.586 19H19.072a2 2 0 00-2 2V20a2 2 0 002 2h1.072a2 2 0 002-2v-1.072a2 2 0 00-2-2H19.072M19.072 19H19.072" />
                     </svg>
@@ -98,7 +98,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 6l-3 1m0 0l3 1m-3-1v12" />
             </svg>
             <p class="text-gray-600">Belum ada menu unggulan yang ditambahkan.</p>
-            <button class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+            <button class="mt-4 px-4 py-2 bg-[#9D3935] text-white rounded-lg hover:bg-red-700 transition-colors">
                 Tambah Menu Unggulan
             </button>
         </div>

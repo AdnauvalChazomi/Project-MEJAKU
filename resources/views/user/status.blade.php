@@ -45,9 +45,9 @@
             @foreach (array_values($steps) as $index => $step)
                 @php
                     $isCurrent = $index === $statusIndex;
-                    $iconColor = $isCurrent ? 'text-red-600 bg-red-100 border-red-500'
+                    $iconColor = $isCurrent ? 'text-[#9D3935] bg-red-100 border-red-500'
                                             : 'text-gray-400 bg-gray-100 border-gray-300';
-                    $textColor = $isCurrent ? 'text-red-600 font-medium' : 'text-gray-400';
+                    $textColor = $isCurrent ? 'text-[#9D3935] font-medium' : 'text-gray-400';
                 @endphp
 
                 <div class="relative flex flex-col items-center z-10 w-1/4">
@@ -100,14 +100,14 @@
             <div class="w-full max-w-sm space-y-2 mt-6">
                 @if($status === 'belum_bayar')
                     <a href="{{ route('payment.bank') }}"
-                        class="block w-full bg-red-600 text-white py-3 rounded-lg font-semibold
+                        class="block w-full bg-[#9D3935] text-white py-3 rounded-lg font-semibold
                             hover:bg-red-700 active:scale-95 focus:outline-none
                             focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out">
                         Lanjutkan Pembayaran
                     </a>
                 @else
                     <a href="{{ route('history') }}"
-                        class="block w-full bg-red-600 text-white py-3 rounded-lg font-semibold
+                        class="block w-full bg-[#9D3935] text-white py-3 rounded-lg font-semibold
                             text-center hover:bg-red-700 active:scale-95 focus:outline-none
                             focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out">
                         Lihat Riwayat Pesanan

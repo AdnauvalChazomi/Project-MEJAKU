@@ -3,12 +3,12 @@
 
 @section('navbar')
     <header class="flex items-center justify-between px-4 py-3 border-b sticky top-0 bg-white z-30">
-        <button onclick="window.history.back()" class="hover:text-red-600 transition">
+        <button onclick="window.history.back()" class="hover:text-[#9D3935] transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-lg font-bold text-red-600 tracking-tight">Riwayat Reservasi</h1>
+        <h1 class="text-lg font-bold text-[#9D3935] tracking-tight">Riwayat Reservasi</h1>
         <div class="w-6"></div>
     </header>
 @endsection
@@ -54,7 +54,7 @@
                 <div class="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md transition">
                     <div class="flex justify-between mb-3">
                         <div class="flex flex-col justify-between">
-                            <p class="text-xs text-red-600 font-bold mb-1">
+                            <p class="text-xs text-[#9D3935] font-bold mb-1">
                                 Grup • {{ $item['jumlah_tamu'] }} Orang
                             </p>
 
@@ -67,7 +67,7 @@
                         <div class="text-right">
                             <p class="text-xs text-gray-500">Nomor Meja</p>
                             <p class="text-base font-semibold text-gray-900">{{ $item['meja'] }}</p>
-                            <p class="text-sm font-semibold text-red-600 mt-1">
+                            <p class="text-sm font-semibold text-[#9D3935] mt-1">
                                 Rp {{ number_format($item['total'], 0, ',', '.') }}
                             </p>
                         </div>

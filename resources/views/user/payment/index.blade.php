@@ -3,12 +3,12 @@
 
 @section('navbar')
     <header class="flex items-center justify-between px-4 py-3 border-b sticky top-0 bg-white z-30">
-        <button onclick="window.history.back()" class="hover:text-red-600 transition">
+        <button onclick="window.history.back()" class="hover:text-[#9D3935] transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-lg font-bold text-red-600 tracking-tight">Detail Pesanan</h1>
+        <h1 class="text-lg font-bold text-[#9D3935] tracking-tight">Detail Pesanan</h1>
         <div class="w-6"></div>
     </header>
 @endsection
@@ -166,7 +166,7 @@
                         </button>
                     @else
                         <button type="submit"
-                            class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700">
+                            class="w-full bg-[#9D3935] text-white py-3 rounded-lg font-semibold hover:bg-red-700">
                             Lanjutkan
                         </button>
                     @endif
@@ -177,7 +177,7 @@
                         @csrf
                         @method('PATCH')
                         <button type="button" id="cancelButton"
-                            class="w-full bg-gray-100 text-red-600 border border-red-300 py-3 rounded-lg font-semibold hover:bg-red-50 mt-4">
+                            class="w-full bg-gray-100 text-[#9D3935] border border-red-300 py-3 rounded-lg font-semibold hover:bg-red-50 mt-4">
                             Batalkan Reservasi
                         </button>
                     </form>
@@ -213,7 +213,7 @@
 
             if (!promoCode) {
                 promoMessage.textContent = "Masukkan kode promo terlebih dahulu.";
-                promoMessage.classList.add("text-red-600");
+                promoMessage.classList.add("text-[#9D3935]");
                 return;
             }
 
@@ -237,7 +237,7 @@
                     const totalDisplay = document.getElementById('totalDisplay');
 
                     if (data.valid) {
-                        promoMessage.classList.remove("text-red-600");
+                        promoMessage.classList.remove("text-[#9D3935]");
                         promoMessage.classList.add("text-green-600");
                         promoMessage.textContent =
                             `${data.message} Diskon: Rp${Number(data.diskon).toLocaleString()}`;
@@ -260,7 +260,7 @@
                         totalDisplay.textContent = `Rp${totalBaru.toLocaleString()}`;
                     } else {
                         promoMessage.classList.remove("text-green-600");
-                        promoMessage.classList.add("text-red-600");
+                        promoMessage.classList.add("text-[#9D3935]");
                         promoMessage.textContent = data.message;
 
                         promoRow.classList.add('hidden');
@@ -277,7 +277,7 @@
                 })
                 .catch(err => {
                     promoMessage.textContent = "Terjadi kesalahan saat memeriksa promo.";
-                    promoMessage.classList.add("text-red-600");
+                    promoMessage.classList.add("text-[#9D3935]");
                 });
         });
     </script>

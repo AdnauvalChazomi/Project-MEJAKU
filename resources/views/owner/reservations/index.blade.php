@@ -47,7 +47,7 @@
                 <div class="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md transition">
                     <div class="flex justify-between items-start mb-3">
                         <div>
-                            <p class="text-xs font-semibold text-red-600 uppercase">Grup • {{ $r->jumlah_tamu }} Tamu</p>
+                            <p class="text-xs font-semibold text-[#9D3935] uppercase">Grup • {{ $r->jumlah_tamu }} Tamu</p>
                             <h3 class="text-sm font-bold text-gray-800">{{ $r->customer->user->name ?? '-' }}</h3>
                         </div>
 
@@ -115,7 +115,7 @@
                         </div>
                         <div class="text-right">
                             <p class="text-xs text-gray-500">Total</p>
-                            <p class="text-base font-semibold text-red-600 mt-1">
+                            <p class="text-base font-semibold text-[#9D3935] mt-1">
                                 Rp{{ number_format(($r->order->total_harga ?? 0) + 10000, 0, ',', '.') }}
                             </p>
                         </div>
@@ -194,7 +194,7 @@
                     <span x-text="mejaCount" class="text-gray-800 font-medium"></span>
 
                     <button type="button" @click="increase()"
-                        class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold">
+                        class="px-3 py-1 bg-[#9D3935] hover:bg-red-700 text-white rounded-lg font-semibold">
                         +
                     </button>
                 </div>
@@ -205,7 +205,7 @@
                     <button x-text="meja.nomor"
                         :class="{
                             'bg-gray-200 text-gray-700': meja.status === 'tersedia',
-                            'bg-red-600 text-white cursor-not-allowed': meja.status === 'digunakan',
+                            'bg-[#9D3935] text-white cursor-not-allowed': meja.status === 'digunakan',
                         }"
                         class="border border-gray-200 rounded-xl font-semibold text-sm py-5 shadow-sm hover:shadow-md transition"
                         :disabled="meja.status === 'digunakan'">
@@ -224,7 +224,7 @@
                     {{-- === HEADER INFO === --}}
                     <div class="flex justify-between items-start mb-3">
                         <div>
-                            <p class="text-xs font-semibold text-red-600 uppercase">Grup • {{ $r->jumlah_tamu }} Tamu</p>
+                            <p class="text-xs font-semibold text-[#9D3935] uppercase">Grup • {{ $r->jumlah_tamu }} Tamu</p>
                             <h3 class="text-sm font-bold text-gray-800">{{ $r->customer->user->name ?? '-' }}</h3>
                         </div>
 
@@ -296,7 +296,7 @@
                         </div>
                         <div class="text-right">
                             <p class="text-xs text-gray-500">Total</p>
-                            <p class="text-base font-semibold text-red-600 mt-1">
+                            <p class="text-base font-semibold text-[#9D3935] mt-1">
                                 Rp{{ number_format(($r->order->total_harga ?? 0) + 10000, 0, ',', '.') }}
                             </p>
                         </div>
@@ -349,7 +349,7 @@
                                     class="flex items-center justify-between p-3 border-b hover:bg-gray-50 cursor-pointer">
                                     <div class="flex items-center gap-2">
                                         <input type="radio" name="meja_id" value="{{ $meja->id }}"
-                                            class="text-red-600 focus:ring-red-500">
+                                            class="text-[#9D3935] focus:ring-red-500">
                                         <span class="text-sm font-medium text-gray-800">Meja {{ $meja->nomor }}</span>
                                     </div>
                                     <span class="text-xs text-gray-500">Kapasitas {{ $meja->kapasitas ?? '-' }}</span>

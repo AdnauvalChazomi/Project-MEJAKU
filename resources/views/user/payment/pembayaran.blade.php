@@ -4,12 +4,12 @@
 @section('navbar')
 <!-- Header -->
 <header class="flex items-center justify-between px-4 py-3 border-b sticky top-0 bg-white z-30">
-    <button onclick="window.history.back()" class="hover:text-red-600 transition">
+    <button onclick="window.history.back()" class="hover:text-[#9D3935] transition">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
     </button>
-    <h1 class="text-lg font-bold text-red-600 tracking-tight">Pembayaran</h1>
+    <h1 class="text-lg font-bold text-[#9D3935] tracking-tight">Pembayaran</h1>
     <div class="w-6"></div>
 </header>
 @endsection
@@ -76,7 +76,7 @@
                         </div>
                     </div>
 
-                    <input type="radio" x-model="$parent.method" value="qris" class="text-red-600 focus:ring-red-500">
+                    <input type="radio" x-model="$parent.method" value="qris" class="text-[#9D3935] focus:ring-red-500">
                 </label>
             </div>
 
@@ -134,7 +134,7 @@
                                 </div>
                                 <span x-text="wallet"></span>
                             </div>
-                            <input type="radio" x-model="$parent.method" value="ewallet" class="text-red-600 focus:ring-red-500">
+                            <input type="radio" x-model="$parent.method" value="ewallet" class="text-[#9D3935] focus:ring-red-500">
                         </label>
                     </template>
                 </div>
@@ -192,7 +192,7 @@
                                 </div>
                                 <span x-text="bank"></span>
                             </div>
-                            <input type="radio" x-model="$parent.method" value="bank" class="text-red-600 focus:ring-red-500">
+                            <input type="radio" x-model="$parent.method" value="bank" class="text-[#9D3935] focus:ring-red-500">
                         </label>
                     </template>
                 </div>
@@ -212,7 +212,7 @@
                 alert('Silakan pilih metode pembayaran terlebih dahulu.');
             }
         "
-                class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold 
+                class="w-full bg-[#9D3935] text-white py-3 rounded-lg font-semibold 
                hover:bg-red-700 active:scale-95 focus:outline-none 
                focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
                shadow-md hover:shadow-lg my-6"

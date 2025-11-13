@@ -13,7 +13,7 @@
             <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus
                 placeholder="Masukkan email"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 sm:text-sm" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-red-600" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-[#9D3935]" />
         </div>
 
         <div>
@@ -35,18 +35,18 @@
                     </svg>
                 </button>
             </div>
-            <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-red-600" />
+            <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-[#9D3935]" />
         </div>
 
         <div class="flex items-center justify-between text-sm">
             <label class="flex items-center space-x-2">
                 <input id="remember_me" type="checkbox" name="remember"
-                    class="rounded border-gray-300 text-red-600 shadow-sm focus:ring-red-500">
+                    class="rounded border-gray-300 text-[#9D3935] shadow-sm focus:ring-red-500">
                 <span>Simpan Login</span>
             </label>
 
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}" class="text-red-600 hover:underline">
+                <a href="{{ route('password.request') }}" class="text-[#9D3935] hover:underline">
                     Lupa Kata Sandi?
                 </a>
             @endif
@@ -74,7 +74,7 @@
 
         <p class="text-center text-sm text-gray-600 mt-6">
             Belum punya akun?
-            <a href="{{ route('register') }}" class="text-red-600 hover:underline">Daftar Sekarang</a>
+            <a href="{{ route('register') }}" class="text-[#9D3935] hover:underline">Daftar Sekarang</a>
         </p>
     </form>
 

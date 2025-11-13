@@ -4,12 +4,12 @@
 
 @section('navbar')
     <header class="flex items-center justify-between px-4 py-3 border-b sticky top-0 bg-white z-30">
-        <button onclick="window.history.back()" class="hover:text-red-600 transition">
+        <button onclick="window.history.back()" class="hover:text-[#9D3935] transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-lg font-bold text-red-600 tracking-tight">Reservasi</h1>
+        <h1 class="text-lg font-bold text-[#9D3935] tracking-tight">Reservasi</h1>
         <div class="w-6"></div>
     </header>
 @endsection
@@ -105,7 +105,7 @@
                 </div>
 
                 <button type="button" id="confirmReservationBtn"
-                    class="w-full py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition">
+                    class="w-full py-3 bg-[#9D3935] text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition">
                     Lanjut Pilih Menu
                 </button>
             </form>
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
                             <div class="p-2 text-center transition-all duration-300">
-                                <h4 class="text-sm font-semibold text-gray-800 group-hover:text-red-600">
+                                <h4 class="text-sm font-semibold text-gray-800 group-hover:text-[#9D3935]">
                                     {{ $unggulan->menu->nama }}
                                 </h4>
                                 <p class="text-xs text-gray-500">

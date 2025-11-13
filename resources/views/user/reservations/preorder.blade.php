@@ -4,15 +4,15 @@
 
 @section('navbar')
     <header class="flex items-center justify-between px-4 py-3 border-b sticky top-0 bg-white z-30">
-        <button onclick="window.history.back()" class="hover:text-red-600 transition">
+        <button onclick="window.history.back()" class="hover:text-[#9D3935] transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-lg font-bold text-red-600 tracking-tight">Pre-Order</h1>
+        <h1 class="text-lg font-bold text-[#9D3935] tracking-tight">Pre-Order</h1>
         <div class="w-5"></div>
         <a href="{{ route('order') }}"
-            class="flex items-center gap-1 text-gray-700 hover:text-red-600 transition absolute right-4">
+            class="flex items-center gap-1 text-gray-700 hover:text-[#9D3935] transition absolute right-4">
             <span class="sm:inline text-sm font-medium">Lewati</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -36,12 +36,12 @@
         <div class="bg-white rounded-lg shadow mb-6 overflow-hidden">
             <div class="flex border-b">
                 <button @click="activeTab = 'unggulan'"
-                    :class="activeTab === 'unggulan' ? 'bg-red-600 text-white' : 'text-gray-600 hover:text-gray-900'"
+                    :class="activeTab === 'unggulan' ? 'bg-[#9D3935] text-white' : 'text-gray-600 hover:text-gray-900'"
                     class="flex-1 py-3 text-sm font-semibold transition">
                     Menu Unggulan
                 </button>
                 <button @click="activeTab = 'semua'"
-                    :class="activeTab === 'semua' ? 'bg-red-600 text-white' : 'text-gray-600 hover:text-gray-900'"
+                    :class="activeTab === 'semua' ? 'bg-[#9D3935] text-white' : 'text-gray-600 hover:text-gray-900'"
                     class="flex-1 py-3 text-sm font-semibold transition">
                     Semua Menu
                 </button>
@@ -142,7 +142,7 @@
                 </p>
             </div>
             <button @click="pesanSekarang()"
-                class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold transform transition-all duration-300 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300 active:scale-95">
+                class="w-full bg-[#9D3935] text-white py-3 rounded-lg font-semibold transform transition-all duration-300 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300 active:scale-95">
                 <span x-show="total === 0">Lanjutkan tanpa pesanan</span>
                 <span x-show="total > 0">Pesan Sekarang</span>
             </button>

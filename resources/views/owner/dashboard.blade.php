@@ -36,7 +36,7 @@
                         class="group bg-white hover:bg-[#FDEEDC] transition-all duration-300 border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md flex flex-col items-center justify-center space-y-2">
                         <img src="{{ $item['icon'] }}"
                             class="w-10 h-10 opacity-90 group-hover:scale-110 transition-transform" alt="">
-                        <p class="text-sm font-medium text-gray-800 group-hover:text-red-600">{{ $item['label'] }}</p>
+                        <p class="text-sm font-medium text-gray-800 group-hover:text-[#9D3935]">{{ $item['label'] }}</p>
                     </a>
                 @endforeach
             </div>
@@ -84,7 +84,7 @@
                         <p class="text-sm text-gray-700">Tamu</p>
                         <span class="text-xs font-medium text-gray-500">112</span>
                     </div>
-                    <div class="h-3 bg-red-600 rounded-full w-[80%] transition-all"></div>
+                    <div class="h-3 bg-[#9D3935] rounded-full w-[80%] transition-all"></div>
                 </div>
                 <div>
                     <div class="flex justify-between mb-1">

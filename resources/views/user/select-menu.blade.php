@@ -3,12 +3,12 @@
 
 @section('navbar')
 <header class="flex items-center justify-between px-4 py-3 border-b sticky top-0 bg-white z-30">
-    <button onclick="window.history.back()" class="hover:text-red-600 transition">
+    <button onclick="window.history.back()" class="hover:text-[#9D3935] transition">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
     </button>
-    <h1 class="text-lg font-bold text-red-600 tracking-tight">Daftar Menu</h1>
+    <h1 class="text-lg font-bold text-[#9D3935] tracking-tight">Daftar Menu</h1>
     <div class="w-6"></div>
 </header>
 @endsection
@@ -38,7 +38,7 @@
             <template x-for="btn in ['all','makanan','minuman','dessert']">
                 <button
                     @click="category = btn"
-                    :class="category === btn ? 'bg-red-600 text-white' : 'border text-gray-600 hover:bg-red-100'"
+                    :class="category === btn ? 'bg-[#9D3935] text-white' : 'border text-gray-600 hover:bg-red-100'"
                     class="px-4 py-2 rounded-full text-sm font-medium transition whitespace-nowrap capitalize">
                     <span x-text="btn"></span>
                 </button>
@@ -101,7 +101,7 @@
 
                 <!-- Detail -->
                 <div class="p-2">
-                    <h3 class="font-medium text-sm text-gray-800 group-hover:text-red-600">{{ $menu['name'] }}</h3>
+                    <h3 class="font-medium text-sm text-gray-800 group-hover:text-[#9D3935]">{{ $menu['name'] }}</h3>
                     <p class="text-xs text-gray-500">Rp {{ number_format($menu['price'], 0, ',', '.') }}</p>
                 </div>
 
@@ -145,7 +145,7 @@
 
         <button
             @click="window.location.href='{{ route('order') }}'"
-            class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold 
+            class="w-full bg-[#9D3935] text-white py-3 rounded-lg font-semibold 
                     hover:bg-red-700 active:scale-95 focus:outline-none 
                     focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out 
                     shadow-md hover:shadow-lg">

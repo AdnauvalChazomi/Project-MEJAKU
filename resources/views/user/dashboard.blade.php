@@ -22,7 +22,7 @@
                 </p>
 
                 <a href="#reservasi"
-                    class="px-8 py-3 bg-red-600 text-white rounded-full font-semibold
+                    class="px-8 py-3 bg-[#9D3935] text-white rounded-full font-semibold
                     hover:bg-red-700 active:scale-95 focus:outline-none
                     focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
                     shadow-md hover:shadow-lg">
@@ -42,7 +42,7 @@
 
             {{-- Tombol Arah ke Halaman Cari --}}
             <a href="{{ url('/search') }}"
-                class="group relative inline-flex items-center justify-center px-8 py-4 bg-red-600 text-white rounded-full font-semibold
+                class="group relative inline-flex items-center justify-center px-8 py-4 bg-[#9D3935] text-white rounded-full font-semibold
                     hover:bg-red-700 active:scale-95 focus:outline-none
                     focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
                     shadow-md hover:shadow-lg gap-2">
@@ -103,29 +103,46 @@
             </div>
         </section>
 
-        {{-- Fitur Section --}}
-        <section class="px-6 lg:px-20 py-10 max-w-7xl mx-auto grid gap-4 grid-cols-1">
-            <div class="bg-red-600 text-white p-12 rounded-lg">
-                <h3 class="text-lg font-semibold mb-2">Reservasi Cepat</h3>
-                <p class="text-sm">
-                    Pesan meja dengan mudah dan dapatkan antrian digital otomatis saat restoran penuh.
-                </p>
-            </div>
+       {{-- Fitur Section --}}
+<section class="w-full py-10">
+    <!-- Fitur 1: Reservasi Cepat -->
+    <div class="bg-[#9D3935] text-white w-full p-8 lg:p-12 flex items-start gap-6">
+        <div class="text-6xl lg:text-8xl font-extrabold">1</div>
+        <div class="flex-1">
+            <h3 class="text-xl lg:text-2xl font-bold mb-2">Reservasi Cepat</h3>
+            <p class="text-sm lg:text-base">
+                Pesan meja dengan mudah dan dapatkan antrean digital otomatis saat restoran penuh.
+            </p>
+        </div>
+    </div>
 
-            <div class="bg-white border-2 border-red-600 text-red-600 p-12 rounded-lg">
-                <h3 class="text-lg font-semibold mb-2">Pre-Order & Cashless Payment</h3>
-                <p class="text-sm text-gray-700">
-                    Pesan makanan sebelum tiba dan bayar langsung lewat aplikasi. Hemat waktu, bebas ribet!
-                </p>
-            </div>
+    <!-- Fitur 2: Pre-Order & Cashless Payment -->
+    <div class="bg-[#FDEEDC] text-gray-900 w-full p-8 lg:p-12 flex items-start justify-between gap-6">
+        <div class="flex-1">
+            <h3 class="text-xl lg:text-2xl font-bold mb-2">Pre-Order & Cashless Payment</h3>
+            <p class="text-sm lg:text-base">
+                Pesan makanan sebelum tiba dan bayar langsung lewat aplikasi. Hemat waktu, bebas ribet!
+            </p>
+        </div>
+        <div class="text-6xl lg:text-8xl font-extrabold text-[#9D3935]">2</div>
+    </div>
 
-            <div class="bg-red-600 text-white p-12 rounded-lg">
-                <h3 class="text-lg font-semibold mb-2">Kumpulkan Poin & Dapatkan Reward</h3>
-                <p class="text-sm">
-                    Setiap reservasi mengumpulkan poin yang bisa ditukar dengan diskon atau promo eksklusif.
-                </p>
-            </div>
-        </section>
+    <!-- Fitur 3: Kumpulkan Poin & Dapatkan Reward -->
+    <div class="bg-[#9D3935] text-white w-full p-8 lg:p-12 flex items-end gap-6">
+        <div class="text-6xl lg:text-8xl font-extrabold">3</div>
+        <div class="flex-1">
+            <h3 class="text-xl lg:text-2xl font-bold mb-2 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87.69 6.89L12 21l-5.69-.01.69-6.89-5-4.87 6.91-1.01L12 2z"/>
+                </svg>
+                Kumpulkan Poin & Dapatkan Reward
+            </h3>
+            <p class="text-sm lg:text-base">
+                Setiap reservasi mengumpulkan poin yang bisa ditukar dengan diskon atau promo eksklusif. Makin sering pesan, makin banyak keuntungan!
+            </p>
+        </div>
+    </div>
+</section>
     </div>
 @endsection
 
