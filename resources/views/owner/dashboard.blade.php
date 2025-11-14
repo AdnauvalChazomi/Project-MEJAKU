@@ -39,6 +39,19 @@
         </section>
 
         <section class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 mb-3">
+
+            @if ($owner->tier === 'month' || $owner->tier === 'year')
+                <div class="mb-4 p-4 rounded-xl bg-yellow-50 border border-yellow-200">
+                    <p class="text-sm text-yellow-800 font-semibold">
+                        🎉 Anda menggunakan <span class="font-bold text-yellow-900">Tier Premium</span>!
+                    </p>
+                    <p class="text-xs text-yellow-700 mt-1">
+                        Toko Anda akan tampil sebagai <span class="font-medium">rekomendasi utama</span> bagi customer.
+                        Jangan lupa tingkatkan rating juga ya ^_~
+                    </p>
+                </div>
+            @endif
+
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-semibold text-gray-800">Statistik</h2>
                 <form method="GET" class="mb-4">

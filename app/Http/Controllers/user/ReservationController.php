@@ -81,16 +81,32 @@ class ReservationController extends Controller
     {
         $owner = Owner::findOrFail($ownerId);
 
+        $userId = auth()->id();
+
         $reviews = Review::where('owner_id', $ownerId)
-            ->latest()
             ->with('user')
+            ->orderByRaw("CASE WHEN user_id = ? THEN 0 ELSE 1 END", [$userId])
+            ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('user.reservations.review', compact('owner', 'reviews'));
+        $userReview = Review::where('owner_id', $ownerId)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        return view('user.restoran.review', compact('owner', 'reviews', 'userReview'));
     }
 
     public function storeReview(Request $request, $ownerId)
     {
+        $existing = Review::where('owner_id', $ownerId)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if ($existing) {
+            return redirect()->route('restoran.review', $ownerId)
+                ->with('error', 'Anda sudah memberikan review untuk restoran ini.');
+        }
+
         $validated = $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:1000',
@@ -103,8 +119,24 @@ class ReservationController extends Controller
             'comment' => $validated['comment'] ?? null,
         ]);
 
-        return redirect()->route('reservations.review', $ownerId)
+        return redirect()->route('restoran.review', $ownerId)
             ->with('success', 'Terima kasih! Review Anda telah disimpan.');
+    }
+
+    public function destroyReview($reviewId)
+    {
+        $review = Review::findOrFail($reviewId);
+
+        if ($review->user_id !== auth()->id()) {
+            abort(403, 'Anda tidak memiliki izin untuk menghapus review ini.');
+        }
+
+        $ownerId = $review->owner_id;
+
+        $review->delete();
+
+        return redirect()->route('restoran.review', $ownerId)
+            ->with('success', 'Review berhasil dihapus.');
     }
 }
 

@@ -38,8 +38,16 @@ Route::get('/search', [DashboardController::class, 'search'])->name('search');
 
 Route::get('/restoran/{id}', [DashboardController::class, 'show'])->name('user.restoran.show');
 Route::get('/restoran/{id}/reservasi', [ReservationController::class, 'create'])->name('reservations.create');
-Route::get('/restoran/{id}/review', [ReservationController::class, 'review'])->name('reservations.review');
-Route::post('/restoran/{id}/review', [ReservationController::class, 'storeReview'])->middleware('auth')->name('reservations.store.review');
+Route::get('/restoran/{id}/review', [ReservationController::class, 'review'])
+    ->name('restoran.review');
+
+Route::post('/restoran/{id}/review', [ReservationController::class, 'storeReview'])
+    ->middleware('auth')
+    ->name('restoran.review.store');
+
+Route::delete('/restoran/review/{review}', [ReservationController::class, 'destroyReview'])
+    ->middleware('auth')
+    ->name('restoran.review.delete');
 
 
 Route::prefix('/restoran/{id}/menu')->group(function () {
@@ -106,7 +114,7 @@ Route::prefix('owner/dashboard/pesanan')->group(function () {
 Route::prefix('owner/dashboard/promo')->group(function () {
     Route::get('/', [PromoController::class, 'index'])->name('owner.promos.index');
     Route::get('/tambah', [PromoController::class, 'create'])->name('owner.promos.create');
-        Route::post('/', [PromoController::class, 'store'])->name('owner.promos.store');
+    Route::post('/', [PromoController::class, 'store'])->name('owner.promos.store');
     Route::get('/{promo}/edit', [PromoController::class, 'edit'])->name('owner.promos.edit');
     Route::put('/{promo}', [PromoController::class, 'update'])->name('owner.promos.update');
     Route::delete('/{promo}', [PromoController::class, 'destroy'])->name('owner.promos.destroy');

@@ -99,7 +99,7 @@
                     @endforelse
                 </div>
                 <p class="text-center text-[#9D3935] text-md mt-4">
-                    <a href="{{ route('reservations.review', ['id' => $restoran->id]) }}" class="hover:underline">
+                    <a href="{{ route('restoran.review', ['id' => $restoran->id]) }}" class="hover:underline">
                         Berikan ulasan
                     </a>
                 </p>

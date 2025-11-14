@@ -11,14 +11,16 @@ return new class extends Migration {
             $table->id();
 
             $table->foreignId('owner_id')->constrained('owners')->onDelete('cascade');
-            
+
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            
-            $table->unsignedTinyInteger('rating'); 
-            
+
+            $table->unsignedTinyInteger('rating');
+
             $table->text('comment')->nullable();
 
             $table->timestamps();
+
+            $table->unique(['owner_id', 'user_id']);
         });
     }
 

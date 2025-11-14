@@ -17,7 +17,9 @@ class DashboardController extends Controller
         }
 
         $rekomendasi = Owner::select('id', 'nama_restoran', 'alamat_restoran', 'foto_restoran', 'summary')
-            ->latest()
+            ->whereIn('tier', ['month', 'year'])
+            ->withAvg('reviews', 'rating')
+            ->orderByDesc('reviews_avg_rating')
             ->take(4)
             ->get();
 
