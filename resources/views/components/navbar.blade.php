@@ -225,7 +225,7 @@ $role = $user->role ?? null;
 
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-settings-3-line text-lg"></i>
-                    <a href="{{ route('pengaturan') }}">Pengaturan</a>
+                    <a href="{{ route('setting.index') }}">Pengaturan</a>
                 </li>
 
                 <li>

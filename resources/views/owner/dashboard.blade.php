@@ -27,11 +27,7 @@
         <section>
             <h2 class="text-lg font-semibold text-gray-800 mb-4">Manajemen Restoran</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                @foreach ([
-                    ['icon' => 'https://cdn-icons-png.flaticon.com/512/2890/2890793.png', 'label' => 'Manajemen Reservasi', 'route' => route('reservations.index', ['ownerId' => $owner->id])],
-                    ['icon' => 'https://cdn-icons-png.flaticon.com/512/857/857681.png', 'label' => 'Kelola Menu', 'route' => route('menu.index')],
-                    ['icon' => 'https://cdn-icons-png.flaticon.com/512/921/921594.png', 'label' => 'Kelola Pesanan', 'route' => route('orders.index', ['id' => $owner->id])],
-                    ['icon' => 'https://cdn-icons-png.flaticon.com/512/833/833524.png', 'label' => 'Kelola Promo', 'route' => route('owner.promos.index')]] as $item)
+                @foreach ([['icon' => 'https://cdn-icons-png.flaticon.com/512/2890/2890793.png', 'label' => 'Manajemen Reservasi', 'route' => route('reservations.index', ['ownerId' => $owner->id])], ['icon' => 'https://cdn-icons-png.flaticon.com/512/857/857681.png', 'label' => 'Kelola Menu', 'route' => route('menu.index')], ['icon' => 'https://cdn-icons-png.flaticon.com/512/921/921594.png', 'label' => 'Kelola Pesanan', 'route' => route('orders.index', ['id' => $owner->id])], ['icon' => 'https://cdn-icons-png.flaticon.com/512/833/833524.png', 'label' => 'Kelola Promo', 'route' => route('owner.promos.index')]] as $item)
                     <a href="{{ $item['route'] }}"
                         class="group bg-white hover:bg-[#FDEEDC] transition-all duration-300 border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md flex flex-col items-center justify-center space-y-2">
                         <img src="{{ $item['icon'] }}"
@@ -42,65 +38,74 @@
             </div>
         </section>
 
-    {{-- Promosi & Iklan --}}
-    <section class="mb-3">
-        <section>
+        <section class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 mb-3">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-lg font-semibold text-gray-800">Promosi & Iklan</h2>
-                <button
-                    class="text-xs border border-gray-300 px-3 py-1.5 rounded-full hover:bg-gray-100 transition font-medium text-gray-600 flex items-center gap-1">
-                    <span>+</span> Promo
-                </button>
+                <h2 class="text-lg font-semibold text-gray-800">Statistik</h2>
+                <form method="GET" class="mb-4">
+                    <label class="text-sm font-semibold text-gray-700">Filter:</label>
+                    <select name="filter" onchange="this.form.submit()"
+                        class="text-sm border border-gray-300 rounded-lg px-5 py-1.5 focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-50">
+                        <option value="all" {{ $filter === 'all' ? 'selected' : '' }}>
+                            Semua
+                        </option>
+                        <option value="month" {{ $filter === 'month' ? 'selected' : '' }}>
+                            Bulan Ini
+                        </option>
+                        <option value="week" {{ $filter === 'week' ? 'selected' : '' }}>
+                            Minggu Ini
+                        </option>
+                    </select>
+                </form>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-2 gap-4">
-                <div
-                    class="bg-white p-5 rounded-2xl shadow-sm text-center hover:shadow-md transition flex flex-col justify-center">
-                    <p class="text-sm text-gray-500 mb-1">Promo Aktif</p>
-                    <h3 class="text-3xl font-bold text-gray-900">3</h3>
-                </div>
-                <div
-                    class="bg-white p-5 rounded-2xl shadow-sm text-center hover:shadow-md transition flex flex-col justify-center">
-                    <p class="text-sm text-gray-500 mb-1">Total Pengguna</p>
-                    <h3 class="text-3xl font-bold text-gray-900">90 <span
-                            class="text-sm text-gray-500 font-normal">Orang</span></h3>
-                </div>
-            </div>
+            <canvas id="statsChart" height="130"></canvas>
         </section>
 
-    {{-- Statistik --}}
-    <section class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 mb-3">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-semibold text-gray-800">Statistik</h2>
-            <select
-                class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-50">
-                <option>Bulan Ini</option>
-                <option>Minggu Ini</option>
-            </select>
-        </div>
-            <div class="space-y-5">
-                <div>
-                    <div class="flex justify-between mb-1">
-                        <p class="text-sm text-gray-700">Tamu</p>
-                        <span class="text-xs font-medium text-gray-500">112</span>
-                    </div>
-                    <div class="h-3 bg-[#9D3935] rounded-full w-[80%] transition-all"></div>
-                </div>
-                <div>
-                    <div class="flex justify-between mb-1">
-                        <p class="text-sm text-gray-700">Reservasi</p>
-                        <span class="text-xs font-medium text-gray-500">85</span>
-                    </div>
-                    <div class="h-3 bg-blue-500 rounded-full w-[60%] transition-all"></div>
-                </div>
-                <div>
-                    <div class="flex justify-between mb-1">
-                        <p class="text-sm text-gray-700">Pesanan</p>
-                        <span class="text-xs font-medium text-gray-500">70</span>
-                    </div>
-                    <div class="h-3 bg-yellow-400 rounded-full w-[50%] transition-all"></div>
-                </div>
-            </div>
-        </section>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const ctx = document.getElementById('statsChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Tamu', 'Reservasi', 'Pesanan'],
+                    datasets: [{
+                        label: 'Total',
+                        data: [
+                            {{ $totalTamu }},
+                            {{ $totalReservasi }},
+                            {{ $totalPesanan }}
+                        ],
+                        backgroundColor: [
+                            'rgba(157, 57, 53, 0.7)',
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(251, 191, 36, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(157, 57, 53, 1)',
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(251, 191, 36, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 8,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
 @endsection

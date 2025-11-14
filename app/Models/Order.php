@@ -16,6 +16,7 @@ class Order extends Model
         'promo_id',
         'diskon',
         'total_setelah_diskon',
+        'status'
     ];
 
     public function user()

@@ -17,27 +17,64 @@ class OrderManageController extends Controller
             ->orderBy('nomor')
             ->get();
 
-        $penuh = Reservation::with(['customer.user', 'order.items.menu', 'meja'])
+        $new = Reservation::with(['customer.user', 'order.items.menu', 'meja'])
             ->where('owner_id', $ownerId)
             ->where('status', '!=', 'cancelled')
-            ->whereHas('order')
-            ->get()
-            ->sortBy(function ($item) {
-                return [
-                    $item->status === 'completed' ? 1 : 0,
-                    -$item->created_at->timestamp
-                ];
+            ->whereHas('order', function ($q) {
+                $q->where('status', 'new');
             })
-            ->values();
-
-        $direservasi = Reservation::with(['customer.user', 'order.items.menu'])
-            ->where('owner_id', $ownerId)
-            ->where('status', '!=', 'cancelled')
-            ->whereHas('order')
-            ->latest()
+            ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('owner.orders.index', compact('mejas', 'ownerId', 'penuh', 'direservasi'));
+        $active = Reservation::with(['customer.user', 'order.items.menu', 'meja'])
+            ->where('owner_id', $ownerId)
+            ->where('status', '!=', 'cancelled')
+            ->whereHas('order', function ($q) {
+                $q->where('status', 'active');
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $done = Reservation::with(['customer.user', 'order.items.menu', 'meja'])
+            ->where('owner_id', $ownerId)
+            ->where('status', '!=', 'cancelled')
+            ->whereHas('order', function ($q) {
+                $q->where('status', 'done');
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('owner.orders.index', [
+            'mejas' => $mejas,
+            'ownerId' => $ownerId,
+            'new' => $new,
+            'active' => $active,
+            'done' => $done,
+        ]);
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $request->validate([
+            'reservation_id' => 'required|exists:reservations,id',
+            'status' => 'required|in:new,active,done'
+        ]);
+
+        $reservation = Reservation::with('order')->findOrFail($request->reservation_id);
+
+        if ($reservation->owner_id !== auth()->user()->owner->id) {
+            return redirect()->back()->with('error', 'Tidak diizinkan melakukan perubahan status.');
+        }
+
+        if (!$reservation->order) {
+            return redirect()->back()->with('error', 'Order tidak ditemukan.');
+        }
+
+        $reservation->order->update([
+            'status' => $request->status
+        ]);
+
+        return redirect()->back()->with('success', 'Status order berhasil diperbarui!');
     }
 
     public function sendReminder(Request $request)

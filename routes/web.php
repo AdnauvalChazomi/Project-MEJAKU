@@ -78,7 +78,10 @@ Route::patch('/meja/{meja}/status', [ReservationManageController::class, 'update
 Route::get('/owner/orders/{id}', [OrderManageController::class, 'index'])
     ->name('orders.index');
 
-Route::get('/owner/settings/{id}', [SettingController::class, 'index'])
+Route::patch('/owner/orders/update-status', [OrderManageController::class, 'updateStatus'])
+    ->name('orders.updateStatus');
+
+Route::get('/owner/settings', [SettingController::class, 'index'])
     ->name('setting.index');
 
 Route::get('/history', [HistoryController::class, 'index'])

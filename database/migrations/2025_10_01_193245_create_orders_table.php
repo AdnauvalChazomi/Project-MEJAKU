@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->foreignId('reservation_id')->constrained('reservations')->onDelete('cascade');
 
             $table->decimal('total_harga', 12, 2)->default(0);
+            $table->enum('status', ['new', 'active', 'done'])
+                ->default('new');
 
             $table->timestamps();
         });
