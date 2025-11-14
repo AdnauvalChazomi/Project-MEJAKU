@@ -195,7 +195,7 @@ $role = $user->role ?? null;
 
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">
                     <i class="ri-calendar-check-line text-lg"></i>
-                    <a href="{{ route('reservations.index', ['ownerId' => $owner->id]) }}">Manajemen Reservasi</a>
+                    <a href="{{ route('owner.reservations.index', ['ownerId' => $owner->id]) }}">Manajemen Reservasi</a>
                 </li>
 
                 <li class="flex items-center gap-3 text-[#B1281D] hover:text-[#A63232]">

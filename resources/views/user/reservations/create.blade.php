@@ -25,7 +25,7 @@
                 <span class="text-gray-800 font-medium">Reservasi</span>
             </nav>
 
-            <form action="{{ route('user.reservations.store') }}" method="POST"
+            <form action="{{ route('user.restoran.reservations.store', $restoran->id) }}" method="POST"
                 class="mx-auto bg-white p-6 lg:rounded-lg shadow">
                 @csrf
                 <input type="hidden" name="owner_id" value="{{ $restoran->id }}">
@@ -143,7 +143,7 @@
                 </div>
 
                 <p class="text-center text-gray-400 text-sm mt-4">
-                    <a href="{{ route('user.menu.index', ['id' => $restoran->id]) }}" class="hover:underline">Lihat semua
+                    <a href="{{ route('user.restoran.menu', ['id' => $restoran->id]) }}" class="hover:underline">Lihat semua
                         menu</a>
                 </p>
             </section>
@@ -169,7 +169,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const confirmBtn = document.getElementById('confirmReservationBtn');
-                const form = document.querySelector('form[action="{{ route('user.reservations.store') }}"]');
+                const form = document.querySelector('form[action="{{ route('user.restoran.reservations.store', ['id' => $restoran->id]) }}"]');
                 const tanggalInput = form.querySelector('input[name="tanggal_reservasi"]');
                 const jamInput = form.querySelector('input[name="jam_reservasi"]');
 

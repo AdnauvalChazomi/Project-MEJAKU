@@ -82,7 +82,7 @@
                 @if ($reservation->status === 'pending')
                     <section class="bg-white border rounded-lg p-4 shadow-sm text-center">
                         <p class="text-sm text-gray-600 mb-2">Belum ada menu yang dipesan.</p>
-                        <a href="{{ route('preorder', $reservation->id) }}"
+                        <a href="{{ route('preorder.index', $reservation->id) }}"
                             class="inline-block text-red-700 py-2 px-4 rounded-lg hover:text-red-800 text-sm font-medium">
                             Tambah Menu
                         </a>

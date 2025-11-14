@@ -11,8 +11,9 @@ use Illuminate\Http\Request;
 
 class ReservationManageController extends Controller
 {
-    public function index($ownerId)
+    public function index()
     {
+        $ownerId = auth()->user()->owner->id;
         $mejas = Meja::where('owner_id', $ownerId)
             ->orderBy('nomor')
             ->get();
@@ -20,15 +21,9 @@ class ReservationManageController extends Controller
         $penuh = Reservation::with(['customer.user', 'order.items.menu', 'meja'])
             ->where('owner_id', $ownerId)
             ->whereNotNull('meja_id')
-            ->get()
-            ->sortBy(function ($item) {
-                // completed di bawah, sisanya di atas — tapi tetap urut terbaru di dalam kelompok
-                return [
-                    $item->status === 'completed' ? 1 : 0, // 1 = bawah, 0 = atas
-                    -$item->created_at->timestamp // urut terbaru di atas
-                ];
-            })
-            ->values();
+            ->whereNotIn('status', ['completed', 'cancelled'])
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $direservasi = Reservation::with(['customer.user', 'order.items.menu'])
             ->where('owner_id', $ownerId)
@@ -36,12 +31,16 @@ class ReservationManageController extends Controller
             ->latest()
             ->get();
 
-        return view('owner.reservations.index', compact('mejas', 'ownerId', 'penuh', 'direservasi'));
+        $completed = Reservation::where('status', 'completed')->where('owner_id', $ownerId)->get();
+        $cancelled = Reservation::where('status', 'cancelled')->where('owner_id', $ownerId)->get();
+
+        return view('owner.reservations.index', compact('mejas', 'ownerId', 'penuh', 'direservasi', 'completed', 'cancelled'));
     }
 
 
-    public function getData($ownerId)
+    public function getData()
     {
+        $ownerId = auth()->user()->owner->id;
         return Meja::where('owner_id', $ownerId)
             ->orderBy('nomor')
             ->get(['id', 'nomor', 'status']);
@@ -117,8 +116,9 @@ class ReservationManageController extends Controller
         return redirect()->back()->with('success', 'Reservasi ditandai selesai dan meja kini tersedia kembali.');
     }
 
-    public function store(Request $request, $ownerId)
+    public function store(Request $request)
     {
+        $ownerId = auth()->user()->owner->id;
         $validated = $request->validate([
             'jumlah' => 'required|integer|min:1',
         ]);
@@ -136,8 +136,9 @@ class ReservationManageController extends Controller
         return redirect()->back()->with('success', "{$validated['jumlah']} meja berhasil ditambahkan.");
     }
 
-    public function destroyLast($ownerId)
+    public function destroyLast()
     {
+        $ownerId = auth()->user()->owner->id;
         $lastMeja = Meja::where('owner_id', $ownerId)
             ->orderByDesc('nomor')
             ->first();
@@ -149,16 +150,5 @@ class ReservationManageController extends Controller
         $lastMeja->delete();
 
         return redirect()->back()->with('success', "Meja nomor {$lastMeja->nomor} berhasil dihapus.");
-    }
-
-    public function updateStatus(Request $request, Meja $meja)
-    {
-        $validated = $request->validate([
-            'status' => 'required|in:tersedia,digunakan',
-        ]);
-
-        $meja->update($validated);
-
-        return redirect()->back()->with('success', "Status meja {$meja->nomor} diperbarui menjadi {$validated['status']}.");
     }
 }

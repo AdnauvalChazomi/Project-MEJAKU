@@ -73,7 +73,7 @@ class ReservationController extends Controller
         ]);
 
         return redirect()
-            ->route('preorder', ['reservation' => $reservation->id])
+            ->route('preorder.index', ['reservation' => $reservation->id])
             ->with('success', 'Reservasi berhasil dibuat! Silakan pilih menu Anda.');
     }
 
@@ -119,7 +119,7 @@ class ReservationController extends Controller
             'comment' => $validated['comment'] ?? null,
         ]);
 
-        return redirect()->route('restoran.review', $ownerId)
+        return redirect()->route('user.restoran.review', $ownerId)
             ->with('success', 'Terima kasih! Review Anda telah disimpan.');
     }
 
@@ -135,7 +135,7 @@ class ReservationController extends Controller
 
         $review->delete();
 
-        return redirect()->route('restoran.review', $ownerId)
+        return redirect()->route('user.restoran.review', $ownerId)
             ->with('success', 'Review berhasil dihapus.');
     }
 }

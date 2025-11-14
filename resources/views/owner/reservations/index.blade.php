@@ -122,8 +122,15 @@
                     </div>
 
                     <div class="flex gap-2 mt-3">
-                        <span
-                            class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full">Penuh</span>
+                        @if ($r->status === 'completed')
+                            <span class="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
+                                Selesai
+                            </span>
+                        @else
+                            <span class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full">
+                                Penuh
+                            </span>
+                        @endif
                         <button
                             class="flex-1 border border-gray-200 rounded-lg text-sm py-2 hover:bg-gray-100 transition font-medium">
                             Ubah Pesanan
@@ -144,6 +151,201 @@
             @empty
                 <p class="text-gray-500 text-center mt-4">Belum ada meja penuh.</p>
             @endforelse
+
+            <p class="text-gray-500 text-center mt-4">Pesanan selesai</p>
+            @forelse ($completed as $r)
+                <div class="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <p class="text-xs font-semibold text-[#9D3935] uppercase">Grup • {{ $r->jumlah_tamu }} Tamu</p>
+                            <h3 class="text-sm font-bold text-gray-800">{{ $r->customer->user->name ?? '-' }}</h3>
+                        </div>
+
+                        <div class="text-sm text-gray-600 text-right">
+                            <p>
+                                {{ \Carbon\Carbon::parse($r->tanggal_reservasi . ' ' . $r->jam_reservasi)->locale('id')->translatedFormat('d M Y, H:i') }}
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">Nomor Meja:
+                                <span class="font-semibold text-gray-800">{{ $r->meja->nomor ?? '-' }}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        @if ($r->order && $r->order->items)
+                            @foreach ($r->order->items as $itm)
+                                <div class="flex justify-between items-center py-2">
+                                    <div class="flex items-center gap-3">
+                                        <img src="{{ $itm->menu->foto ? asset('storage/' . $itm->menu->foto) : 'https://via.placeholder.com/80' }}"
+                                            alt="{{ $itm->menu->nama }}"
+                                            class="w-12 h-12 rounded-lg object-cover shadow-sm">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-800">{{ $itm->menu->nama }}</p>
+                                            <p class="text-xs text-gray-500">
+                                                {{ $itm->jumlah }}x
+                                                Rp{{ number_format($itm->harga_satuan, 0, ',', '.') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+
+                        <div class="flex justify-between items-center py-2 border-t border-gray-100 mt-2">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 text-sm">
+                                    ৹
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-800">Reservasi</p>
+                                    <p class="text-xs text-gray-500">1x Rp10.000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-3">
+                        <div class="flex gap-2">
+                            <span
+                                class="px-2.5 py-1 text-xs rounded-full font-medium
+                                    {{ $r->status === 'paid'
+                                        ? 'bg-green-100 text-green-700'
+                                        : ($r->status === 'completed'
+                                            ? 'bg-blue-100 text-blue-700'
+                                            : ($r->status === 'cancelled'
+                                                ? 'bg-red-100 text-red-700'
+                                                : 'bg-yellow-100 text-yellow-700')) }}">
+                                {{ ucfirst($r->status ?? 'reservasi') }}
+                            </span>
+
+                            <span class="px-2.5 py-1 text-xs rounded-full font-medium bg-blue-100 text-blue-700">
+                                {{ ucfirst($r->area ?? 'Umum') }}
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs text-gray-500">Total</p>
+                            <p class="text-base font-semibold text-[#9D3935] mt-1">
+                                Rp{{ number_format(($r->order->total_harga ?? 0) + 10000, 0, ',', '.') }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 mt-3">
+                        @if ($r->status === 'completed')
+                            <span class="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
+                                Selesai
+                            </span>
+                        @else
+                            <span class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full">
+                                Penuh
+                            </span>
+                        @endif
+                    </div>
+                </div>
+            @empty
+                <p class="text-gray-500 text-center mt-4">Belum ada pesanan yang selesai</p>
+            @endforelse
+
+            <p class="text-gray-500 text-center mt-4">Pesanan dibatalkan</p>
+            @forelse ($cancelled as $r)
+                <div class="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <p class="text-xs font-semibold text-[#9D3935] uppercase">Grup • {{ $r->jumlah_tamu }} Tamu
+                            </p>
+                            <h3 class="text-sm font-bold text-gray-800">{{ $r->customer->user->name ?? '-' }}</h3>
+                        </div>
+
+                        <div class="text-sm text-gray-600 text-right">
+                            <p>
+                                {{ \Carbon\Carbon::parse($r->tanggal_reservasi . ' ' . $r->jam_reservasi)->locale('id')->translatedFormat('d M Y, H:i') }}
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">Nomor Meja:
+                                <span class="font-semibold text-gray-800">{{ $r->meja->nomor ?? '-' }}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        @if ($r->order && $r->order->items)
+                            @foreach ($r->order->items as $itm)
+                                <div class="flex justify-between items-center py-2">
+                                    <div class="flex items-center gap-3">
+                                        <img src="{{ $itm->menu->foto ? asset('storage/' . $itm->menu->foto) : 'https://via.placeholder.com/80' }}"
+                                            alt="{{ $itm->menu->nama }}"
+                                            class="w-12 h-12 rounded-lg object-cover shadow-sm">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-800">{{ $itm->menu->nama }}</p>
+                                            <p class="text-xs text-gray-500">
+                                                {{ $itm->jumlah }}x
+                                                Rp{{ number_format($itm->harga_satuan, 0, ',', '.') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+
+                        <div class="flex justify-between items-center py-2 border-t border-gray-100 mt-2">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 text-sm">
+                                    ৹
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-800">Reservasi</p>
+                                    <p class="text-xs text-gray-500">1x Rp10.000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-3">
+                        <div class="flex gap-2">
+                            <span
+                                class="px-2.5 py-1 text-xs rounded-full font-medium
+                                    {{ $r->status === 'paid'
+                                        ? 'bg-green-100 text-green-700'
+                                        : ($r->status === 'completed'
+                                            ? 'bg-blue-100 text-blue-700'
+                                            : ($r->status === 'cancelled'
+                                                ? 'bg-red-100 text-red-700'
+                                                : 'bg-yellow-100 text-yellow-700')) }}">
+                                {{ ucfirst($r->status ?? 'reservasi') }}
+                            </span>
+
+                            <span class="px-2.5 py-1 text-xs rounded-full font-medium bg-blue-100 text-blue-700">
+                                {{ ucfirst($r->area ?? 'Umum') }}
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs text-gray-500">Total</p>
+                            <p class="text-base font-semibold text-[#9D3935] mt-1">
+                                Rp{{ number_format(($r->order->total_harga ?? 0) + 10000, 0, ',', '.') }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 mt-3">
+                        @if ($r->status === 'completed')
+                            <span class="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
+                                Selesai
+                            </span>
+                        @elseif ($r->status === 'cancelled')
+                            <span class="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full">
+                                Dibatalkan
+                            </span>
+                        @else
+                            <span class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full">
+                                Penuh
+                            </span>
+                        @endif
+                    </div>
+                </div>
+            @empty
+                <p class="text-gray-500 text-center mt-4">Belum ada meja penuh.</p>
+            @endforelse
         </div>
 
         {{-- === TAB: TERSEDIA === --}}
@@ -153,7 +355,7 @@
                 return this.mejas.length;
             },
             async increase() {
-                await fetch('{{ route('reservations.store', $ownerId) }}', {
+                await fetch('{{ route('owner.reservations.store', $ownerId) }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -174,7 +376,7 @@
 
                 if (this.mejas.length <= 0) return;
 
-                await fetch('{{ route('reservations.destroyLast', $ownerId) }}', {
+                await fetch('{{ route('owner.reservations.destroyLast', $ownerId) }}', {
                     method: 'DELETE',
                     headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
                 });
@@ -219,12 +421,13 @@
             @forelse ($direservasi as $r)
                 <div
                     class="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md transition
-    {{ $r->status === 'batal' ? 'opacity-60 pointer-events-none' : '' }}">
+                        {{ $r->status === 'batal' ? 'opacity-60 pointer-events-none' : '' }}">
 
                     {{-- === HEADER INFO === --}}
                     <div class="flex justify-between items-start mb-3">
                         <div>
-                            <p class="text-xs font-semibold text-[#9D3935] uppercase">Grup • {{ $r->jumlah_tamu }} Tamu</p>
+                            <p class="text-xs font-semibold text-[#9D3935] uppercase">Grup • {{ $r->jumlah_tamu }} Tamu
+                            </p>
                             <h3 class="text-sm font-bold text-gray-800">{{ $r->customer->user->name ?? '-' }}</h3>
                         </div>
 

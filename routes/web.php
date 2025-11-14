@@ -33,67 +33,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//=====Route Customer======
+
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/search', [DashboardController::class, 'search'])->name('search');
 
-Route::get('/restoran/{id}', [DashboardController::class, 'show'])->name('user.restoran.show');
-Route::get('/restoran/{id}/reservasi', [ReservationController::class, 'create'])->name('reservations.create');
-Route::get('/restoran/{id}/review', [ReservationController::class, 'review'])
-    ->name('restoran.review');
-
-Route::post('/restoran/{id}/review', [ReservationController::class, 'storeReview'])
-    ->middleware('auth')
-    ->name('restoran.review.store');
-
-Route::delete('/restoran/review/{review}', [ReservationController::class, 'destroyReview'])
-    ->middleware('auth')
-    ->name('restoran.review.delete');
-
-
-Route::prefix('/restoran/{id}/menu')->group(function () {
-    Route::get('/', [\App\Http\Controllers\user\MenuController::class, 'index'])->name('user.menu.index');
+Route::prefix('restoran/{id}')->name('user.restoran.')->group(function () {
+    Route::get('/', [DashboardController::class, 'show'])->name('show');
+    Route::get('/reservasi', [ReservationController::class, 'create'])->name('reservations.create');
+    Route::post('/reservations', [ReservationController::class, 'store'])->middleware('auth')->name('reservations.store');
+    Route::get('/review', [ReservationController::class, 'review'])->name('review');
+    Route::post('/review', [ReservationController::class, 'storeReview'])->middleware('auth')->name('review.store');
+    Route::delete('/review', [ReservationController::class, 'destroyReview'])->middleware('auth')->name('review.destroy');
+    Route::get('/menu', [\App\Http\Controllers\user\MenuController::class, 'index'])->name('menu');
 });
 
-Route::post('/reservations', [ReservationController::class, 'store'])->middleware('auth')->name('user.reservations.store');
 
-Route::get('/preorder/{reservation}', [PreorderController::class, 'index'])->name('preorder');
-Route::post('/preorder/{reservation}', [PreorderController::class, 'store'])->name('preorder.store');
-Route::get('/preorder/{reservation}/show', [PreorderController::class, 'show'])->name('preorder.show');
-Route::post('/preorder/{id}/confirm', [PreorderController::class, 'confirm'])->name('preorder.confirm');
-Route::delete('/preorder/{id}', [PreorderController::class, 'destroy'])->name('preorder.destroy');
+Route::get('/user/notification', [UserNotification::class, 'index'])->name('user.notification');
+
+Route::prefix('reservations/preorder/{reservation}')->name('preorder.')->group(function () {
+    Route::get('/', [PreorderController::class, 'index'])->name('index');
+    Route::post('/', [PreorderController::class, 'store'])->name('store');
+    Route::get('/show', [PreorderController::class, 'show'])->name('show');
+    Route::post('/confirm', [PreorderController::class, 'confirm'])->name('confirm');
+    Route::delete('/', [PreorderController::class, 'destroy'])->name('destroy');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/payment/{id}', [PaymentController::class, 'show'])->name('payment.show');
     Route::post('/payment/{id}/confirm', [PaymentController::class, 'confirm'])->name('payment.confirm');
     Route::patch('/payment/{id}/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
     Route::post('/payment/{id}/terapkan-promo', [PaymentController::class, 'terapkanPromo'])->name('payment.terapkanPromo');
-
 });
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/neopayment/{id}/confirm', [NeoPaymentController::class, 'confirm'])->name('neopayment.confirm');
-});
-
-Route::prefix('owner/{ownerId}/reservations')->group(function () {
-    Route::get('/', [ReservationManageController::class, 'index'])->name('reservations.index');
-    Route::get('/data', [ReservationManageController::class, 'getData'])->name('owner.reservations.data');
-    Route::post('/', [ReservationManageController::class, 'store'])->name('reservations.store');
-    Route::delete('/last', [ReservationManageController::class, 'destroyLast'])->name('reservations.destroyLast');
-});
-
-Route::patch('/meja/{meja}/status', [ReservationManageController::class, 'updateStatus'])->name('reservations.updateStatus');
-
-Route::get('/owner/orders/{id}', [OrderManageController::class, 'index'])
-    ->name('orders.index');
-
-Route::patch('/owner/orders/update-status', [OrderManageController::class, 'updateStatus'])
-    ->name('orders.updateStatus');
-
-Route::get('/owner/settings', [SettingController::class, 'index'])
-    ->name('setting.index');
 
 Route::get('/history', [HistoryController::class, 'index'])
     ->name('history');
+
+//======Route Owner=======
 
 Route::prefix('owner/dashboard/menu')->group(function () {
     Route::get('/', [MenuController::class, 'index'])->name('menu.index');
@@ -107,17 +82,34 @@ Route::prefix('owner/dashboard/menu')->group(function () {
     Route::delete('/foto/{id}', [MenuController::class, 'destroyFoto'])->name('menu.destroyFoto');
 });
 
+Route::prefix('owner/reservations')->name('owner.reservations.')->group(function () {
+    Route::get('/', [ReservationManageController::class, 'index'])->name('index');
+    Route::post('/', [ReservationManageController::class, 'store'])->name('store');
+    Route::get('/data', [ReservationManageController::class, 'getData'])->name('data');
+    Route::delete('/last', [ReservationManageController::class, 'destroyLast'])->name('destroyLast');
+    Route::post('/{id}/assign-meja', [ReservationManageController::class, 'assignMeja'])->name('assign-meja');
+    Route::patch('/{id}/selesai', [ReservationManageController::class, 'markAsSelesai'])->name('markAsSelesai');
+});
+
+Route::prefix('owner/orders')->name('orders.')->group(function () {
+    Route::get('/{id}', [OrderManageController::class, 'index'])->name('index');
+    Route::patch('/update-status', [OrderManageController::class, 'updateStatus'])->name('updateStatus');
+});
+
+Route::get('/owner/settings', [SettingController::class, 'index'])
+    ->name('setting.index');
+
 Route::prefix('owner/dashboard/pesanan')->group(function () {
     Route::get('/', [OrderController::class, 'index'])->name('pesanan.index');
 });
 
-Route::prefix('owner/dashboard/promo')->group(function () {
-    Route::get('/', [PromoController::class, 'index'])->name('owner.promos.index');
-    Route::get('/tambah', [PromoController::class, 'create'])->name('owner.promos.create');
-    Route::post('/', [PromoController::class, 'store'])->name('owner.promos.store');
-    Route::get('/{promo}/edit', [PromoController::class, 'edit'])->name('owner.promos.edit');
-    Route::put('/{promo}', [PromoController::class, 'update'])->name('owner.promos.update');
-    Route::delete('/{promo}', [PromoController::class, 'destroy'])->name('owner.promos.destroy');
+Route::prefix('owner/dashboard/promo')->name('owner.promos.')->group(function () {
+    Route::get('/', [PromoController::class, 'index'])->name('index');
+    Route::get('/tambah', [PromoController::class, 'create'])->name('create');
+    Route::post('/', [PromoController::class, 'store'])->name('store');
+    Route::get('/{promo}/edit', [PromoController::class, 'edit'])->name('edit');
+    Route::put('/{promo}', [PromoController::class, 'update'])->name('update');
+    Route::delete('/{promo}', [PromoController::class, 'destroy'])->name('destroy');
 });
 
 Route::prefix('owner/metadata')->name('owner.metadata.')->group(function () {
@@ -126,7 +118,6 @@ Route::prefix('owner/metadata')->name('owner.metadata.')->group(function () {
     Route::post('/foto', [MetadataController::class, 'storeFoto'])->name('store.foto');
     Route::get('/payment', [MetadataController::class, 'paymentPage'])->name('payment');
 });
-
 
 Route::middleware(['auth'])->prefix('owner/restoran')->name('owner.restoran.')->group(function () {
     Route::get('/', [RestoranController::class, 'edit'])->name('edit');
@@ -140,21 +131,16 @@ Route::middleware(['auth'])->prefix('owner/restoran')->name('owner.restoran.')->
     Route::delete('/unggulan', [RestoranController::class, 'destroyMenuUnggulan'])->name('unggulan.destroy');
 });
 
-Route::post('/owner/reservations/{id}/assign-meja', [ReservationManageController::class, 'assignMeja'])
-    ->name('owner.reservations.assign-meja');
-
-Route::patch('/owner/reservations/{id}/selesai', [ReservationManageController::class, 'markAsSelesai'])
-    ->name('owner.reservations.markAsSelesai');
-
 Route::get('/owner/premium', [PremiumController::class, 'index'])->name('premium');
-Route::get('/owner/dashboard/notification', [NotificationController::class, 'index'])->name('owner.notification');
-Route::get('/user/notification', [UserNotification::class, 'index'])->name('user.notification');
-Route::post('/owner/notification/reminder', [OrderManageController::class, 'sendReminder'])
-    ->middleware(['auth'])
-    ->name('owner.notification.reminder');
-Route::post('/owner/notification/pickup', [OrderManageController::class, 'notifyPickup'])
-    ->middleware(['auth'])
-    ->name('owner.notification.pickup');
+
+Route::prefix('owner')->name('owner.')->middleware(['auth'])->group(function () {
+    Route::get('/dashboard/notification', [NotificationController::class, 'index'])
+        ->name('notification');
+    Route::post('/notification/reminder', [OrderManageController::class, 'sendReminder'])
+        ->name('notification.reminder');
+    Route::post('/notification/pickup', [OrderManageController::class, 'notifyPickup'])
+        ->name('notification.pickup');
+});
 
 Route::get('/owner/dashboard/analytics', [AnalyticsController::class, 'index'])
     ->name('owner.analytics')
@@ -171,14 +157,14 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     })->name('customer.dashboard');
 });
 
-Route::post('/logout', function () {
-    return redirect()->route('login');
-})->name('logout');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/neopayment/{id}/confirm', [NeoPaymentController::class, 'confirm'])->name('neopayment.confirm');
 });
 
 Route::post('/logout', function () {

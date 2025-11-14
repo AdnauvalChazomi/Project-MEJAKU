@@ -35,7 +35,7 @@
                             <span class="ml-1 text-gray-400 text-xs">({{ $restoran->reviews->count() }} ulasan)</span>
                         </div>
                     </div>
-                    <a href="{{ auth()->check() ? route('reservations.create', ['id' => $restoran->id]) : route('login') }}"
+                    <a href="{{ auth()->check() ? route('user.restoran.reservations.create', ['id' => $restoran->id]) : route('login') }}"
                         class="mt-3 md:mt-0 px-5 py-2 bg-[#9D3935] text-white rounded-lg text-sm font-semibold
            hover:bg-red-700 active:scale-95 focus:outline-none
            focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out
@@ -99,7 +99,7 @@
                     @endforelse
                 </div>
                 <p class="text-center text-[#9D3935] text-md mt-4">
-                    <a href="{{ route('restoran.review', ['id' => $restoran->id]) }}" class="hover:underline">
+                    <a href="{{ route('user.restoran.review', ['id' => $restoran->id]) }}" class="hover:underline">
                         Berikan ulasan
                     </a>
                 </p>
@@ -107,7 +107,7 @@
 
             <!-- Tombol Reservasi -->
             <button
-                @click="window.location.href='{{ auth()->check() ? route('reservations.create', ['id' => $restoran->id]) : route('login') }}'"
+                @click="window.location.href='{{ auth()->check() ? route('user.restoran.reservations.create', ['id' => $restoran->id]) : route('login') }}'"
                 class="w-full bg-[#9D3935] text-white py-3 rounded-lg font-semibold
            hover:bg-red-700 active:scale-95 focus:outline-none
            focus:ring-2 focus:ring-red-300 transition-all duration-300 ease-in-out

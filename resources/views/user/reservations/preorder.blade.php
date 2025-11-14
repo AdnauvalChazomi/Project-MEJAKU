@@ -11,7 +11,7 @@
         </button>
         <h1 class="text-lg font-bold text-[#9D3935] tracking-tight">Pre-Order</h1>
         <div class="w-5"></div>
-        <a href="{{ route('order') }}"
+        <a href="{{ route('payment.show', ['id' => $reservation->id ]) }}"
             class="flex items-center gap-1 text-gray-700 hover:text-[#9D3935] transition absolute right-4">
             <span class="sm:inline text-sm font-medium">Lewati</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -26,7 +26,7 @@
     <div class="p-4 max-w-lg mx-auto" x-data="preOrderApp()">
 
         <!-- Tombol Pilih Menu Manual -->
-        <a href="{{ route('select-menu') }}"
+        <a href="{{ route('user.restoran.menu', ['id' => $restoran->id]) }}"
             class="block w-full bg-gray-100 rounded-lg p-4 mb-4 justify-between items-center font-semibold transform transition-all duration-300 ease-in-out hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 active:scale-95">
             <span class="text-sm font-medium">Pilih Menu Manual</span>
             <span></span>
@@ -211,7 +211,7 @@
                                 quantity: qty
                             }));
 
-                        const url = `/preorder/${window.reservationId}`;
+                        const url = `/reservations/preorder/${window.reservationId}`;
 
                         fetch(url, {
                                 method: 'POST',
@@ -234,8 +234,7 @@
                             })
                             .then(data => {
                                 if (data.success) {
-                                    window.location.href = "{{ route('payment.show', ':id') }}".replace(':id',
-                                        {{ $reservation->id }});
+                                    window.location.href = "{{ url('/payment') }}/" + {{ $reservation->id }};;
                                 } else {
                                     alert(data.message || 'Gagal menyimpan');
                                 }

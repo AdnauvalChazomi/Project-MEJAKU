@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->foreignId('owner_id')->constrained('owners')->onDelete('cascade');
             $table->string('nama');
             $table->text('deskripsi')->nullable();
-            $table->enum('kategori', ['makanan', 'minuman', 'dessert'])->default('makanan');
+            $table->enum('kategori', ['makanan', 'minuman', 'dessert', 'lainnya'])->default('makanan');
             $table->decimal('harga', 12, 2);
             $table->string('foto')->default('images/menu/placeholder.png');
             $table->timestamps();

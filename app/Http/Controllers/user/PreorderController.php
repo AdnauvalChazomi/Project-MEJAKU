@@ -56,7 +56,7 @@ class PreorderController extends Controller
                 'success' => true,
                 'message' => 'Tidak ada menu yang dipilih.',
                 'total' => 0,
-                'redirect' => route('payment', $reservation->id)
+                'redirect' => route('payment.show', $reservation->id)
             ]);
         }
 
@@ -105,7 +105,7 @@ class PreorderController extends Controller
                 'success' => true,
                 'message' => 'Order berhasil disimpan dan item diperbarui!',
                 'total' => $totalHarga,
-                'redirect' => route('payment', $reservation->id)
+                'redirect' => route('payment.show', $reservation->id)
             ]);
         });
     }
@@ -158,6 +158,6 @@ class PreorderController extends Controller
 
         $order->delete();
 
-        return redirect()->route('preorder', $id)->with('success', 'Order beserta semua menu berhasil dihapus.');
+        return redirect()->route('preorder.index', $id)->with('success', 'Order beserta semua menu berhasil dihapus.');
     }
 }

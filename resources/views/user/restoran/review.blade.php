@@ -21,7 +21,7 @@
         @endif
 
         @if (!$userReview)
-            <form action="{{ route('restoran.review.store', $owner->id) }}" method="POST"
+            <form action="{{ route('user.restoran.review.store', $owner->id) }}" method="POST"
                 class="bg-white p-6 rounded-lg shadow-md">
                 @csrf
 
@@ -92,11 +92,10 @@
                                 </p>
 
                                 @if ($review->user_id === auth()->id())
-                                    <form action="{{ route('restoran.review.delete', $review->id) }}" method="POST"
+                                    <form action="{{ route('user.restoran.review.destroy', $review->id) }}" method="POST"
                                         class="delete-review-form">
                                         @csrf
                                         @method('DELETE')
-
                                         <button type="button"
                                             class="text-red-600 hover:text-red-800 text-xs font-medium delete-review-btn">
                                             Hapus Review
