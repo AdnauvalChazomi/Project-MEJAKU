@@ -68,7 +68,7 @@
                             <p class="text-xs text-gray-500">Nomor Meja</p>
                             <p class="text-base font-semibold text-gray-900">{{ $item['meja'] }}</p>
                             <p class="text-sm font-semibold text-[#9D3935] mt-1">
-                                Rp {{ number_format($item['total'], 0, ',', '.') }}
+                                Rp {{ number_format(10000 + $item['total'], 0, ',', '.') }}
                             </p>
                         </div>
                     </div>

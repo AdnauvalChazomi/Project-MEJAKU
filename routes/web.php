@@ -40,10 +40,10 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::prefix('restoran/{id}')->name('user.restoran.')->group(function () {
     Route::get('/', [DashboardController::class, 'show'])->name('show');
     Route::get('/reservasi', [ReservationController::class, 'create'])->name('reservations.create');
-    Route::post('/reservations', [ReservationController::class, 'store'])->middleware('auth')->name('reservations.store');
+    Route::post('/reservations', [ReservationController::class, 'store'])->middleware('auth', 'role:customer')->name('reservations.store');
     Route::get('/review', [ReservationController::class, 'review'])->name('review');
-    Route::post('/review', [ReservationController::class, 'storeReview'])->middleware('auth')->name('review.store');
-    Route::delete('/review', [ReservationController::class, 'destroyReview'])->middleware('auth')->name('review.destroy');
+    Route::post('/review', [ReservationController::class, 'storeReview'])->middleware('auth', 'role:customer')->name('review.store');
+    Route::delete('/review', [ReservationController::class, 'destroyReview'])->middleware('auth', 'role:customer')->name('review.destroy');
     Route::get('/menu', [\App\Http\Controllers\user\MenuController::class, 'index'])->name('menu');
 });
 
@@ -60,7 +60,6 @@ Route::prefix('reservations/preorder/{reservation}')->name('preorder.')->group(f
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/payment/{id}', [PaymentController::class, 'show'])->name('payment.show');
-    Route::post('/payment/{id}/confirm', [PaymentController::class, 'confirm'])->name('payment.confirm');
     Route::patch('/payment/{id}/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
     Route::post('/payment/{id}/terapkan-promo', [PaymentController::class, 'terapkanPromo'])->name('payment.terapkanPromo');
 });
@@ -70,7 +69,20 @@ Route::get('/history', [HistoryController::class, 'index'])
 
 //======Route Owner=======
 
-Route::prefix('owner/dashboard/menu')->group(function () {
+Route::middleware(['auth', 'role:owner'])->get('/owner/dashboard', [DashboardOwnerController::class, 'index'])
+    ->name('owner.dashboard');
+
+
+Route::middleware(['auth', 'role:owner'])->prefix('owner/reservations')->name('owner.reservations.')->group(function () {
+    Route::get('/', [ReservationManageController::class, 'index'])->name('index');
+    Route::post('/', [ReservationManageController::class, 'store'])->name('store');
+    Route::get('/data', [ReservationManageController::class, 'getData'])->name('data');
+    Route::delete('/last', [ReservationManageController::class, 'destroyLast'])->name('destroyLast');
+    Route::post('/{id}/assign-meja', [ReservationManageController::class, 'assignMeja'])->name('assign-meja');
+    Route::patch('/{id}/selesai', [ReservationManageController::class, 'markAsSelesai'])->name('markAsSelesai');
+});
+
+Route::middleware(['auth', 'role:owner'])->prefix('owner/dashboard/menu')->group(function () {
     Route::get('/', [MenuController::class, 'index'])->name('menu.index');
     Route::get('/{id}/create', [MenuController::class, 'create'])->name('menu.create');
     Route::post('/store', [MenuController::class, 'store'])->name('menu.store');
@@ -82,28 +94,19 @@ Route::prefix('owner/dashboard/menu')->group(function () {
     Route::delete('/foto/{id}', [MenuController::class, 'destroyFoto'])->name('menu.destroyFoto');
 });
 
-Route::prefix('owner/reservations')->name('owner.reservations.')->group(function () {
-    Route::get('/', [ReservationManageController::class, 'index'])->name('index');
-    Route::post('/', [ReservationManageController::class, 'store'])->name('store');
-    Route::get('/data', [ReservationManageController::class, 'getData'])->name('data');
-    Route::delete('/last', [ReservationManageController::class, 'destroyLast'])->name('destroyLast');
-    Route::post('/{id}/assign-meja', [ReservationManageController::class, 'assignMeja'])->name('assign-meja');
-    Route::patch('/{id}/selesai', [ReservationManageController::class, 'markAsSelesai'])->name('markAsSelesai');
-});
-
-Route::prefix('owner/orders')->name('orders.')->group(function () {
+Route::middleware(['auth', 'role:owner'])->prefix('owner/orders')->name('orders.')->group(function () {
     Route::get('/{id}', [OrderManageController::class, 'index'])->name('index');
     Route::patch('/update-status', [OrderManageController::class, 'updateStatus'])->name('updateStatus');
 });
 
-Route::get('/owner/settings', [SettingController::class, 'index'])
+Route::middleware(['auth', 'role:owner'])->get('/owner/settings', [SettingController::class, 'index'])
     ->name('setting.index');
 
-Route::prefix('owner/dashboard/pesanan')->group(function () {
+Route::middleware(['auth', 'role:owner'])->prefix('owner/dashboard/pesanan')->group(function () {
     Route::get('/', [OrderController::class, 'index'])->name('pesanan.index');
 });
 
-Route::prefix('owner/dashboard/promo')->name('owner.promos.')->group(function () {
+Route::middleware(['auth', 'role:owner'])->prefix('owner/dashboard/promo')->name('owner.promos.')->group(function () {
     Route::get('/', [PromoController::class, 'index'])->name('index');
     Route::get('/tambah', [PromoController::class, 'create'])->name('create');
     Route::post('/', [PromoController::class, 'store'])->name('store');
@@ -112,14 +115,14 @@ Route::prefix('owner/dashboard/promo')->name('owner.promos.')->group(function ()
     Route::delete('/{promo}', [PromoController::class, 'destroy'])->name('destroy');
 });
 
-Route::prefix('owner/metadata')->name('owner.metadata.')->group(function () {
+Route::middleware(['auth', 'role:owner'])->prefix('owner/metadata')->name('owner.metadata.')->group(function () {
     Route::get('/', [MetadataController::class, 'create'])->name('create');
     Route::post('/', [MetadataController::class, 'store'])->name('store');
     Route::post('/foto', [MetadataController::class, 'storeFoto'])->name('store.foto');
     Route::get('/payment', [MetadataController::class, 'paymentPage'])->name('payment');
 });
 
-Route::middleware(['auth'])->prefix('owner/restoran')->name('owner.restoran.')->group(function () {
+Route::middleware(['auth', 'role:owner'])->prefix('owner/restoran')->name('owner.restoran.')->group(function () {
     Route::get('/', [RestoranController::class, 'edit'])->name('edit');
     Route::post('/foto', [RestoranController::class, 'storeFotoMenu'])->name('foto.menu.store');
     Route::delete('/foto/{id}', [RestoranController::class, 'destroyFotoMenu'])->name('foto.menu.destroy');
@@ -133,7 +136,7 @@ Route::middleware(['auth'])->prefix('owner/restoran')->name('owner.restoran.')->
 
 Route::get('/owner/premium', [PremiumController::class, 'index'])->name('premium');
 
-Route::prefix('owner')->name('owner.')->middleware(['auth'])->group(function () {
+Route::prefix('owner')->name('owner.')->middleware(['auth', 'role:owner'])->group(function () {
     Route::get('/dashboard/notification', [NotificationController::class, 'index'])
         ->name('notification');
     Route::post('/notification/reminder', [OrderManageController::class, 'sendReminder'])
@@ -144,18 +147,7 @@ Route::prefix('owner')->name('owner.')->middleware(['auth'])->group(function () 
 
 Route::get('/owner/dashboard/analytics', [AnalyticsController::class, 'index'])
     ->name('owner.analytics')
-    ->middleware(['auth']);
-
-Route::middleware(['auth', 'role:owner'])->group(function () {
-    Route::get('/owner/dashboard', [DashboardOwnerController::class, 'index'])->name('owner.dashboard');
-    Route::get('/owner/dashboard/reservasi', [ReservationManageController::class, 'index'])->name('owner.reservations');
-});
-
-Route::middleware(['auth', 'role:customer'])->group(function () {
-    Route::get('/customer/dashboard', function () {
-        return view('customer.dashboard');
-    })->name('customer.dashboard');
-});
+    ->middleware(['auth', 'role:owner']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
