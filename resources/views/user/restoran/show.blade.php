@@ -8,10 +8,10 @@
 @endsection
 
 @section('content')
-    <div x-data="{ open: false }" class="relative max-w-lg mx-auto min-h-screen">
+    <div x-data="{ open: false }" class="relative max-w-lg mx-auto min-h-screen bg-[#FDEEDC] px-6">
         <div class="max-w-5xl mx-auto">
             <!-- Breadcrumb -->
-            <nav class="px-4 py-3 text-sm text-gray-500 flex items-center space-x-2">
+            <nav class="py-3 text-sm text-gray-500 flex items-center space-x-2">
                 <a href="{{ route('dashboard') }}" class="hover:underline">Dashboard</a>
                 <span>/</span>
                 <span class="text-gray-800 font-medium">{{ $restoran->nama_restoran }}</span>
