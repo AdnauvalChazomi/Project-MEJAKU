@@ -22,17 +22,6 @@ use App\Http\Controllers\User\PreorderController;
 use App\Http\Controllers\user\ReservationController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 //=====Route Customer======
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -46,7 +35,6 @@ Route::prefix('restoran/{id}')->name('user.restoran.')->group(function () {
     Route::delete('/review', [ReservationController::class, 'destroyReview'])->middleware('auth', 'role:customer')->name('review.destroy');
     Route::get('/menu', [\App\Http\Controllers\user\MenuController::class, 'index'])->name('menu');
 });
-
 
 Route::get('/user/notification', [UserNotification::class, 'index'])->name('user.notification');
 
@@ -70,11 +58,11 @@ Route::get('/history', [HistoryController::class, 'index'])
 Route::get('/search', [DashboardController::class, 'search'])
     ->name('search');
 
+
 //======Route Owner=======
 
 Route::middleware(['auth', 'role:owner'])->get('/owner/dashboard', [DashboardOwnerController::class, 'index'])
     ->name('owner.dashboard');
-
 
 Route::middleware(['auth', 'role:owner'])->prefix('owner/reservations')->name('owner.reservations.')->group(function () {
     Route::get('/', [ReservationManageController::class, 'index'])->name('index');
