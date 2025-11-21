@@ -19,10 +19,10 @@
     <div class="min-h-screen flex items-center justify-center px-4">
         <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-6">
             <div class="text-center">
-                <img 
-                    src="{{ asset('images/headerlogin.png') }}" 
-                    alt="MejaKu" 
-                    class="rounded-lg mb-2 w-24 sm:w-28 mx-auto object-contain"
+                <img
+                    src="https://raw.githubusercontent.com/OfrenDialsa/Mediacontent/refs/heads/main/Mejaku/headerlogin.png"
+                    alt="MejaKu"
+                    class="rounded-lg mb-2 w-40 sm:w-60 md:w-80 mx-auto object-contain"
                 >
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-red-700">MejaKu</h1>
                 <p class="text-lg text-black font-semibold">Selamat Datang</p>
