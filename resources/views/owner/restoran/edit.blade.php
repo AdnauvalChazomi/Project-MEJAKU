@@ -2,11 +2,11 @@
 @section('title', 'Profil Restoran | MejaKu')
 
 @section('content')
-    <div x-data="{ activeTab: 'tentang' }" class="max-w-3xl mx-auto space-y-6">
+    <div x-data="{ activeTab: 'tentang' }" class="relative max-w-lg mx-auto min-h-screen px-10 py-8">
 
         <div class="border-b border-gray-300">
             <nav class="flex space-x-8">
-                @foreach (['tentang' => 'Tentang', 'menu' => 'Menu Unggulan', 'operasional' => 'Operasional', 'ulasan' => 'Ulasan'] as $key => $label)
+                @foreach (['tentang' => 'Tentang', 'menu' => 'Unggulan', 'operasional' => 'Operasional', 'ulasan' => 'Ulasan'] as $key => $label)
                     <button @click="activeTab = '{{ $key }}'"
                         :class="{
                             'border-red-600 text-[#9D3935]': activeTab === '{{ $key }}',
