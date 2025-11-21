@@ -67,6 +67,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/history', [HistoryController::class, 'index'])
     ->name('history');
 
+Route::get('/search', [DashboardController::class, 'search'])
+    ->name('search');
+
 //======Route Owner=======
 
 Route::middleware(['auth', 'role:owner'])->get('/owner/dashboard', [DashboardOwnerController::class, 'index'])
